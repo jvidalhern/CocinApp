@@ -5,4 +5,5 @@
     <string name="recordatorio_contrasena">¿Has olvidado la contraseña?</string>
     <string name="registro">¿Aún no tienes cuenta? Regístrate</string>
     <string name="login">Login</string>
+    <string name="derechos_reservados">© 2023 CocinaApp. Todos los derechos reservados.</string>
 </resources>
