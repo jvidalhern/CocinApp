@@ -1,4 +1,4 @@
-package vidal.juan.cocinaapp;
+package vidal.juan.cocinapp;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("vidal.juan.cocinaapp", appContext.getPackageName());
+        assertEquals("vidal.juan.cocinapp", appContext.getPackageName());
     }
 }

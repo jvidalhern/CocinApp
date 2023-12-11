@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'vidal.juan.cocinaapp'
+    namespace 'vidal.juan.cocinapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "vidal.juan.cocinaapp"
+        applicationId "vidal.juan.cocinapp"
         minSdk 33
         targetSdk 33
         versionCode 1
