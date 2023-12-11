@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">CocinaApp</string>
-    <string name="usuario">Usuario</string>
+    <string name="app_name">CocinApp</string>
+    <string name="usuario">Correo electrónico</string>
     <string name="contrasena">Contraseña</string>
     <string name="recordatorio_contrasena">¿Has olvidado la contraseña?</string>
     <string name="registro">¿Aún no tienes cuenta? Regístrate</string>
-    <string name="login">Login</string>
+    <string name="login">ENTRAR</string>
+    <string name="derechos_reservados">© 2023 CocinApp. Todos los derechos reservados.</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="departamento">Departamento</string>
+    <string name="nombre_y_apellidos">Nombre y Apellidos</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="telefono">Teléfono</string>
+    <string name="repetir_contrasena">Repetir contraseña</string>
 </resources>

@@ -1,4 +1,4 @@
-package vidal.juan.cocinaapp;
+package vidal.juan.cocinapp;
 
 import org.junit.Test;
 

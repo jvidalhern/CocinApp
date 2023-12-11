@@ -3,38 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@drawable/fondo"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!-- Fondo -->
     <ImageView
         android:id="@+id/fondoImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/fondo"
-        android:alpha="0.5" />
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="42dp"
+        android:alpha="0.5"
+        android:src="@drawable/fondo" />
 
-    <!-- Contenido encima del fondo -->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/cocina_app_logo" />
+        android:src="@drawable/cocin_app_logo" />
+
+
+    <TextView
+        android:id="@+id/cocinAppTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-3dp"
+        android:text="@string/app_name"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:textStyle="bold"
+       />
 
     <TextView
         android:id="@+id/usuarioLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logoImageView"
+        android:layout_below="@id/cocinAppTextView"
         android:layout_marginTop="16dp"
         android:text="@string/usuario"
-        android:textStyle="bold"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:textColor="#000000"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/usuarioEditText"
@@ -42,9 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usuarioLabel"
         android:inputType="text"
-        android:textStyle="bold"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:textColor="#000000"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/contrasenaLabel"
@@ -53,9 +70,9 @@
         android:layout_below="@id/usuarioEditText"
         android:layout_marginTop="16dp"
         android:text="@string/contrasena"
-        android:textStyle="bold"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:textColor="#000000"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/contrasenaEditText"
@@ -63,9 +80,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/contrasenaLabel"
         android:inputType="textPassword"
-        android:textStyle="bold"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:textColor="#000000"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/olvidoContrasenaTextView"
@@ -77,7 +94,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:text="@string/recordatorio_contrasena"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/loginButton"
@@ -94,10 +111,21 @@
         android:layout_below="@id/loginButton"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
-        android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:textStyle="bold"
-        android:text="@string/registro" />
+        android:text="@string/registro"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/derechosAutorTextView"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/derechos_reservados"
+        android:textColor="#000000"
+        android:textStyle="bold" />
 
 </RelativeLayout>
-
