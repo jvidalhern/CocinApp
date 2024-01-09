@@ -12,4 +12,8 @@
     <string name="correo_electronico">Correo electrónico</string>
     <string name="telefono">Teléfono</string>
     <string name="repetir_contrasena">Repetir contraseña</string>
+    <string name="modRegistro">Modificar registro</string>
+    <string name="modResitroString">Modificar usuario</string>
+    <string name="resetPswString">Reestablecer contraseña</string>
+    <string name="resetString">Enviar correo de recuperación</string>
 </resources>

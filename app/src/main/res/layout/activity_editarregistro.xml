@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    android:padding="16dp"
+    tools:context=".EditarRegistroActivity">
+
+    <ImageView
+        android:id="@+id/logoImageViewRegistro"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/cocin_app_logo" />
+
+    <TextView
+        android:id="@+id/cocinAppTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoImageViewRegistro"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-3dp"
+        android:text="@string/modResitroString"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/modNombreApellidoLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cocinAppTextView"
+        android:layout_marginTop="16dp"
+        android:text="@string/nombre_y_apellidos"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+
+    <EditText
+        android:id="@+id/modNombreApellidoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modNombreApellidoLabel"
+        android:hint="obtener el del registro original"
+        android:inputType="textMultiLine|text|textCapSentences"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/modDepartamentoLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modNombreApellidoEditText"
+        android:layout_marginTop="16dp"
+        android:text="@string/departamento"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/modDepartamentoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modDepartamentoLabel"
+        android:hint="obtener el del reigstro original"
+        android:inputType="textMultiLine|text|textCapSentences"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/modTelefonoLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modDepartamentoEditText"
+        android:layout_marginTop="16dp"
+        android:text="@string/telefono"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/modTelefonoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modTelefonoLabel"
+        android:hint="obtener el del registro original"
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/modRegistroButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modTelefonoEditText"
+        android:layout_marginTop="45dp"
+        android:text="@string/modRegistro" />
+
+</RelativeLayout>

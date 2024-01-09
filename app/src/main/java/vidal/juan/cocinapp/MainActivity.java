@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import vidal.juan.cocinapp.R;
-
 public class MainActivity extends AppCompatActivity {
-
+    //Reseteo de contraseña
+    TextView olvidoContrasenaTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,5 +22,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Pasar del main a pantalla de resestablecer psw
+        TextView olvidoContrasenaTextView = findViewById(R.id.olvidoContrasenaTextView);
+        olvidoContrasenaTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReestablecerPswActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }
