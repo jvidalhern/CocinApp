@@ -70,7 +70,7 @@ public class ReestablecerPswActivity extends AppCompatActivity {
                     Toast.makeText(ReestablecerPswActivity.this, "Correo para resestablecer enviado", Toast.LENGTH_SHORT).show();
                     Intent volverLogin   = new Intent(ReestablecerPswActivity.this, MainActivity.class);
                     startActivity(volverLogin);
-                    finish();
+                    //finish();
                 }else{
                     Toast.makeText(ReestablecerPswActivity.this,"Correo invalido", Toast.LENGTH_SHORT).show();
                 }
