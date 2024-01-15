@@ -29,12 +29,12 @@
         />
 
     <TextView
-        android:id="@+id/modNombreApellidoLabel"
+        android:id="@+id/modNombreLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cocinAppTextView"
         android:layout_marginTop="16dp"
-        android:text="@string/nombre_y_apellidos"
+        android:text="@string/nombre"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -42,10 +42,34 @@
 
 
     <EditText
-        android:id="@+id/modNombreApellidoEditText"
+        android:id="@+id/modNombreEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/modNombreApellidoLabel"
+        android:layout_below="@id/modNombreLabel"
+        android:hint="obtener el del registro original"
+        android:inputType="textMultiLine|text|textCapSentences"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/modApellidoLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modNombreEditText"
+        android:layout_marginTop="16dp"
+        android:text="@string/apellidos"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+
+    <EditText
+        android:id="@+id/modApellidoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modApellidoLabel"
         android:hint="obtener el del registro original"
         android:inputType="textMultiLine|text|textCapSentences"
         android:textColor="#000000"
@@ -56,7 +80,7 @@
         android:id="@+id/modDepartamentoLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/modNombreApellidoEditText"
+        android:layout_below="@id/modApellidoEditText"
         android:layout_marginTop="16dp"
         android:text="@string/departamento"
         android:textColor="#000000"
@@ -103,5 +127,13 @@
         android:layout_below="@id/modTelefonoEditText"
         android:layout_marginTop="45dp"
         android:text="@string/modRegistro" />
+
+    <Button
+        android:id="@+id/cancelRegistroButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modRegistroButton"
+        android:layout_marginTop="10dp"
+        android:text="@string/cancelar" />
 
 </RelativeLayout>

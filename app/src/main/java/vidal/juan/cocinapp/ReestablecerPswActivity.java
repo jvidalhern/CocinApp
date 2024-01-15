@@ -51,7 +51,8 @@ public class ReestablecerPswActivity extends AppCompatActivity {
             usuarioEditText.setError("Dirección de correo invalida");
             return;
         }
-        //Enviar correo si es valido
+        //Enviar correo si es valido y esta registrado en la App
+        //Borrar: hacer la comprobación de si el usuario existe en la BBDD de usuarios; apar
         enviarCorreoCambioPsw(correo);
     }
 

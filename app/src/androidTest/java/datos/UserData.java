@@ -4,24 +4,34 @@ package datos;
  * Clase que representa el usuario logeado//firebase auth
  */
 public class UserData {
-    String nombreApel;
+    String nombre;
+    String apellidos;
     String departamento;
     String telefono;
     String email;
 
-    public UserData(String nombreApel, String departamento, String telefono, String email) {
-        this.nombreApel = nombreApel;
+    public UserData(String nombre, String apellidos, String departamento, String telefono, String email) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.departamento = departamento;
         this.telefono = telefono;
         this.email = email;
     }
 
-    public String getNombreApel() {
-        return nombreApel;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreApel(String nombreApel) {
-        this.nombreApel = nombreApel;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getDepartamento() {
@@ -48,3 +58,4 @@ public class UserData {
         this.email = email;
     }
 }
+
