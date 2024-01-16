@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1098193972232",
+    "firebase_url": "https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "cocinaapp-7da53",
+    "storage_bucket": "cocinaapp-7da53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098193972232:android:71ad76793fd2fe80b335bd",
+        "android_client_info": {
+          "package_name": "com.cocinaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlhXAVcMDkWUgfzCTDn-sB49J98mTEk8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098193972232:android:6d845997db331859b335bd",
+        "android_client_info": {
+          "package_name": "vidal.juan.cocinapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlhXAVcMDkWUgfzCTDn-sB49J98mTEk8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
