@@ -22,7 +22,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
     private EditText modNombreEditText,modApellidoEditText,modDepartamentoEditText,modTelefonoEditText;
     //TODO: Para conectar a la BBDD hay que tener una rereferencia
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("usuarios");
+    DatabaseReference myRef = database.getReference().child("usuarios");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,8 @@ public class EditarRegistroActivity extends AppCompatActivity {
         modDepartamentoEditText = findViewById(R.id.modDepartamentoEditText);
         modTelefonoEditText = findViewById(R.id.modTelefonoEditText);
 
+
+
         //rellenar el hint con los datos que ya tiene el usuario
         //obtenerlo de la bbdd los datos del usuario logeado; Ctemp: crear usuario temporal ?
         //Obtener cambios en los datos del usuario
@@ -44,8 +46,23 @@ public class EditarRegistroActivity extends AppCompatActivity {
                 // obtener objeto con los datos del usuario
                 //UserData user = dataSnapshot.getValue(UserData.class);
                 //TODO: Investigar como filtrar los datos, la conexion con la BBDD ussuario la hace ahora hay que extraer los datos
-                modNombreEditText.setText(dataSnapshot.toString());
+
                 // ..
+                //Resultados de la consulta
+                String nombreUser = " ";
+                //modNombreEditText.setText(dataSnapshot.toString());
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren())
+                {
+                    Usuarios usuarioDatos = userSnapshot.getValue(Usuarios.class);
+                   // nombreUser = usuarioDatos.getNombre().toString();
+                    //nombreUser = usuarioDatos.toString();
+                    System.out.println("preuba" + usuarioDatos.toString());
+                    Log.d("prueba",usuarioDatos.toString());
+
+
+                }
+               // modNombreEditText.setText(nombreUser);
+
             }
 
             @Override

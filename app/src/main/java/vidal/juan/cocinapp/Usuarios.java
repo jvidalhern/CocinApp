@@ -1,21 +1,22 @@
-package datos;
+package vidal.juan.cocinapp;
 
-/**
- * Clase que representa el usuario logeado//firebase auth
- */
-public class UserData {
-    String nombre;
-    String apellidos;
-    String departamento;
-    String telefono;
-    String email;
+public class Usuarios {
 
-    public UserData(String nombre, String apellidos, String departamento, String telefono, String email) {
+    private String nombre;
+    private String apellidos;
+    private String email;
+    private String departamento;
+    private String telefono;
+
+    public Usuarios() {
+    }
+
+    public Usuarios(String nombre, String apellidos, String email, String departamento, String telefono) {
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.email = email;
         this.departamento = departamento;
         this.telefono = telefono;
-        this.email = email;
     }
 
     public String getNombre() {
@@ -34,6 +35,14 @@ public class UserData {
         this.apellidos = apellidos;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getDepartamento() {
         return departamento;
     }
@@ -49,17 +58,4 @@ public class UserData {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public UserData( ) {
-
-    }
 }
-
