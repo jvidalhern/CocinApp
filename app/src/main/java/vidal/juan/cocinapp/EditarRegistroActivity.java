@@ -27,12 +27,16 @@ import com.google.firebase.database.ValueEventListener;
 public class EditarRegistroActivity extends AppCompatActivity {
     //Items de la vista
     private EditText modNombreEditText,modApellidoEditText,modDepartamentoEditText,modTelefonoEditText;
-    //Para manejar los resultados de la consulta
-    private String nombreUserOriginal = "incioVar ";
-    private String apellidosOriginal = " ";
-    private String departamentoOriginal = " ";
-    private String telefonoOriginal = " ";
-    private Usuarios usuarioDatos;
+
+    private static Usuarios usuarioDatosOriginal;
+
+    public Usuarios getUsuarioDatosOriginal() {
+        return usuarioDatosOriginal;
+    }
+
+    public void setUsuarioDatosOriginal(Usuarios usuarioDatosOriginal) {
+        this.usuarioDatosOriginal = usuarioDatosOriginal;
+    }
 
     //Uusario logeado en la app
     FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
@@ -47,7 +51,6 @@ public class EditarRegistroActivity extends AppCompatActivity {
         modApellidoEditText = findViewById(R.id.modApellidoEditText);
         modDepartamentoEditText = findViewById(R.id.modDepartamentoEditText);
         modTelefonoEditText = findViewById(R.id.modTelefonoEditText);
-
         //Para conectar a la BBDD mediante una referencia
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
         DatabaseReference myRef = database.getReference().child("usuarios");
@@ -57,9 +60,9 @@ public class EditarRegistroActivity extends AppCompatActivity {
         obtenerDatosUserLogeado(datosUsuarioLogeado);
         //Toast.makeText(EditarRegistroActivity.this,nombreUserOriginal, Toast.LENGTH_LONG).show();
         //Validar la modificacion de datos por parte del usuario
-        Log.d("pruebaaa","origi " + nombreUserOriginal);
-        Log.d("pruebaaa","debbd " + modNombreEditText.getText().toString());
-        verificarModificacionCampo(modNombreEditText,nombreUserOriginal);
+        //Log.d("pruebaaa","origi " + nombreUserOriginal);
+        //Log.d("pruebaaa","debbd " + modNombreEditText.getText().toString());
+        //verificarModificacionCampo(modNombreEditText,nombreUserOriginal);
 
     }
 
@@ -68,7 +71,9 @@ public class EditarRegistroActivity extends AppCompatActivity {
      * @param datosUsuarioLogeado Query con referencia al email del usuario logeado
      */
     public void obtenerDatosUserLogeado(Query datosUsuarioLogeado) {
+        final Usuarios[] user = {new Usuarios()};
         datosUsuarioLogeado.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -76,19 +81,21 @@ public class EditarRegistroActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren())
                 {
                     //Crear un objeto usuario a partir de los datos filtrados para el correo del usuario logeado
-                     usuarioDatos = userSnapshot.getValue(Usuarios.class);
+                      Usuarios usuarioDatosAux = userSnapshot.getValue(Usuarios.class);
                     //Obtener los datos para mostrarlos en la vista
-                    nombreUserOriginal = usuarioDatos.getNombre();
-                    apellidosOriginal = usuarioDatos.getApellidos();
-                    departamentoOriginal = usuarioDatos.getDepartamento();
-                    telefonoOriginal = usuarioDatos.getTelefono();
+                    String nombreUserOriginal = usuarioDatosAux.getNombre();
+                    String apellidosOriginal = usuarioDatosAux.getApellidos();
+                    String departamentoOriginal = usuarioDatosAux.getDepartamento();
+                    String telefonoOriginal = usuarioDatosAux.getTelefono();
+                    setUsuarioDatosOriginal( new Usuarios(nombreUserOriginal,apellidosOriginal,usuarioDatosAux.getEmail(),usuarioDatosAux.getDepartamento(),telefonoOriginal));
+                    //Pasar los datos origianles a la vista
+                    modNombreEditText.setText(nombreUserOriginal);
+                    modApellidoEditText.setText(apellidosOriginal);
+                    modDepartamentoEditText.setText(departamentoOriginal);
+                    modTelefonoEditText.setText(telefonoOriginal);
+                    //Toast.makeText(EditarRegistroActivity.this,user[0].getNombre(), Toast.LENGTH_LONG).show();
                 }
-                //Pasar los datos origianles a la vista
-                modNombreEditText.setText(nombreUserOriginal);
-                modApellidoEditText.setText(apellidosOriginal);
-                modDepartamentoEditText.setText(departamentoOriginal);
-                modTelefonoEditText.setText(telefonoOriginal);
-                //Toast.makeText(EditarRegistroActivity.this,nombreUserOriginal, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarRegistroActivity.this,usuarioDatosOriginal.getNombre(), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -98,11 +105,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
             }
         });
 
-        nombreUserOriginal = usuarioDatos.getNombre();
-        apellidosOriginal = usuarioDatos.getApellidos();
-        departamentoOriginal = usuarioDatos.getDepartamento();
-        telefonoOriginal = usuarioDatos.getTelefono();
-        Toast.makeText(EditarRegistroActivity.this,nombreUserOriginal, Toast.LENGTH_LONG).show();
+        //Toast.makeText(EditarRegistroActivity.this,usuarioDatosOriginal.getNombre(), Toast.LENGTH_LONG).show();
     }
 
     public void verificarModificacionCampo(EditText campoValidar, String campoOriginal)
