@@ -3,6 +3,10 @@ package vidal.juan.cocinapp;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+/**
+ * Clase para modificar el corportmeindo de un edittext al modificarlo
+ * @param <T>
+ */
 public abstract class TextChangedListener<T> implements TextWatcher {
     private T target;
 
