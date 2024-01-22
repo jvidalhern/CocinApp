@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.service.autofill.UserData;
 import android.text.Editable;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 /**
  * Modificar el registro del usuario; una vez este ya esté logeado
  */
@@ -34,6 +37,11 @@ public class EditarRegistroActivity extends AppCompatActivity {
 
     //Uusario logeado en la app
     FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
+    //Para conectar a la BBDD mediante una referencia
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference myRef = database.getReference().child("usuarios");
+    //Consulta para conseguir los datos del usuario logedao;filtrar por el mail
+    Query datosUsuarioLogeado = myRef.orderByChild("email").equalTo(usuarioLogeado.getEmail());
 
 
     @Override
@@ -48,43 +56,116 @@ public class EditarRegistroActivity extends AppCompatActivity {
         cancelRegistroButton = findViewById(R.id.cancelRegistroButton);
         modRegistroButton = findViewById(R.id.modRegistroButton);
 
-        //Para conectar a la BBDD mediante una referencia
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference().child("usuarios");
-        //Consulta para conseguir los datos del usuario logedao;filtrar por el mail
-        Query datosUsuarioLogeado = myRef.orderByChild("email").equalTo(usuarioLogeado.getEmail());
+
+
         //"Ejecutar la consulta"
         obtenerDatosUserLogeado1vez(datosUsuarioLogeado);
+
+
+
         //Acción del boton cancelar
         cancelRegistroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Validar los campos de iniciar sesión
-                Intent intent = new Intent(EditarRegistroActivity.this, PantallaPrincipal.class);
-                startActivity(intent);
-                finish();
+
+                volverPprincipal();
             }
         });
-        //Acción del boton cancelar
+        //Acción del boton editar registro
         modRegistroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Validar los campos modificados para que sea coherente escribirlos en la BBDD
                 //TODO borrar prueba Toast.makeText(EditarRegistroActivity.this,"campo mofiicado: " +modNombreEditText.getText().toString()  , Toast.LENGTH_LONG).show();
                 validarModRegistro();
-                //Intent intent = new Intent(EditarRegistroActivity.this, PantallaPrincipal.class);
-                //startActivity(intent);
-                //finish();
+
+
             }
         });
 
     }
 
-    private void validarModRegistro() {
+    /**
+     * Para volver a la ventana principal
+     */
+
+    private  void volverPprincipal() {
+        Intent intent = new Intent(EditarRegistroActivity.this, PantallaPrincipal.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void validarModRegistro() {
+        String nombre = "";
+        String apels = "";
+        String departamento = "";
+        String telefono = "";
+        boolean verfificarEstadoNombre = false;
+        boolean verfificarEstadoApel = false;
+        boolean verfificarEstadoDepart = false;
+        boolean verfificarEstadoTelefono = false;
         //TODO Validar que el nombre introducido no sea mayor a x y que sean caracteres de texto
-        //TODO Validar que apellidos no sea mayor a x y que sean caracteres de texto
+
+         nombre = modNombreEditText.getText().toString();
+        if (nombre.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(nombre).find())//Todo pone rlimite de caracteres
+        {
+            modNombreEditText.setError("Nombre invalido");
+            verfificarEstadoNombre = false;
+
+        }else {//quitar el error
+            modNombreEditText.setError(null);
+            verfificarEstadoNombre = true;
+
+         //TODO Validar que apellidos no sea mayor a x y que sean caracteres de texto
+        apels = modApellidoEditText.getText().toString();
+        }
+        if (apels.isEmpty() || !Pattern.compile("^[A-Za-z]+ [A-Za-z]+$").matcher(apels).find())//Todo pone rlimite de caracteres
+        {
+                modApellidoEditText.setError("Apellidos invalidos");
+            verfificarEstadoApel = false;
+
+        }else {//quitar el error
+            modApellidoEditText.setError(null);
+            verfificarEstadoApel = true;
+        }
+
         //TODO Validar que el departamento introducido no sea mayor a x y que sean caracteres de texto
+        departamento = modDepartamentoEditText.getText().toString();
+        if (departamento.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(departamento).find())//Todo pone rlimite de caracteres
+         {
+             modDepartamentoEditText.setError("Departamento invalido");
+             verfificarEstadoDepart = false;
+
+         }else {//quitar el error
+            modDepartamentoEditText.setError(null);
+            verfificarEstadoDepart = true;
+        }
+
         //TODO Validar que el telefono introducido no sea mayor a x y que sean caracteres de texto
+        telefono = modTelefonoEditText.getText().toString();
+        if (telefono.isEmpty() || !Pattern.compile("^[0-9]{9}$").matcher(telefono).find())
+        {
+            modTelefonoEditText.setError("Teléfono invalido");
+            verfificarEstadoTelefono = false;
+        }else
+        {//quitar el error
+            modTelefonoEditText.setError(null);
+            verfificarEstadoTelefono = true;
+        }
+        if(verfificarEstadoNombre & verfificarEstadoApel & verfificarEstadoDepart & verfificarEstadoTelefono)
+        {
+            //todo meter ventana de confirmación?¿
+            //obtener idusuario autenticado que coincide con la tabla usuarios
+            String key = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            //Crear objeto del modelo usuario para actulizarlo en la tabla usuarios
+            Usuarios usuarioUpdate = new Usuarios(nombre,apels,usuarioLogeado.getEmail(),departamento,telefono);
+            myRef.child(key).setValue(usuarioUpdate);
+            Toast.makeText(EditarRegistroActivity.this,"USUARIO MODIFICADO: "  , Toast.LENGTH_LONG).show();
+            //volver a la ventana principal
+            volverPprincipal();
+
+        }
+
 
     }
     //TODO borrar este metodo?¿ es necesario obtener el registro en real time? por si se modifica de la web? en tal caso modificar el otro el listener
