@@ -13,8 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -159,11 +162,22 @@ public class EditarRegistroActivity extends AppCompatActivity {
             String key = FirebaseAuth.getInstance().getCurrentUser().getUid();
             //Crear objeto del modelo usuario para actulizarlo en la tabla usuarios
             Usuarios usuarioUpdate = new Usuarios(nombre,apels,usuarioLogeado.getEmail(),departamento,telefono);
-            myRef.child(key).setValue(usuarioUpdate);
-            Toast.makeText(EditarRegistroActivity.this,"USUARIO MODIFICADO: "  , Toast.LENGTH_LONG).show();
-            //volver a la ventana principal
-            volverPprincipal();
-
+            //Actualizar el registro;listener para saber si ha ido bien
+            myRef.child(key).setValue(usuarioUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // DATO MODIFICADO EN BBDD
+                Toast.makeText(EditarRegistroActivity.this,"Datos modificados "  , Toast.LENGTH_LONG).show();
+                //volver a la ventana principal
+                volverPprincipal();
+            }
+            })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EditarRegistroActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
+                    }
+                });
         }
 
 
