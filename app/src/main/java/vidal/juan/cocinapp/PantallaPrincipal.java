@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class PantallaPrincipal extends AppCompatActivity {
     //Items del xml
     TextView usuarioLogeadoTextView;
-    Button editarRegistroButton, cerrarSesionButton;
+    Button editarRegistroButton, cerrarSesionButton,hacerPedido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,15 @@ public class PantallaPrincipal extends AppCompatActivity {
         usuarioLogeadoTextView = findViewById(R.id.usuarioLogeadoTextView);
         editarRegistroButton = findViewById(R.id.editarRegistroButton);
         cerrarSesionButton = findViewById(R.id.cerrarSesionButton);
-        //TODO Accion del boton prueba para editar el registro
+        hacerPedido = findViewById(R.id.hacerPedido);
+        //FIREBASE; usuario logeado
+        FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
+        // Obtener el mail del usario logeado, todo Cambiar por el nombre de usuario con un bienvenidos?
+        if (usuarioLogeado != null ){
+            usuarioLogeadoTextView.setText(usuarioLogeado.getEmail());
+        }
+
+        //Accion del boton prueba para editar el registro
         editarRegistroButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,12 +40,15 @@ public class PantallaPrincipal extends AppCompatActivity {
             }
         });
 
-        //TODO pruba de Datos del usuario logeado; dejar arriba en un menú mejor?
-        FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
-        //TODO Si ya esta logeado obtener el mail y probarlo; probar a conseguir el nombre del usuairo de la tabla usuarios a partir del correo
-        if (usuarioLogeado != null ){
-            usuarioLogeadoTextView.setText(usuarioLogeado.getEmail());
-        }
+        //Accion del boton nuevo pedido
+        hacerPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hacerPedido();
+            }
+        });
+
+
         //TODO Accion del boton de prueba logout
         cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +64,22 @@ public class PantallaPrincipal extends AppCompatActivity {
 
     }
 
+    /**
+     * Método para pasar a la ventana hacer pedido
+     */
+    private void hacerPedido() {
+        Intent hacerPedidoIntent   = new Intent(PantallaPrincipal.this, HacerPedido.class);
+        startActivity(hacerPedidoIntent);
+        finish();
+    }
+
+    /**
+     * Meétodo para ir a la ventana de editar registro
+     */
     private void editarRegistro() {
         //Pasar a la vista de editar registro
-        Intent editarRegistro   = new Intent(PantallaPrincipal.this, EditarRegistroActivity.class);
-        startActivity(editarRegistro);
+        Intent editarRegistroIntent   = new Intent(PantallaPrincipal.this, EditarRegistroActivity.class);
+        startActivity(editarRegistroIntent);
         finish();
     }
 }

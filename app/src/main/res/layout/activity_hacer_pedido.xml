@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:padding="16dp"
-    tools:context=".PantallaPrincipal">
+    tools:context=".HacerPedido">
 
     <ImageView
         android:id="@+id/fondoImageView"
@@ -18,6 +18,21 @@
         android:layout_marginBottom="42dp"
         android:alpha="0.5"
         android:src="@drawable/fondo" />
+    <Button
+        android:id="@+id/seleccionarFechaEntregaButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cocinAppTextView"
+        android:layout_marginTop="10dp"
+        android:text="@string/selFechaEntrega" />
+
+    <Button
+        android:id="@+id/cancelNuevopedidoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seleccionarFechaEntregaButton"
+        android:layout_marginTop="10dp"
+        android:text="@string/cancelar" />
 
     <ImageView
         android:id="@+id/logoImageView"
@@ -35,48 +50,12 @@
         android:layout_below="@id/logoImageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-3dp"
-        android:text="@string/app_name"
+        android:text="@string/nuevoPedido"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
         android:textStyle="bold"
         />
-
-
-    <TextView
-        android:id="@+id/usuarioLogeadoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cerrarSesionButton"
-        android:fontFamily="@font/niconne"
-        android:text="logUser"
-        android:textColor="#000000"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/editarRegistroButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cocinAppTextView"
-        android:layout_marginTop="16dp"
-        android:text="@string/editarRegistro" />
-
-    <Button
-        android:id="@+id/hacerPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editarRegistroButton"
-        android:layout_marginTop="16dp"
-        android:text="@string/nuevoPedido" />
-    <Button
-        android:id="@+id/cerrarSesionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hacerPedido"
-        android:layout_marginTop="16dp"
-        android:text="@string/cerrar_sesion" />
-
 
 
     <TextView

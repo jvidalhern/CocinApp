@@ -31,4 +31,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="editarRegistro">Editar Registro</string>
     <string name="cerrar_sesion">cerrar sesion</string>
+    <string name="nuevoPedido">Nuevo pedido</string>
+    <string name="selFechaEntrega">Sleccionar fecha entrega</string>
 </resources>
