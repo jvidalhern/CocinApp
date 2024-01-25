@@ -12,4 +12,25 @@
     <string name="correo_electronico">Correo electrónico</string>
     <string name="telefono">Teléfono</string>
     <string name="repetir_contrasena">Repetir contraseña</string>
+    <string name="modRegistro">Modificar registro</string>
+    <string name="modResitroString">Modificar usuario</string>
+    <string name="resetPswString">Reestablecer contraseña</string>
+    <string name="resetString">Enviar correo de recuperación</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="canModRegistro">Cancelar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="title_activity_pantalla_principal">PantallaPrincipal</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="editarRegistro">Editar Registro</string>
+    <string name="cerrar_sesion">cerrar sesion</string>
+    <string name="nuevoPedido">Nuevo pedido</string>
+    <string name="selFechaEntrega">Sleccionar fecha entrega</string>
 </resources>
