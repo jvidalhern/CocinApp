@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class PantallaPrincipal extends AppCompatActivity {
+public class PantallaPrincipalActivity extends AppCompatActivity {
     //Items del xml
     TextView usuarioLogeadoTextView;
     Button editarRegistroButton, cerrarSesionButton,hacerPedido;
@@ -54,7 +54,7 @@ public class PantallaPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             FirebaseAuth.getInstance().signOut();
-            Intent volverLoginIntent = new Intent(PantallaPrincipal.this, MainActivity.class);
+            Intent volverLoginIntent = new Intent(PantallaPrincipalActivity.this, MainActivity.class);
             startActivity(volverLoginIntent);
             finish();
             }
@@ -68,7 +68,7 @@ public class PantallaPrincipal extends AppCompatActivity {
      * Método para pasar a la ventana hacer pedido
      */
     private void hacerPedido() {
-        Intent hacerPedidoIntent   = new Intent(PantallaPrincipal.this, HacerPedido.class);
+        Intent hacerPedidoIntent   = new Intent(PantallaPrincipalActivity.this, HacerPedidoActivity.class);
         startActivity(hacerPedidoIntent);
         finish();
     }
@@ -78,7 +78,7 @@ public class PantallaPrincipal extends AppCompatActivity {
      */
     private void editarRegistro() {
         //Pasar a la vista de editar registro
-        Intent editarRegistroIntent   = new Intent(PantallaPrincipal.this, EditarRegistroActivity.class);
+        Intent editarRegistroIntent   = new Intent(PantallaPrincipalActivity.this, EditarRegistroActivity.class);
         startActivity(editarRegistroIntent);
         finish();
     }

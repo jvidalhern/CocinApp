@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //Obtener el usuario logeado
         FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
         if (usuarioLogeado != null){
-            Intent usuarioYaLogeadoInt = new Intent(MainActivity.this, PantallaPrincipal.class);
+            Intent usuarioYaLogeadoInt = new Intent(MainActivity.this, PantallaPrincipalActivity.class);
             startActivity(usuarioYaLogeadoInt);
             finish();
         }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 //Si la autentificacion es correcta pasar a la pantalla principal
                 if (task.isSuccessful()){
-                    Intent logOkInt = new Intent(MainActivity.this,PantallaPrincipal.class);
+                    Intent logOkInt = new Intent(MainActivity.this, PantallaPrincipalActivity.class);
                     startActivity(logOkInt);
                     finish();
                 }
