@@ -22,7 +22,7 @@ public class ReestablecerPswActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reestablecerpsw);
+        setContentView(R.layout.activity_reestablecer_psw);
         //Set del boton y el texto de la vista
         resetPswButton = findViewById(R.id.resetPswButton);
         usuarioEditText = findViewById(R.id.usuarioEditText);
