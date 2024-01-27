@@ -13,13 +13,13 @@
         android:theme="@style/Theme.CocinApp"
         tools:targetApi="31">
         <activity
-            android:name=".HacerPedido"
+            android:name=".HacerPedidoActivity"
             android:exported="false" />
         <activity
-            android:name=".PantallaPrincipal"
+            android:name=".PantallaPrincipalActivity"
             android:exported="true" />
         <activity
-            android:name=".RealizarPedido"
+            android:name=".SeleccionarRacionesActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

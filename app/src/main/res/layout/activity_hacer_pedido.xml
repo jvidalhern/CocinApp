@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:padding="16dp"
-    tools:context=".HacerPedido">
+    tools:context=".HacerPedidoActivity">
 
     <ImageView
         android:id="@+id/fondoImageView"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cocinAppTextView"
         android:layout_marginTop="10dp"
-        android:text="@string/selFechaEntrega" />
+        android:text="@string/seleccionar_fecha_entrega" />
 
     <Button
         android:id="@+id/cancelNuevopedidoButton"
@@ -50,7 +50,7 @@
         android:layout_below="@id/logoImageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-3dp"
-        android:text="@string/nuevoPedido"
+        android:text="@string/nuevo_pedido"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"

@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:clickable="true">>
+
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="140dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/imagen"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titulo_entrada"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/titulo_entrada"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/botonQuitar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/icono_quitar" />
+
+            <TextView
+                android:id="@+id/textoCantidad"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/botonQuitar"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/botonAnadir"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/textoCantidad"
+                android:background="@drawable/icono_anadir" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/precio_entrada"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="11dp"
+        android:text="@string/precio_entrada"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

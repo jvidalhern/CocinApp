@@ -4,10 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.text.Editable;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,7 +91,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
      */
 
     private  void volverPprincipal() {
-        Intent intent = new Intent(EditarRegistroActivity.this, PantallaPrincipal.class);
+        Intent intent = new Intent(EditarRegistroActivity.this, PantallaPrincipalActivity.class);
         startActivity(intent);
         finish();
     }
