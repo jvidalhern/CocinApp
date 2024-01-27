@@ -48,7 +48,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editarregistro);
+        setContentView(R.layout.activity_editar_registro);
         //Ref a los campos de la vista
         modNombreEditText = findViewById(R.id.modNombreEditText);
         modApellidoEditText = findViewById(R.id.modApellidoEditText);
