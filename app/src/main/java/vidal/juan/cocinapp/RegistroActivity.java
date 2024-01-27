@@ -1,9 +1,8 @@
 package vidal.juan.cocinapp;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
-import vidal.juan.cocinapp.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RegistroActivity extends AppCompatActivity {
 

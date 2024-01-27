@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cocinAppTextView"
         android:layout_marginTop="16dp"
-        android:text="@string/editarRegistro" />
+        android:text="@string/ver_pedidos" />
 
     <Button
         android:id="@+id/hacerPedido"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editarRegistroButton"
         android:layout_marginTop="16dp"
-        android:text="@string/nuevoPedido" />
+        android:text="@string/nuevo_pedido" />
     <Button
         android:id="@+id/cerrarSesionButton"
         android:layout_width="match_parent"

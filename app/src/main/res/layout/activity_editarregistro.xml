@@ -21,7 +21,7 @@
         android:layout_below="@id/logoImageViewRegistro"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-3dp"
-        android:text="@string/modResitroString"
+        android:text="@string/modificar_resitro_string"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/modTelefonoEditText"
         android:layout_marginTop="45dp"
-        android:text="@string/modRegistro" />
+        android:text="@string/modificar_registro" />
 
     <Button
         android:id="@+id/cancelRegistroButton"

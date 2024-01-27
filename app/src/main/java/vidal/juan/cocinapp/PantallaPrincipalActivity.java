@@ -1,12 +1,12 @@
 package vidal.juan.cocinapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,7 +68,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
      * Método para pasar a la ventana hacer pedido
      */
     private void hacerPedido() {
-        Intent hacerPedidoIntent   = new Intent(PantallaPrincipalActivity.this, HacerPedidoActivity.class);
+        Intent hacerPedidoIntent = new Intent(PantallaPrincipalActivity.this, SeleccionarRacionesActivity.class);
         startActivity(hacerPedidoIntent);
         finish();
     }

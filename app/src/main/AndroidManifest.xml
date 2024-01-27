@@ -19,7 +19,7 @@
             android:name=".PantallaPrincipalActivity"
             android:exported="true" />
         <activity
-            android:name=".RealizarPedido"
+            android:name=".SeleccionarRacionesActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
