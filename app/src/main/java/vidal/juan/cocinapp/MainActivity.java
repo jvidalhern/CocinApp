@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         registroTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PantallaPrincipalActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
                 startActivity(intent);
             }
         });
