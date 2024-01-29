@@ -2,6 +2,7 @@ package vidal.juan.cocinapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -19,6 +27,9 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private ListView lista;
     private Button botonPedir;
     private ArrayList<EncapsuladorEntradas> datos;
+    private boolean datosCargados = false;
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference myRef = database.getReference().child("raciones");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,57 +42,8 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
         datos = new ArrayList<>();
 
-        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, "TORTILLA DE PATATAS", "2.20", 1, 3));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "CROQUETAS", "2.40", 2, 1));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "PAELLA", "3.00", 3, 5));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "CALAMARES", "3.50", 2, 7));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "AJOARRIERO", "4.50", 4, 16));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "TORTILLA FRANCESA", "2.00", 5, 3));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "BOLA DE PIMIENTOS", "2.30", 3, 8));
-        datos.add(new EncapsuladorEntradas(R.drawable.icono_anadir, "BOLA DE HUEVO", "2.30", 2, 10));
-
-        // Establece todas las cantidades a 0
-        for (EncapsuladorEntradas entrada : datos) {
-            entrada.setCantidadActual(0);
-        }
-
-
-        lista.setAdapter(new AdaptadorEntradas(this, R.layout.entrada, datos) {
-            @Override
-            public void onEntrada(EncapsuladorEntradas entrada, View view) {
-                if (entrada != null) {
-                    TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
-                    TextView precio_entrada = view.findViewById(R.id.precio_entrada);
-                    ImageView imagen_entrada = view.findViewById(R.id.imagen);
-
-                    Button botonAnadir = view.findViewById(R.id.botonAnadir);
-                    Button botonQuitar = view.findViewById(R.id.botonQuitar);
-                    TextView textoCantidad = view.findViewById(R.id.textoCantidad);
-
-                    // Configura los listeners para los botones
-                    botonAnadir.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            incrementarCantidad(entrada, textoCantidad);
-                            actualizarBotonPedir();
-                        }
-                    });
-
-                    botonQuitar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            decrementarCantidad(entrada, textoCantidad);
-                            actualizarBotonPedir();
-                        }
-                    });
-
-                    titulo_entrada.setText(entrada.get_textoTitulo());
-                    precio_entrada.setText(entrada.get_Precio());
-                    imagen_entrada.setImageResource(entrada.get_idImagen());
-                    textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
-                }
-            }
-        });
+        // Cargar datos desde Firebase
+        cargarDatosFirebase();
 
         // Configurar listener para el botón Pedir
         botonPedir.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +59,82 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             }
         });
 
-// Ocultar el botón Pedir inicialmente
+        // Ocultar el botón Pedir inicialmente
         botonPedir.setVisibility(View.GONE);
+    }
+
+    private void cargarDatosFirebase() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        String tituloEntrada = childSnapshot.getKey();
+                        String descripcion = childSnapshot.child("descripcion").getValue(String.class);
+                        Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
+                        String precio = childSnapshot.child("precio").getValue(String.class);
+                        String stock = childSnapshot.child("stock").getValue(String.class);
+
+                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock);
+
+                        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, tituloEntrada, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                    }
+
+                    // Inicializa tu adaptador después de que se hayan cargado los datos
+                    lista.setAdapter(new AdaptadorEntradas(SeleccionarRacionesActivity.this, R.layout.entrada, datos) {
+                        @Override
+                        public void onEntrada(EncapsuladorEntradas entrada, View view) {
+                            if (entrada != null) {
+                                TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
+                                TextView precio_entrada = view.findViewById(R.id.precio_entrada);
+                                ImageView imagen_entrada = view.findViewById(R.id.imagen);
+
+                                Button botonAnadir = view.findViewById(R.id.botonAnadir);
+                                Button botonQuitar = view.findViewById(R.id.botonQuitar);
+                                TextView textoCantidad = view.findViewById(R.id.textoCantidad);
+
+                                // Configura los listeners para los botones
+                                botonAnadir.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        incrementarCantidad(entrada, textoCantidad);
+                                        actualizarBotonPedir();
+                                    }
+                                });
+
+                                botonQuitar.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        decrementarCantidad(entrada, textoCantidad);
+                                        actualizarBotonPedir();
+                                    }
+                                });
+
+                                titulo_entrada.setText(entrada.get_textoTitulo());
+                                precio_entrada.setText(entrada.get_Precio());
+                                imagen_entrada.setImageResource(entrada.get_idImagen());
+                                textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
+                            }
+                        }
+                    });
+
+                    // Realiza otras operaciones después de que se hayan cargado los datos
+                    datosCargados = true;
+                    // Actualiza el estado del botónPedir después de cargar los datos
+                    actualizarBotonPedir();
+                } else {
+                    // Manejar el caso en el que el nodo no existe
+                    datosCargados = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Manejar errores en la lectura de datos
+                datosCargados = false;
+                mostrarMensaje("Error al cargar los datos desde Firebase");
+            }
+        });
     }
 
     private void incrementarCantidad(EncapsuladorEntradas entrada, TextView textoCantidad) {
@@ -187,6 +223,4 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             botonPedir.setText(textoBoton);
         }
     }
-
-
 }
