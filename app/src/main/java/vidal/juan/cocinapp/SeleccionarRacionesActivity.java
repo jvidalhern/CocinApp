@@ -32,8 +32,8 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private boolean datosCargados = false;
 
     private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
     private final String URL_SUFIJO = "?alt=media";
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference().child("raciones");
 
     @Override
