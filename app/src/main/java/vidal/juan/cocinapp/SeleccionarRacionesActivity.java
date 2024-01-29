@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,10 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private Button botonPedir;
     private ArrayList<EncapsuladorEntradas> datos;
     private boolean datosCargados = false;
+
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
+    private final String URL_SUFIJO = "?alt=media";
     DatabaseReference myRef = database.getReference().child("raciones");
 
     @Override
@@ -77,6 +81,15 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
         // Ocultar el botón Pedir inicialmente
         botonPedir.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Iniciar la actividad PantallaPrincipal
+        Intent intent = new Intent(SeleccionarRacionesActivity.this, PantallaPrincipalActivity.class);
+        startActivity(intent);
+        finish();  // Finaliza la actividad actual para que no puedas volver atrás a ella
     }
 
     private void cargarDatosFirebase() {
@@ -85,7 +98,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        String tituloEntrada = childSnapshot.getKey();
+                        String tituloEntrada = childSnapshot.getKey().toUpperCase();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
@@ -93,10 +106,11 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         DecimalFormat df = new DecimalFormat("#.00");
                         String precio = df.format(precioDecimal);
                         String stock = childSnapshot.child("stock").getValue(String.class);
+                        String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
 
-                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock);
+                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock + ", URL imagen: " + urlImagen);
 
-                        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
                     }
 
                     // Inicializa tu adaptador después de que se hayan cargado los datos
@@ -112,6 +126,12 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 Button botonAnadir = view.findViewById(R.id.botonAnadir);
                                 Button botonQuitar = view.findViewById(R.id.botonQuitar);
                                 TextView textoCantidad = view.findViewById(R.id.textoCantidad);
+
+                                // Utiliza Glide para cargar la imagen desde la URL
+                                Glide.with(SeleccionarRacionesActivity.this)
+                                        .load(entrada.getUrlImagen())
+                                        .into(imagen_entrada);
+
 
                                 // Configura los listeners para los botones
                                 botonAnadir.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +153,6 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 titulo_entrada.setText(entrada.get_textoTitulo());
                                 descripcion.setText(entrada.getDescripcion());
                                 precio_entrada.setText(entrada.get_Precio());
-                                imagen_entrada.setImageResource(entrada.get_idImagen());
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
                             }
                         }
@@ -266,3 +285,5 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     }
 
 }
+
+
