@@ -69,7 +69,7 @@ public class ReestablecerPswActivity extends AppCompatActivity {
                     startActivity(volverLogin);
                     //finish();
                 }else{
-                    Toast.makeText(ReestablecerPswActivity.this,"Correo invalido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReestablecerPswActivity.this,"Correo inválido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
