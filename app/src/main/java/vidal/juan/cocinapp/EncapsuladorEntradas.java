@@ -4,6 +4,8 @@ public class EncapsuladorEntradas {
 
     private int imagen;
     private String titulo;
+
+    private String descripcion;
     private String precio;
     private int cantidadActual;
 
@@ -12,9 +14,10 @@ public class EncapsuladorEntradas {
     private int stock;
 
 
-    public EncapsuladorEntradas(int idImagen, String tituloEntrada, String precioEntrada, int cantidadMaxima, int stock) {
+    public EncapsuladorEntradas(int idImagen, String tituloEntrada, String descripcion, String precioEntrada, int cantidadMaxima, int stock) {
         this.imagen = idImagen;
         this.titulo = tituloEntrada;
+        this.descripcion = descripcion;
         this.precio = precioEntrada;
         this.cantidadMaxima = cantidadMaxima;
         this.stock = stock;
@@ -54,5 +57,13 @@ public class EncapsuladorEntradas {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

@@ -96,7 +96,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
                         Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock);
 
-                        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, tituloEntrada, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
                     }
 
                     // Inicializa tu adaptador después de que se hayan cargado los datos
@@ -105,6 +105,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         public void onEntrada(EncapsuladorEntradas entrada, View view) {
                             if (entrada != null) {
                                 TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
+                                TextView descripcion = view.findViewById(R.id.descripcion_entrada);
                                 TextView precio_entrada = view.findViewById(R.id.precio_entrada);
                                 ImageView imagen_entrada = view.findViewById(R.id.imagen);
 
@@ -130,6 +131,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 });
 
                                 titulo_entrada.setText(entrada.get_textoTitulo());
+                                descripcion.setText(entrada.getDescripcion());
                                 precio_entrada.setText(entrada.get_Precio());
                                 imagen_entrada.setImageResource(entrada.get_idImagen());
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
