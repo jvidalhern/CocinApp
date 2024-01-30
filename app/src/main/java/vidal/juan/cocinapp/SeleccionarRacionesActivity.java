@@ -52,10 +52,23 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                 // Obtener la cantidad total y el precio total
                 int cantidadTotal = obtenerCantidadTotal(datos);
                 double precioTotal = obtenerPrecioTotal(datos);
+                // Llamada al método para obtener los detalles seleccionados
+                ArrayList<DetallePedido> detallesSeleccionados = obtenerDetallesSeleccionados();
+                //Comprobar que se seleeciona algo para pasar a la siguiente activity
+                if (!detallesSeleccionados.isEmpty()) {
+/*
+                    //Prueba mostrar en el log lo que se ha seleccionado
+                    for (DetallePedido detalle : detallesSeleccionados) {
+                        Log.d("DetallesSeleccionados", "Nombre: " + detalle.getNombreRacion() +
+                                ", Cantidad: " + detalle.getCantidad() +
+                                ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
+                    }*/
+                    // Iniciar la actividad para escoger fecha; hay que pasar el arraylist
+                    //Pasar arraylist  detallesSeleccionados + preciototal a siguiente activity
+                    Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
+                    startActivity(intent);
+                }
 
-                // Iniciar la actividad HacerPedido (ajusta el nombre de la actividad según sea necesario)
-                Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -223,4 +236,25 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             botonPedir.setText(textoBoton);
         }
     }
+    //Obtener lista de detalles
+    private ArrayList<DetallePedido> obtenerDetallesSeleccionados() {
+        ArrayList<DetallePedido> detallesSeleccionados = new ArrayList<>();
+
+        for (EncapsuladorEntradas entrada : datos) {
+            int cantidadActual = entrada.getCantidadActual();
+
+            // Solo agregar detalles con cantidad mayor que cero
+            if (cantidadActual > 0) {
+                DetallePedido detalle = new DetallePedido(
+                        entrada.get_textoTitulo(),
+                        cantidadActual,
+                        Double.parseDouble(entrada.get_Precio())
+                );
+                detallesSeleccionados.add(detalle);
+            }
+        }
+
+        return detallesSeleccionados;
+    }
+
 }

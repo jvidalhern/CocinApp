@@ -4,18 +4,19 @@ package vidal.juan.cocinapp;
  * Clase que representa la realidad de los detalles de un pedido
  */
 public class DetallePedido {
-
+    private String nombreRacion;
     private int cantidad;
     private double precio;
-    private String racion;
 
 
-    public DetallePedido(int cantidad, double precio, String racion) {
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.racion = racion;
+    public DetallePedido() {
     }
 
+    public DetallePedido(String nombreRacion, int cantidad, double precio) {
+        this.nombreRacion = nombreRacion;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
 
     public int getCantidad() {
         return cantidad;
@@ -33,12 +34,12 @@ public class DetallePedido {
         this.precio = precio;
     }
 
-    public String getRacion() {
-        return racion;
+    public String getNombreRacion() {
+        return nombreRacion;
     }
 
-    public void setRacion(String racion) {
-        this.racion = racion;
+    public void setNombreRacion(String nombreRacion) {
+        this.nombreRacion = nombreRacion;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class DetallePedido {
         return "DetallePedido{" +
                 "cantidad=" + cantidad +
                 ", precio=" + precio +
-                ", racion='" + racion + '\'' +
+                ", racion='" + nombreRacion + '\'' +
                 '}';
     }
 }
