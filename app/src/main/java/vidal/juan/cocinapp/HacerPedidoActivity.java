@@ -29,6 +29,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private ListView listaDetalle;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private FirebaseUser usuarioLogeado ;
+    private TextView total,fechaEntregaConfirm;
     String fechaEntrega;
     String fechaPedido;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
@@ -41,7 +42,10 @@ public class HacerPedidoActivity extends AppCompatActivity {
         //referencia a items xml
         cancelNuevopedidoButton = findViewById(R.id.cancelNuevopedidoButton);
         seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
+        confirmarPedidoButton = findViewById(R.id.confirmarPedidoButton);
         listaDetalle = findViewById(R.id.listaDetalle);
+        total = findViewById(R.id.total);
+        fechaEntregaConfirm =  findViewById(R.id.fechaEntregaConfirm);
         //Usuario logeado en la app
          usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -69,9 +73,12 @@ public class HacerPedidoActivity extends AppCompatActivity {
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                     precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()));
 
+
                 }
             }
         });
+
+        total.setText("Total: " + String.valueOf(precioTotal));
 
 
         //Evento Seleccionar la fecha
@@ -121,6 +128,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
                 fechaEntrega = fechaFormateada;
                 Log.d("FechaSel", "FechaSel: " + fechaEntrega);
                 Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
+                fechaEntregaConfirm.setText(fechaEntrega);
+                confirmarPedidoButton.setVisibility(View.VISIBLE);
             }
         }, ano, mes, dia);
 

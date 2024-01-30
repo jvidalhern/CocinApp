@@ -41,4 +41,6 @@
     <string name="nombreRacion">nombre detalle racion</string>
     <string name="cantidadRacionDetalle">Cantidad\n</string>
     <string name="precioDetalle">Precio</string>
+    <string name="total">Total</string>
+    <string name="fechaEntrega">Fecha entrega</string>
 </resources>
