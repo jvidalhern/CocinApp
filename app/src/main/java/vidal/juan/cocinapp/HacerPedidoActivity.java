@@ -3,6 +3,7 @@ package vidal.juan.cocinapp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HacerPedidoActivity extends AppCompatActivity {
@@ -35,6 +37,16 @@ public class HacerPedidoActivity extends AppCompatActivity {
         seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
         //Usuario logeado en la app
          usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Recuperar detalles seleccionados y precio total
+        ArrayList<DetallePedido> detallesSeleccionados = getIntent().getParcelableArrayListExtra("detallesSeleccionados");
+        double precioTotal = getIntent().getDoubleExtra("precioTotal", 0.0);
+        //Prueba mostrar en el log lo que se ha seleccionado
+        for (DetallePedido detalle : detallesSeleccionados) {
+            Log.d("DetallesSeleccionados pasados desde Seleccionar ración", "Nombre: " + detalle.getNombreRacion() +
+                    ", Cantidad: " + detalle.getCantidad() +
+                    ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
+        }
 
         //Evento Seleccionar la fecha
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {

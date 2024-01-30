@@ -66,6 +66,8 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                     // Iniciar la actividad para escoger fecha; hay que pasar el arraylist
                     //Pasar arraylist  detallesSeleccionados + preciototal a siguiente activity
                     Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
+                    intent.putParcelableArrayListExtra("detallesSeleccionados", detallesSeleccionados);
+                    intent.putExtra("precioTotal", precioTotal);
                     startActivity(intent);
                 }
 
