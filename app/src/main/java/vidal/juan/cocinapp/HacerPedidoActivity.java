@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +25,15 @@ import java.util.Calendar;
 
 public class HacerPedidoActivity extends AppCompatActivity {
 
-    private Button cancelNuevopedidoButton;
-    private Button seleccionarFechaEntregaButton;
+    private Button cancelNuevopedidoButton,seleccionarFechaEntregaButton,confirmarPedidoButton;
+    private ListView listaDetalle;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private FirebaseUser usuarioLogeado ;
     String fechaEntrega;
-    static final int apartirDiasRecoger = 5;//Dias definidos por esther ? sacar este dato de BBDD?
+    String fechaPedido;
+    // Formatear la fecha al formato deseado: aaaa-MM-dd
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    static final int apartirDiasRecoger = 5;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? sacar este dato de BBDD?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         //referencia a items xml
         cancelNuevopedidoButton = findViewById(R.id.cancelNuevopedidoButton);
         seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
+        listaDetalle = findViewById(R.id.listaDetalle);
         //Usuario logeado en la app
          usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -47,6 +54,25 @@ public class HacerPedidoActivity extends AppCompatActivity {
                     ", Cantidad: " + detalle.getCantidad() +
                     ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
         }
+        //Llenar la lista con los detalles para mostrarlos
+
+        listaDetalle.setAdapter(new AdaptadorDetalles(HacerPedidoActivity.this, R.layout.detalle_pedido_vista, detallesSeleccionados) {
+            @Override
+            public void onEntrada(DetallePedido detallePedido, View view) {
+                if (detallePedido != null) {
+                    TextView nombreRacionDetalle = view.findViewById(R.id.nombreRacionDetalle);
+                    TextView cantidadRacionDetalleVistaDetalle = view.findViewById(R.id.cantidadRacionDetalleVistaDetalle);
+                    TextView cantidadRacionVistaDetalle = view.findViewById(R.id.cantidadRacionVistaDetalle);
+                    TextView precioRacionDetalleVistaDetalle = view.findViewById(R.id.precioRacionDetalleVistaDetalle);
+
+                    nombreRacionDetalle.setText(detallePedido.getNombreRacion());
+                    cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
+                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()));
+
+                }
+            }
+        });
+
 
         //Evento Seleccionar la fecha
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +87,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         cancelNuevopedidoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(HacerPedidoActivity.this,"La fecha de entrega seral: " + fechaEntrega, Toast.LENGTH_LONG).show();
+                Toast.makeText(HacerPedidoActivity.this,"Pedido cancelado" , Toast.LENGTH_LONG).show();
                 volverPprincipal();
             }
         });
@@ -79,6 +105,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         final int ano = calendar.get(Calendar.YEAR);
         final int mes = calendar.get(Calendar.MONTH);
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        fechaPedido = formato.format(calendar.getTime());
         DatePickerDialog datePickerDialog = new DatePickerDialog(this , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -87,12 +114,13 @@ public class HacerPedidoActivity extends AppCompatActivity {
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, day);
 
-                // Formatear la fecha al formato deseado: aaaa-MM-dd
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
                 String fechaFormateada = formato.format(calendar.getTime());
                 //Que hacer cuando se seleccione la fecha
                 Toast.makeText(HacerPedidoActivity.this,"Fecha sel: " + fechaFormateada, Toast.LENGTH_LONG).show();
                 fechaEntrega = fechaFormateada;
+                Log.d("FechaSel", "FechaSel: " + fechaEntrega);
+                Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
             }
         }, ano, mes, dia);
 

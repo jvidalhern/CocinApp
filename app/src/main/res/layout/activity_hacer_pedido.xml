@@ -1,74 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/fondo"
-    android:padding="16dp"
     tools:context=".HacerPedidoActivity">
-
-    <ImageView
-        android:id="@+id/fondoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="42dp"
-        android:alpha="0.5"
-        android:src="@drawable/fondo" />
-    <Button
-        android:id="@+id/seleccionarFechaEntregaButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cocinAppTextView"
-        android:layout_marginTop="10dp"
-        android:text="@string/seleccionar_fecha_entrega" />
-
-    <Button
-        android:id="@+id/cancelNuevopedidoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/seleccionarFechaEntregaButton"
-        android:layout_marginTop="10dp"
-        android:text="@string/cancelar" />
-
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/cocin_app_logo" />
-
-
     <TextView
-        android:id="@+id/cocinAppTextView"
+        android:id="@+id/confirmarPedidoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logoImageView"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="-3dp"
-        android:text="@string/nuevo_pedido"
+        android:text="@string/confirmacion_del_pedido"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
         android:textStyle="bold"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
-    <TextView
-        android:id="@+id/derechosAutorTextView"
-        android:layout_width="395dp"
+    <ListView
+        android:id="@+id/listaDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/fondo"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp" />
+
+
+    <EditText
+        android:id="@+id/comentariosTextMultiLine2"
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:hint="Comentarios para cocina(opcional)"
+        android:ems="10"
+        android:gravity="start|top"
+        android:background="@android:color/white"
+        android:inputType="textMultiLine" />
+    <!-- LinearLayout botones de acción-->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
-        android:text="@string/derechos_reservados"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+        android:gravity="center"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/seleccionarFechaEntregaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+
+            android:text="@string/seleccionar_fecha_entrega"
+
+            />
+
+        <Button
+            android:id="@+id/confirmarPedidoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seleccionarFechaEntregaButton"
+            android:layout_marginTop="50dp"
+            android:text="@string/confirmarPedido"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/cancelNuevopedidoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirmarPedidoButton"
+            android:layout_marginTop="10dp"
+            android:text="@string/cancelar"
+
+            />
+    </LinearLayout>
+
+</LinearLayout>

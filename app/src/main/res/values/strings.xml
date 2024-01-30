@@ -36,4 +36,9 @@
     <string name="usuario">Correo electrónico</string>
     <string name="ver_pedidos">VER PEDIDOS</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="confirmarPedido">Confirmar pedido</string>
+    <string name="confirmacion_del_pedido">Confirmación del pedido</string>
+    <string name="nombreRacion">nombre detalle racion</string>
+    <string name="cantidadRacionDetalle">Cantidad\n</string>
+    <string name="precioDetalle">Precio</string>
 </resources>
