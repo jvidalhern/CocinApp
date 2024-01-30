@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText contrasenaEditText;
     private EditText repetirContrasenaEditText;
     private Button registroButton;
+
+    private AlertDialog alertDialog;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference("usuarios");
@@ -198,13 +201,32 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     private void mostrarError(String mensaje) {
-        // Crear un AlertDialog
+        // Inflar el diseño personalizado
+        View customView = getLayoutInflater().inflate(R.layout.custom_alert_dialog, null);
+
+        // Configurar el mensaje de error
+        TextView errorMessageTextView = customView.findViewById(R.id.errorMessageTextView);
+        errorMessageTextView.setText(mensaje);
+
+        // Configurar el botón de OK
+        Button okButton = customView.findViewById(R.id.okButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cierra el AlertDialog al hacer clic en OK
+                alertDialog.dismiss();
+            }
+        });
+
+        // Crear un AlertDialog personalizado
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(mensaje);
-        builder.setPositiveButton("OK", null); // Botón de aceptar, puedes personalizarlo según tus necesidades
+        builder.setView(customView);
+
+        // Configurar esquinas redondeadas
+        alertDialog = builder.create(); // Actualizar la variable de clase
+        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.alert_dialog_background);
 
         // Mostrar el AlertDialog
-        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 }

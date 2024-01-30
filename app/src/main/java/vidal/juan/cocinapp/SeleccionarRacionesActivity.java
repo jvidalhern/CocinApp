@@ -133,7 +133,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
                                 titulo_entrada.setText(entrada.get_textoTitulo());
                                 descripcion.setText(entrada.getDescripcion());
-                                precio_entrada.setText(entrada.get_Precio());
+                                precio_entrada.setText(entrada.get_Precio() + "€");
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
                             }
                         }
