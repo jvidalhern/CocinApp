@@ -7,13 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +33,14 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private FirebaseUser usuarioLogeado ;
     private TextView total,fechaEntregaConfirm;
-    String fechaEntrega;
-    String fechaPedido;
+    private EditText comentariosTextMultiLine2;
+    private String fechaEntrega, fechaPedido;
+    private String comentarios = "Sin comentarios";
+    private ArrayList<DetallePedido> detallesSeleccionados;
+    private double precioTotal;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    static final int apartirDiasRecoger = 5;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? sacar este dato de BBDD?
+    static final int apartirDiasRecoger = 5;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +51,23 @@ public class HacerPedidoActivity extends AppCompatActivity {
         confirmarPedidoButton = findViewById(R.id.confirmarPedidoButton);
         listaDetalle = findViewById(R.id.listaDetalle);
         total = findViewById(R.id.total);
+        comentariosTextMultiLine2 = findViewById(R.id.comentariosTextMultiLine2);
         fechaEntregaConfirm =  findViewById(R.id.fechaEntregaConfirm);
+
         //Usuario logeado en la app
          usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Recuperar detalles seleccionados y precio total
-        ArrayList<DetallePedido> detallesSeleccionados = getIntent().getParcelableArrayListExtra("detallesSeleccionados");
-        double precioTotal = getIntent().getDoubleExtra("precioTotal", 0.0);
+        // Recuperar detalles seleccionados y precio total de la anterior actividad
+        detallesSeleccionados = getIntent().getParcelableArrayListExtra("detallesSeleccionados");
+        precioTotal = getIntent().getDoubleExtra("precioTotal", 0.0);
+
         //Prueba mostrar en el log lo que se ha seleccionado
         for (DetallePedido detalle : detallesSeleccionados) {
-            Log.d("DetallesSeleccionados pasados desde Seleccionar ración", "Nombre: " + detalle.getNombreRacion() +
+            Log.d("DetallesSeleccionadostoinsert", "Nombre: " + detalle.getRacion() +
                     ", Cantidad: " + detalle.getCantidad() +
                     ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
         }
-        //Llenar la lista con los detalles para mostrarlos
-
+        //Llenar la lista de la vista detalle_pedido_vista.xml  con los detalles obtenidos para mostrarlos como confirmación
         listaDetalle.setAdapter(new AdaptadorDetalles(HacerPedidoActivity.this, R.layout.detalle_pedido_vista, detallesSeleccionados) {
             @Override
             public void onEntrada(DetallePedido detallePedido, View view) {
@@ -69,7 +77,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
                     TextView cantidadRacionVistaDetalle = view.findViewById(R.id.cantidadRacionVistaDetalle);
                     TextView precioRacionDetalleVistaDetalle = view.findViewById(R.id.precioRacionDetalleVistaDetalle);
 
-                    nombreRacionDetalle.setText(detallePedido.getNombreRacion());
+                    nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                     precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()));
 
@@ -77,15 +85,22 @@ public class HacerPedidoActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //Mostrar el total del pedido; obtenido de la activdad anterior
         total.setText("Total: " + String.valueOf(precioTotal));
 
-
-        //Evento Seleccionar la fecha
+        //Evento Botón Seleccionar fecha
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 obtenerFechaDatepicker();
+            }
+        });
+
+        //Evento para confirmar el pedido, se muestra una vez obtenida la fecha, y que se graba en la BBDD
+        confirmarPedidoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertarPedidoParaUsuario();
             }
         });
 
@@ -103,7 +118,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
     /**
      * Metodo para obener la fecha seleccionada en el datepicker; Tiene restricion mediante la CONSTANTE a paritr dias recoge
-     * Se muestran los dias siempre a partir de esta constante
+     * Se muestran los dias siempre a partir de esta constante. Tabién se obtiene la fecha del dia actual formateada
      */
     private void obtenerFechaDatepicker() {
 
@@ -112,6 +127,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         final int ano = calendar.get(Calendar.YEAR);
         final int mes = calendar.get(Calendar.MONTH);
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        //Formatear la fecha a dia de hoy para pasarla al insert
         fechaPedido = formato.format(calendar.getTime());
         DatePickerDialog datePickerDialog = new DatePickerDialog(this , new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -124,7 +140,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
                 String fechaFormateada = formato.format(calendar.getTime());
                 //Que hacer cuando se seleccione la fecha
-                Toast.makeText(HacerPedidoActivity.this,"Fecha sel: " + fechaFormateada, Toast.LENGTH_LONG).show();
+                Toast.makeText(HacerPedidoActivity.this,"Fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
                 fechaEntrega = fechaFormateada;
                 Log.d("FechaSel", "FechaSel: " + fechaEntrega);
                 Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
@@ -135,7 +151,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
         //Restriccion de fecha
         Calendar calendarioMin = Calendar.getInstance();
-        //Apartir de los dias que diga ESTHER se puede recoger el pedido
+        //Apartir de los dias que diga ESTHER se puede recoger el pedido todo esto se hace con una constante local; habria que hacerlo de BBDD para que sea mas sencillo de configurar
         calendarioMin.add(Calendar.DAY_OF_MONTH, + apartirDiasRecoger);
         //Setear el dia minimo
         datePickerDialog.getDatePicker().setMinDate(calendarioMin.getTimeInMillis() - 1000);
@@ -156,20 +172,40 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
 
     /**
-     * /Método para insertar el pedido de un usuario una vez definido el objeto pedido a aprtir de la interfaz
-     * @param nuevoPedido objeto pedido creado a paritr de los datos generados en la interfaz
+     * /Método para insertar el pedido de un usuario
+     *
      */
-    private  void insertarPedidoParaUsuario( Pedido nuevoPedido) {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private  void insertarPedidoParaUsuario( ) {
 
+            //BBDD referencia para el insert
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             // ID para el pedido
             String nuevoPedidoId = databaseReference.child("pedidos").push().getKey();
-
-            // ID de usuario al nuevo pedido
-            nuevoPedido.setUsuarioId(usuarioLogeado.getUid());
-
+            // ID de usuario para el pedido
+            String userId = usuarioLogeado.getUid();
+            //La fecha seleccionada y la fecha de pedido ya han sido obtenidas en la activity; fechaPedido y fechaEntrega
+            //Los comentarios del pedido
+            comentarios = comentariosTextMultiLine2.getText().toString();
+            //Crear el pedido a partir de los datos seleecionados
+            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionados,"PedidoApp",fechaPedido,fechaEntrega,precioTotal,userId);
+            //Log para ver error
+            Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
             // Insertar el nuevo pedido en la colección de pedidos
-            databaseReference.child("pedidos").child(nuevoPedidoId).setValue(nuevoPedido);
+            databaseReference.child("pedidos").child(nuevoPedidoId).setValue(nuevoPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // DATO MODIFICADO EN BBDD
+                            Toast.makeText(HacerPedidoActivity.this,"Pedido registrado "  , Toast.LENGTH_LONG).show();
+                            //volver a la ventana principal
+                            volverPprincipal();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(HacerPedidoActivity.this,"ERROR No se ha registrado el pedido "  , Toast.LENGTH_LONG).show();
+                        }
+                    });;
 
             //Insertar en indices para las busqeudas sencillas--TODO definir indices bien,
         }

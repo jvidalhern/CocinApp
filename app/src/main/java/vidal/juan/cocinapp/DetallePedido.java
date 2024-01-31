@@ -7,13 +7,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DetallePedido implements Parcelable {
-    private String nombreRacion;
+    private String racion;
     private int cantidad;
     private double precio;
 
     // Constructor necesario para Parcelable
     private DetallePedido(Parcel in) {
-        nombreRacion = in.readString();
+        racion = in.readString();
         cantidad = in.readInt();
         precio = in.readDouble();
     }
@@ -21,8 +21,8 @@ public class DetallePedido implements Parcelable {
     public DetallePedido() {
     }
 
-    public DetallePedido(String nombreRacion, int cantidad, double precio) {
-        this.nombreRacion = nombreRacion;
+    public DetallePedido(String racion, int cantidad, double precio) {
+        this.racion = racion;
         this.cantidad = cantidad;
         this.precio = precio;
     }
@@ -44,12 +44,12 @@ public class DetallePedido implements Parcelable {
         this.precio = precio;
     }
 
-    public String getNombreRacion() {
-        return nombreRacion;
+    public String getRacion() {
+        return racion;
     }
 
-    public void setNombreRacion(String nombreRacion) {
-        this.nombreRacion = nombreRacion;
+    public void setRacion(String racion) {
+        this.racion = racion;
     }
 
     //Tostring
@@ -58,7 +58,7 @@ public class DetallePedido implements Parcelable {
         return "DetallePedido{" +
                 "cantidad=" + cantidad +
                 ", precio=" + precio +
-                ", racion='" + nombreRacion + '\'' +
+                ", racion='" + racion + '\'' +
                 '}';
     }
 
@@ -70,7 +70,7 @@ public class DetallePedido implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nombreRacion);
+        dest.writeString(racion);
         dest.writeInt(cantidad);
         dest.writeDouble(precio);
     }
