@@ -8,7 +8,7 @@ import java.util.List;
 public class Pedido {
 
     private String comentarios;
-    private List<DetallePedido> detalles;
+    private List<DetallePedidoNoParcel> detalles;
     private String estado;
     private String fecha_pedido;
     private String fecha_entrega;
@@ -20,7 +20,7 @@ public class Pedido {
         // Constructor vacío requerido por Firebase
     }
 
-    public Pedido(String comentarios, List<DetallePedido> detalles, String estado, String fecha_pedido, String fecha_entrega, double precio_total, String usuario) {
+    public Pedido(String comentarios, List<DetallePedidoNoParcel> detalles, String estado, String fecha_pedido, String fecha_entrega, double precio_total, String usuario) {
         this.comentarios = comentarios;
         this.detalles = detalles;
         this.estado = estado;
@@ -39,11 +39,11 @@ public class Pedido {
         this.comentarios = comentarios;
     }
 
-    public List<DetallePedido> getDetalles() {
+    public List<DetallePedidoNoParcel> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<DetallePedido> detalles) {
+    public void setDetalles(List<DetallePedidoNoParcel> detalles) {
         this.detalles = detalles;
     }
 

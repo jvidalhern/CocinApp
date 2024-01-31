@@ -17,7 +17,8 @@ public class DetallePedido implements Parcelable {
         cantidad = in.readInt();
         precio = in.readDouble();
     }
-    //Constructor para firebase
+
+    // Constructor para firebase
     public DetallePedido() {
     }
 
@@ -27,7 +28,7 @@ public class DetallePedido implements Parcelable {
         this.precio = precio;
     }
 
-    //GET/SET
+    // GET/SET
     public int getCantidad() {
         return cantidad;
     }
@@ -52,7 +53,7 @@ public class DetallePedido implements Parcelable {
         this.racion = racion;
     }
 
-    //Tostring
+    // ToString
     @Override
     public String toString() {
         return "DetallePedido{" +
@@ -62,7 +63,7 @@ public class DetallePedido implements Parcelable {
                 '}';
     }
 
-    // Métodoss Parcelable
+    // Métodos Parcelable
     @Override
     public int describeContents() {
         return 0;
@@ -73,6 +74,7 @@ public class DetallePedido implements Parcelable {
         dest.writeString(racion);
         dest.writeInt(cantidad);
         dest.writeDouble(precio);
+
     }
 
     public static final Creator<DetallePedido> CREATOR = new Creator<DetallePedido>() {

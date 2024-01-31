@@ -37,6 +37,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private String fechaEntrega, fechaPedido;
     private String comentarios = "Sin comentarios";
     private ArrayList<DetallePedido> detallesSeleccionados;
+    private ArrayList<DetallePedidoNoParcel> detallesSeleccionadosNoParcel = new ArrayList<>();//Iincializar el array list para luego hacer la transformación
     private double precioTotal;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -86,12 +87,13 @@ public class HacerPedidoActivity extends AppCompatActivity {
             }
         });
         //Mostrar el total del pedido; obtenido de la activdad anterior
-        total.setText("Total: " + String.valueOf(precioTotal));
+        total.setText("Total: " + String.valueOf(precioTotal));//Todo formatear mejor esto, redondearlo
 
-        //Evento Botón Seleccionar fecha
+        //Evento Botón Seleccionar fecha de entrga
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Obtener la fecha seleccionada
                 obtenerFechaDatepicker();
             }
         });
@@ -100,6 +102,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         confirmarPedidoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Insertar en la BBDD el nuevo pedido a partir de los datos de la interfaz
                 insertarPedidoParaUsuario();
             }
         });
@@ -187,10 +190,13 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Los comentarios del pedido
             comentarios = comentariosTextMultiLine2.getText().toString();
             //Crear el pedido a partir de los datos seleecionados
-            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionados,"PedidoApp",fechaPedido,fechaEntrega,precioTotal,userId);
-            //Log para ver error
+            //Pasar los detalles a un objeto que no implemente parcelable para que no inserte stability 0 en firebase
+            transFormNoParcel();
+            //Crear el bojeto pedido con los datos
+            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"PedidoApp",fechaPedido,fechaEntrega,precioTotal,userId);
+            //Log para ver pedido
             Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
-            // Insertar el nuevo pedido en la colección de pedidos
+            // Insertar el nuevo pedido en la colección de pedidos verificando si ha ido bien o no
             databaseReference.child("pedidos").child(nuevoPedidoId).setValue(nuevoPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -210,5 +216,16 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Insertar en indices para las busqeudas sencillas--TODO definir indices bien,
         }
 
-
+    /**
+     * Método para transformar un detalle de pedido de la clase DetallePedido en un objeto exactamente igual de la clase DetallePedidoNoParcel pero sin que implemente la interfaz pacelable
+     * Previamente usada para pasar los detalles entre activity, de no hacerlo se pasa el campo stability = 0 ya que firebase usa parcelable al insertar el objeto y no se puede ignorar pasarlo
+     * La solución es crear un nuevo objeto exactamente igual sin implementar parcelable
+     */
+    private void transFormNoParcel() {
+        for (DetallePedido detalle : detallesSeleccionados) {
+            //Cada objeto de la lista detallesSeleccionados pasarlo al arraylist DetallePedidoNoParcel exactamente igual a como estaba
+            detallesSeleccionadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
+        }
+        Log.d("Transformación", "detallesSeleccionadosNoParcel: " + detallesSeleccionadosNoParcel.toString());
+    }
 }
