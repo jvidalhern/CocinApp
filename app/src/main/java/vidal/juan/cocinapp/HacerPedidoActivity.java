@@ -200,8 +200,10 @@ public class HacerPedidoActivity extends AppCompatActivity {
             databaseReference.child("pedidos").child(nuevoPedidoId).setValue(nuevoPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            // DATO MODIFICADO EN BBDD
+                            // DATO Agregado EN BBDD
                             Toast.makeText(HacerPedidoActivity.this,"Pedido registrado "  , Toast.LENGTH_LONG).show();
+                            //Actualizar el stock según los detalles del pedido
+                            actualizarStock();
                             //volver a la ventana principal
                             volverPprincipal();
                         }
@@ -228,4 +230,46 @@ public class HacerPedidoActivity extends AppCompatActivity {
         }
         Log.d("Transformación", "detallesSeleccionadosNoParcel: " + detallesSeleccionadosNoParcel.toString());
     }
+
+    /**
+     * Método para actualizar el stock una vez hecho el pedido TODO quiza haya que usarlo en modificar-> pasar a interfaz para todos los sitios en los que se vaya a usar
+     */
+    private void actualizarStock() {
+        //Referencia a raciones en la bbdd
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("raciones");
+        //De cada detalle seleccionado hay que obtener el nombre de la racion y la cantidad para actulizarlos
+        for (DetallePedidoNoParcel detalle : detallesSeleccionadosNoParcel) {
+            final String nombreRacion = detalle.getRacion();
+            final int cantidadPedida = detalle.getCantidad();
+
+            // Obtener el stock actual de la ración
+            databaseReference.child(nombreRacion).child("stock").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Obtener el stock actual
+                    int stockActual = Integer.parseInt(task.getResult().getValue(String.class));
+
+                    // Calcular el nuevo stock restando la cantidad pedida de ese detalle
+                    int nuevoStock = stockActual - cantidadPedida;
+
+                    // Actulizar, setear el nuevo stock despues de hacer el pedido de ese detallee
+                    databaseReference.child(nombreRacion).child("stock").setValue(Integer.toString(nuevoStock)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            //Prueba en LOG
+                            Log.d("ActualizarStock", "Stock actualizado " + nombreRacion + ". Nuevo stock: " + nuevoStock);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Prueba en LOG
+                            Log.e("ActualizarStock", "Error al actualizar el stock " + nombreRacion, e);
+                        }
+                    });
+                } else {
+                    Log.e("ActualizarStock", "Error al obtener el stock para " + nombreRacion, task.getException());
+                }
+            });
+        }
+    }
+
 }
