@@ -28,9 +28,9 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         //FIREBASE; usuario logeado
         FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
         // Obtener el mail del usario logeado, todo Cambiar por el nombre de usuario con un bienvenidos?
-        if (usuarioLogeado != null ){
-            usuarioLogeadoTextView.setText(usuarioLogeado.getEmail());
-        }
+        /*if (usuarioLogeado != null ){
+            usuarioLogeadoTextView.setText("Bienvenido " + "/n" + usuarioLogeado.getEmail());
+        }*/
 
         //Accion del boton prueba para editar el registro
         editarRegistroButton.setOnClickListener(new View.OnClickListener() {

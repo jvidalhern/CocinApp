@@ -43,4 +43,7 @@
     <string name="precioDetalle">Precio</string>
     <string name="total">Total</string>
     <string name="fechaEntrega">Fecha entrega</string>
+    <string name="editar_registro">Editar registro</string>
+    <string name="editar_pedido">Editar pedido</string>
+    <string name="historio_pedidos">Historico</string>
 </resources>
