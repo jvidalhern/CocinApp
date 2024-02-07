@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SeleccionarRacionesActivity extends AppCompatActivity {
@@ -87,7 +88,10 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         String tituloEntrada = childSnapshot.getKey();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
-                        String precio = childSnapshot.child("precio").getValue(String.class);
+                        String precioPrev = childSnapshot.child("precio").getValue(String.class);
+                        double precioDecimal = Double.parseDouble(precioPrev);
+                        DecimalFormat df = new DecimalFormat("#.00");
+                        String precio = df.format(precioDecimal);
                         String stock = childSnapshot.child("stock").getValue(String.class);
 
                         Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock);

@@ -71,20 +71,20 @@
         android:layout_marginTop="200dp"
         android:orientation="vertical">
         <Button
-            android:id="@+id/hacerPedido"
+            android:id="@+id/hacerPedidobutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/nuevo_pedido" />
 
         <Button
-            android:id="@+id/editarPedido"
+            android:id="@+id/verPedidosButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/editar_pedido" />
+            android:text="@string/pedidos" />
         <Button
-            android:id="@+id/verPedidos"
+            android:id="@+id/verHistoricoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

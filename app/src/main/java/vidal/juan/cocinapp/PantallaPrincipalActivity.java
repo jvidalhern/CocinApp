@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class PantallaPrincipalActivity extends AppCompatActivity {
     //Items del xml
     TextView usuarioLogeadoTextView;
-    Button editarRegistroButton, cerrarSesionButton,hacerPedido;
+    Button editarRegistroButton, cerrarSesionButton, hacerPedidoButton,verPedidosButton,verHistoricoButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,9 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         usuarioLogeadoTextView = findViewById(R.id.usuarioLogeadoTextView);
         editarRegistroButton = findViewById(R.id.editarRegistroButton);
         cerrarSesionButton = findViewById(R.id.cerrarSesionButton);
-        hacerPedido = findViewById(R.id.hacerPedido);
+        hacerPedidoButton = findViewById(R.id.hacerPedidobutton);
+        verPedidosButton = findViewById(R.id.verPedidosButton);
+        verHistoricoButton = findViewById(R.id.verHistoricoButton);
         //FIREBASE; usuario logeado
         FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
         // Obtener el mail del usario logeado, todo Cambiar por el nombre de usuario con un bienvenidos?
@@ -41,15 +43,22 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         });
 
         //Accion del boton nuevo pedido
-        hacerPedido.setOnClickListener(new View.OnClickListener() {
+        hacerPedidoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hacerPedido();
             }
         });
 
+        //Accion del boton ver pedidos
+        verPedidosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verPedidos();
+            }
+        });
 
-        //TODO Accion del boton de prueba logout
+        // Accion del boton de logout
         cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +71,15 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
 
 
 
+    }
+
+    /**
+     * Método para pasar a la ventana ver pedidos en estado preparar o recoger
+     */
+    private void verPedidos() {
+        Intent verPedidosIntent = new Intent(PantallaPrincipalActivity.this, VerPedidoActivity.class);
+        startActivity(verPedidosIntent);
+        finish();
     }
 
     /**

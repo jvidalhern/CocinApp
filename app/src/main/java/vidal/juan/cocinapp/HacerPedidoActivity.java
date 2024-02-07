@@ -41,7 +41,9 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private double precioTotal;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    static final int apartirDiasRecoger = 5;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
+    //Formatear para guardar hora minutos y segundos
+    SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +133,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         final int mes = calendar.get(Calendar.MONTH);
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
         //Formatear la fecha a dia de hoy para pasarla al insert
-        fechaPedido = formato.format(calendar.getTime());
+        fechaPedido = formatoHoraMinSeg.format(calendar.getTime());
         DatePickerDialog datePickerDialog = new DatePickerDialog(this , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -151,6 +153,25 @@ public class HacerPedidoActivity extends AppCompatActivity {
                 confirmarPedidoButton.setVisibility(View.VISIBLE);
             }
         }, ano, mes, dia);
+
+        //Restriccion de fines de semana
+        datePickerDialog.getDatePicker().init(ano, mes, dia, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Verificar si la fecha seleccionada es fin de semana
+                calendar.set(year, monthOfYear, dayOfMonth);
+                int finde = calendar.get(Calendar.DAY_OF_WEEK);
+
+                // Verificar si la fecha seleccionada es sabado o domingo
+                if (finde == Calendar.SATURDAY || finde == Calendar.SUNDAY) {
+                    // Si es un fin de semana, error
+                    Toast.makeText(getApplicationContext(), "No se pueden seleccionar fines de semana", Toast.LENGTH_SHORT).show();
+
+                    // Restablecer la fecha seleccionada al dia a partir del cual se puede hacer el pedido
+                    datePickerDialog.getDatePicker().updateDate(ano, mes, dia);
+                }
+            }
+        });
 
         //Restriccion de fecha
         Calendar calendarioMin = Calendar.getInstance();
@@ -192,8 +213,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Crear el pedido a partir de los datos seleecionados
             //Pasar los detalles a un objeto que no implemente parcelable para que no inserte stability 0 en firebase
             transFormNoParcel();
-            //Crear el bojeto pedido con los datos
-            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"PedidoApp",fechaPedido,fechaEntrega,precioTotal,userId);
+            //Crear el bojeto pedido con los datos;El estado predeterminado al hacer un pedido es : Preparar
+            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"preparar",fechaPedido,fechaEntrega,precioTotal,userId);
             //Log para ver pedido
             Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
             // Insertar el nuevo pedido en la colección de pedidos verificando si ha ido bien o no

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo"
+    tools:context=".VerPedidoActivity">
+    <TextView
+        android:id="@+id/confirmarPedidoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:text="@string/pedidos_activos"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:textStyle="bold"
+        />
+
+    <ListView
+        android:id="@+id/listaPedidosActivos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/fondo"
+        android:descendantFocusability="beforeDescendants"
+
+        android:dividerHeight="8dp" />
+        <Button
+            android:id="@+id/cancelVerPedidosActivosButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cancelar"/>
+</LinearLayout>
