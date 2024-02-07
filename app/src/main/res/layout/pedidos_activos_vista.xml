@@ -9,32 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
-
-
-        <TableRow>
-            <TextView
-                android:gravity="left"
-                android:padding="8dp"
-                android:text="@string/fecha_pedido"
-                android:textStyle="bold" />
-            <TextView
-                android:gravity="left"
-                android:padding="8dp"
-                android:text="@string/fecha_entrega"
-                android:textStyle="bold" />
-            <TextView
-                android:gravity="left"
-                android:padding="8dp"
-                android:text="@string/estado"
-                android:textStyle="bold" />
-            <TextView
-                android:gravity="left"
-                android:padding="8dp"
-                android:text="@string/precio"
-                android:textStyle="bold" />
-        </TableRow>
-
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -43,31 +17,36 @@
                 android:id="@+id/textViewFechaPedido"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="8dp" />
 
             <TextView
                 android:id="@+id/textViewFechaEntrega"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="8dp" />
 
             <TextView
                 android:id="@+id/textViewEstado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="8dp" />
 
             <TextView
                 android:id="@+id/textViewPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="8dp" />
         </TableRow>
     </TableLayout>
-
+    <TextView
+        android:id="@+id/textViewComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="8dp" />
 
 </LinearLayout>
