@@ -8,28 +8,36 @@ import java.util.List;
 public class Pedido {
 
     private String comentarios;
-    private List<DetallePedido> detalles;
+    private List<DetallePedidoNoParcel> detalles;
     private String estado;
-    private String fechaPedido;
-    private String fechaEntrega;
-    private double precioTotal;
-    private String usuarioId;
+    private String fecha_pedido;
+    private String fecha_entrega;
+    private double precio_total;
+    private String usuario;
+    private Boolean editable = true;//PASAR a BBDD editable como true al registrar el pedido->esto habra que cambiarlo desde un servidor TODO hacer servicio APP java escritorio
 
 
     public Pedido() {
         // Constructor vacío requerido por Firebase
     }
-
-    public Pedido(String comentarios, List<DetallePedido> detalles, String estado, String fechaPedido, String fechaEntrega, double precioTotal, String usuarioId) {
+    //TODO se podria quitar el estado del constructor y pasarlo siempre como "preparar" al igual que se hace con editable
+    public Pedido(String comentarios, List<DetallePedidoNoParcel> detalles, String estado, String fecha_pedido, String fecha_entrega, double precio_total, String usuario) {
         this.comentarios = comentarios;
         this.detalles = detalles;
         this.estado = estado;
-        this.fechaPedido = fechaPedido;
-        this.fechaEntrega = fechaEntrega;
-        this.precioTotal = precioTotal;
-        this.usuarioId = usuarioId;
+        this.fecha_pedido = fecha_pedido;
+        this.fecha_entrega = fecha_entrega;
+        this.precio_total = precio_total;
+        this.usuario = usuario;
     }
 
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
 
     public String getComentarios() {
         return comentarios;
@@ -39,11 +47,11 @@ public class Pedido {
         this.comentarios = comentarios;
     }
 
-    public List<DetallePedido> getDetalles() {
+    public List<DetallePedidoNoParcel> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<DetallePedido> detalles) {
+    public void setDetalles(List<DetallePedidoNoParcel> detalles) {
         this.detalles = detalles;
     }
 
@@ -55,35 +63,48 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public String getFechaPedido() {
-        return fechaPedido;
+    public String getFecha_pedido() {
+        return fecha_pedido;
     }
 
-    public void setFechaPedido(String fechaPedido) {
-        this.fechaPedido = fechaPedido;
+    public void setFecha_pedido(String fecha_pedido) {
+        this.fecha_pedido = fecha_pedido;
     }
 
-    public String getFechaEntrega() {
-        return fechaEntrega;
+    public String getFecha_entrega() {
+        return fecha_entrega;
     }
 
-    public void setFechaEntrega(String fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
+    public void setFecha_entrega(String fecha_entrega) {
+        this.fecha_entrega = fecha_entrega;
     }
 
-    public double getPrecioTotal() {
-        return precioTotal;
+    public double getPrecio_total() {
+        return precio_total;
     }
 
-    public void setPrecioTotal(double precioTotal) {
-        this.precioTotal = precioTotal;
+    public void setPrecio_total(double precio_total) {
+        this.precio_total = precio_total;
     }
 
-    public String getUsuarioId() {
-        return usuarioId;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(String usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "comentarios='" + comentarios + '\'' +
+                ", detalles=" + detalles +
+                ", estado='" + estado + '\'' +
+                ", fecha_pedido='" + fecha_pedido + '\'' +
+                ", fecha_entrega='" + fecha_entrega + '\'' +
+                ", precio_total=" + precio_total +
+                ", usuario='" + usuario + '\'' +
+                '}';
     }
 }

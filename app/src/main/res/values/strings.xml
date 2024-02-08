@@ -36,4 +36,22 @@
     <string name="usuario">Correo electrónico</string>
     <string name="ver_pedidos">VER PEDIDOS</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="confirmarPedido">Confirmar pedido</string>
+    <string name="confirmacion_del_pedido">Confirmación del pedido</string>
+    <string name="nombreRacion">nombre detalle racion</string>
+    <string name="cantidadRacionDetalle">Cantidad\n</string>
+    <string name="precioDetalle">Precio</string>
+    <string name="total">Total</string>
+    <string name="fechaEntrega">Fecha entrega</string>
+    <string name="editar_registro">Editar registro</string>
+    <string name="editar_pedido">Editar pedido</string>
+    <string name="historio_pedidos">Historico</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="pedidos_activos">Pedidos Activos</string>
+    <string name="idPedidoActivo">IDPEDIDOActivo</string>
+    <string name="fecha_pedido">Fecha Pedido</string>
+    <string name="fecha_entrega">Fecha Entrega</string>
+    <string name="estado">Estado</string>
+    <string name="precio">Precio</string>
+    <string name="comentarios">"Comentarios: "</string>
 </resources>

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SeleccionarRacionesActivity extends AppCompatActivity {
@@ -56,10 +57,25 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                 // Obtener la cantidad total y el precio total
                 int cantidadTotal = obtenerCantidadTotal(datos);
                 double precioTotal = obtenerPrecioTotal(datos);
+                // Llamada al método para obtener los detalles seleccionados
+                ArrayList<DetallePedido> detallesSeleccionados = obtenerDetallesSeleccionados();
+                //Comprobar que se seleeciona algo para pasar a la siguiente activity
+                if (!detallesSeleccionados.isEmpty()) {
+/*
+                    //Prueba mostrar en el log lo que se ha seleccionado
+                    for (DetallePedido detalle : detallesSeleccionados) {
+                        Log.d("DetallesSeleccionados", "Nombre: " + detalle.getNombreRacion() +
+                                ", Cantidad: " + detalle.getCantidad() +
+                                ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
+                    }*/
+                    // Iniciar la actividad para escoger fecha; hay que pasar el arraylist
+                    //Pasar arraylist  detallesSeleccionados + preciototal a siguiente activity
+                    Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
+                    intent.putParcelableArrayListExtra("detallesSeleccionados", detallesSeleccionados);
+                    intent.putExtra("precioTotal", precioTotal);
+                    startActivity(intent);
+                }
 
-                // Iniciar la actividad HacerPedido (ajusta el nombre de la actividad según sea necesario)
-                Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -85,7 +101,10 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         String tituloEntrada = childSnapshot.getKey().toUpperCase();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
-                        String precio = childSnapshot.child("precio").getValue(String.class);
+                        String precioPrev = childSnapshot.child("precio").getValue(String.class);
+                        double precioDecimal = Double.parseDouble(precioPrev);
+                        DecimalFormat df = new DecimalFormat("#.00");
+                        String precio = df.format(precioDecimal);
                         String stock = childSnapshot.child("stock").getValue(String.class);
                         String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
 
@@ -244,6 +263,27 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             botonPedir.setText(textoBoton);
         }
     }
+    //Obtener lista de detalles
+    private ArrayList<DetallePedido> obtenerDetallesSeleccionados() {
+        ArrayList<DetallePedido> detallesSeleccionados = new ArrayList<>();
+
+        for (EncapsuladorEntradas entrada : datos) {
+            int cantidadActual = entrada.getCantidadActual();
+
+            // Solo agregar detalles con cantidad mayor que cero
+            if (cantidadActual > 0) {
+                DetallePedido detalle = new DetallePedido(
+                        entrada.get_textoTitulo(),
+                        cantidadActual,
+                        Double.parseDouble(entrada.get_Precio())
+                );
+                detallesSeleccionados.add(detalle);
+            }
+        }
+
+        return detallesSeleccionados;
+    }
+
 }
 
 
