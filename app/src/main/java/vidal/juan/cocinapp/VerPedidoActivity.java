@@ -28,7 +28,7 @@ public class VerPedidoActivity extends AppCompatActivity {
     private Button cancelVerPedidosActivosButton;
     private ListView listaPedidosActivos;
     private FirebaseUser usuarioLogeado ;
-    private ArrayList<Pedido> pedidosActivos = new ArrayList<>();
+    //private ArrayList<Pedido> pedidosActivos = new ArrayList<>();//tODO QUITAR LISTA DE AQUI PARA HACER EL CAMBIO EN REALTIME
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,15 +63,39 @@ public class VerPedidoActivity extends AppCompatActivity {
 
         // Realizar la consulta para obtener los pedidos del usuario con estado "preparar" o "recoger"
         databaseReference.child("pedidos").orderByChild("usuario").equalTo(usuarioLogeado.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange( DataSnapshot dataSnapshot) {
+                        ArrayList<Pedido> pedidosActivos = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Pedido pedido = snapshot.getValue(Pedido.class);
                             // Verificar si el pedido tiene estado "preparar" o "recoger"
                             if (pedido != null && ("preparar".equals(pedido.getEstado()) || "recoger".equals(pedido.getEstado()))) {
                                 pedidosActivos.add(pedido);
                             }
+                            //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
+                            listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
+                                @Override
+                                public void onEntrada(Pedido pedidoActivo, View view) {
+                                    if (pedidosActivos != null) {
+                                        //Refencias a los elementos de la vista
+
+                                        TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
+                                        TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
+                                        TextView textViewEstado = view.findViewById(R.id.textViewEstado);
+                                        TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
+                                        TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
+
+                                        //Cargar los datos en los campos
+
+                                        textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
+                                        textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
+                                        textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
+                                        textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()));
+                                        textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()));
+                                    }
+                                }
+                            });
                         }
                         //Prueba en log
                         for (Pedido pedido : pedidosActivos) {
@@ -80,29 +104,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                                     ", Estado: " + pedido.getEstado() +
                                     ", Precio: " + pedido.getPrecio_total());
                         }
-                        //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
-                        listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
-                            @Override
-                            public void onEntrada(Pedido pedidoActivo, View view) {
-                                if (pedidosActivos != null) {
-                                    //Refencias a los elementos de la vista
 
-                                    TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
-                                    TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
-                                    TextView textViewEstado = view.findViewById(R.id.textViewEstado);
-                                    TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
-                                    TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
-
-                                    //Cargar los datos en los campos
-
-                                    textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
-                                    textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
-                                    textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
-                                    textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()));
-                                    textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()));
-                                }
-                            }
-                        });
                     }
 
                     @Override

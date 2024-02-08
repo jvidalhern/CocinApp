@@ -218,7 +218,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Log para ver pedido
             Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
             // Insertar el nuevo pedido en la colección de pedidos verificando si ha ido bien o no
-            databaseReference.child("pedidos").child(nuevoPedidoId).setValue(nuevoPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
+            databaseReference.child("pedidos").child(nuevoPedidoId.substring(1)).setValue(nuevoPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             // DATO Agregado EN BBDD
