@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo"
+    tools:context=".VerPedidoActivity">
+    <TextView
+        android:id="@+id/confirmarPedidoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:gravity="center"
+        android:text="@string/pedidos_activos"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:textStyle="bold"
+        />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+    <TableRow>
+            <TextView
+                android:gravity="left"
+                android:padding="8dp"
+                android:text="@string/fecha_pedido"
+                android:background="@color/principal"
+                android:textStyle="bold" />
+            <TextView
+                android:gravity="left"
+                android:padding="8dp"
+                android:text="@string/fecha_entrega"
+                android:background="@color/principal"
+                android:textStyle="bold" />
+            <TextView
+                android:gravity="left"
+                android:padding="8dp"
+                android:text="@string/estado"
+                android:background="@color/principal"
+                android:textStyle="bold" />
+            <TextView
+                android:gravity="left"
+                android:padding="8dp"
+                android:text="@string/precio"
+                android:background="@color/principal"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+    <ListView
+        android:id="@+id/listaPedidosActivos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/fondo"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@color/principal"
+        android:dividerHeight="20dp" />
+        <Button
+            android:id="@+id/cancelVerPedidosActivosButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/volver"/>
+</LinearLayout>

@@ -8,29 +8,29 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
-public abstract class AdaptadorEntradas extends BaseAdapter {
+public abstract class AdaptadorPedidosActivos extends BaseAdapter {
 
-    private ArrayList<EncapsuladorEntradas> entradas;
+    private ArrayList<Pedido> pedidosActivos;
     private int R_layout_IdView;
-    protected Context contexto;
+    private Context contexto;
 
-    public AdaptadorEntradas(Context contexto, int R_Layout_IdView, ArrayList<EncapsuladorEntradas> entradas) {
+    public AdaptadorPedidosActivos(Context contexto, int R_Layout_IdView, ArrayList<Pedido> pedidosActivos) {
         super();
         this.contexto = contexto;
-        this.entradas = entradas;
+        this.pedidosActivos = pedidosActivos;
         this.R_layout_IdView = R_Layout_IdView;
     }
 
-    public abstract void onEntrada(EncapsuladorEntradas entrada, View view);
+    public abstract void onEntrada(Pedido pedidoActivo, View view);
 
     @Override
     public int getCount() {
-        return entradas.size();
+        return pedidosActivos.size();
     }
 
     @Override
-    public EncapsuladorEntradas getItem(int position) {
-        return entradas.get(position);
+    public Pedido getItem(int position) {
+        return pedidosActivos.get(position);
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class AdaptadorEntradas extends BaseAdapter {
             convertView = vi.inflate(R_layout_IdView, null);
         }
 
-        onEntrada(entradas.get(position), convertView);
+        onEntrada(pedidosActivos.get(position), convertView);
 
         return convertView;
     }
