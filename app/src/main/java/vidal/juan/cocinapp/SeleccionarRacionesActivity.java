@@ -237,7 +237,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private double obtenerPrecioTotal(ArrayList<EncapsuladorEntradas> datos) {
         double precioTotal = 0;
         for (EncapsuladorEntradas entrada : datos) {
-            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio());
+            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio().replace(",", "."));
         }
         return precioTotal;
     }
@@ -272,10 +272,12 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
             // Solo agregar detalles con cantidad mayor que cero
             if (cantidadActual > 0) {
+                // Reemplazar la coma con punto en el precio antes de convertirlo a double
+                String precioString = entrada.get_Precio().replace(",", ".");
                 DetallePedido detalle = new DetallePedido(
                         entrada.get_textoTitulo(),
                         cantidadActual,
-                        Double.parseDouble(entrada.get_Precio())
+                        Double.parseDouble(precioString)
                 );
                 detallesSeleccionados.add(detalle);
             }
@@ -283,6 +285,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
         return detallesSeleccionados;
     }
+
 
 }
 
