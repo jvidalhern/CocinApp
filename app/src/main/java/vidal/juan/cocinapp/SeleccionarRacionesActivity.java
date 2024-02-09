@@ -288,5 +288,3 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
 
 }
-
-
