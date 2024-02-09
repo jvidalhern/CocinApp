@@ -1,7 +1,5 @@
 package vidal.juan.cocinapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -78,7 +75,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                             Log.d("Pedido", "Fecha Pedido: " + pedido.getFecha_pedido() +
                                     ", Fecha Entrega: " + pedido.getFecha_entrega() +
                                     ", Estado: " + pedido.getEstado() +
-                                    ", Precio: " + pedido.getPrecio_total());
+                                    ", Precio: " + pedido.getPrecio_total() + "€");
                         }
                         //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
                         listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
@@ -97,9 +94,9 @@ public class VerPedidoActivity extends AppCompatActivity {
 
                                     textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                                     textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
-                                    textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
-                                    textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()));
-                                    textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()));
+                                    textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
+                                    textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total() + "€"));
+                                    textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf(pedidoActivo.getComentarios()));
                                 }
                             }
                         });
@@ -115,10 +112,15 @@ public class VerPedidoActivity extends AppCompatActivity {
     /**
      * Volver PPrincipal
      */
-    private  void volverPprincipal() {
+    private void volverPprincipal() {
         Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        volverPprincipal();
     }
 
 }

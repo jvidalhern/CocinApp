@@ -51,7 +51,8 @@
             android:inputType="textMultiLine|text|textCapSentences"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="50"/>
 
         <TextView
             android:id="@+id/apellidosLabel"
@@ -73,7 +74,8 @@
             android:inputType="textMultiLine|text|textCapSentences"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="100"/>
 
         <TextView
             android:id="@+id/departamentoLabel"
@@ -84,7 +86,8 @@
             android:text="@string/departamento"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="50"/>
 
         <EditText
             android:id="@+id/departamentoEditText"
@@ -115,7 +118,8 @@
             android:inputType="phone"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="9"/>
 
         <TextView
             android:id="@+id/emailLabel"
@@ -136,7 +140,8 @@
             android:inputType="textWebEmailAddress"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="60"/>
 
         <TextView
             android:id="@+id/contrasenaLabel"
@@ -157,7 +162,8 @@
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/repetirContrasenaLabel"
@@ -178,7 +184,8 @@
             android:inputType="textPassword"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLength="20"/>
 
         <Button
             android:id="@+id/registroButton"
