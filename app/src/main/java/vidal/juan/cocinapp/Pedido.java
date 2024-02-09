@@ -16,6 +16,16 @@ public class Pedido {
     private String usuario;
     private Boolean editable = true;//PASAR a BBDD editable como true al registrar el pedido->esto habra que cambiarlo desde un servidor TODO hacer servicio APP java escritorio
 
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    private String idPedido;
+
 
     public Pedido() {
         // Constructor vacío requerido por Firebase

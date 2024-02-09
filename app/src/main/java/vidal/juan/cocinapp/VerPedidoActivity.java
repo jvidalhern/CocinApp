@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                         ArrayList<Pedido> pedidosActivos = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Pedido pedido = snapshot.getValue(Pedido.class);
+                            pedido.setIdPedido(snapshot.getKey());
                             // Verificar si el pedido tiene estado "preparar" o "recoger"
                             if (pedido != null && ("preparar".equals(pedido.getEstado()) || "recoger".equals(pedido.getEstado()))) {
                                 pedidosActivos.add(pedido);
@@ -85,14 +87,31 @@ public class VerPedidoActivity extends AppCompatActivity {
                                         TextView textViewEstado = view.findViewById(R.id.textViewEstado);
                                         TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
                                         TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
+                                        TextView textViewIdPedido = view.findViewById(R.id.textViewIdPedido);
+                                        TableRow filaPedidoColor = view.findViewById(R.id.filaPedidoColor);
 
                                         //Cargar los datos en los campos
 
+                                        textViewIdPedido.setText("ID pedido: " + String.valueOf(pedidoActivo.getIdPedido()).substring(3,7));
                                         textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                                         textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
                                         textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
                                         textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()));
-                                        textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()));
+                                        textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()) );
+                                        //Cambiar colo en funcion del estado
+                                        if (pedidoActivo.getEstado().equals("preparar"))
+                                        {
+                                            filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                                            textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                                        } else if (pedidoActivo.getEstado().equals("recoger")) {
+                                                filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                                                textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                                                }
+
+                                                else{
+                                                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                                                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));}
+
                                     }
                                 }
                             });

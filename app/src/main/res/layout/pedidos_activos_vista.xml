@@ -4,13 +4,22 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical">
-
+    <TextView
+        android:id="@+id/textViewIdPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:background="@color/principal"
+        android:padding="8dp" />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
         <TableRow
+            android:id="@+id/filaPedidoColor"
             android:layout_width="match_parent"
+            android:background="@color/defPedidoColor"
             android:layout_height="wrap_content">
 
             <TextView
@@ -45,8 +54,9 @@
     <TextView
         android:id="@+id/textViewComentarios"
         android:layout_width="match_parent"
+        android:background="@color/defPedidoColor"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:gravity="center"
         android:padding="8dp" />
 
 </LinearLayout>
