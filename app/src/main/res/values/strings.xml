@@ -54,4 +54,6 @@
     <string name="estado">Estado</string>
     <string name="precio">Precio</string>
     <string name="comentarios">"Comentarios: "</string>
+    <string name="detallesDelPedido">Detalles del pedido</string>
+    <string name="volver">Volver</string>
 </resources>

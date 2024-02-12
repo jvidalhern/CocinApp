@@ -4,16 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VerPedidoActivity extends AppCompatActivity {
 
@@ -74,6 +74,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                             // Verificar si el pedido tiene estado "preparar" o "recoger"
                             if (pedido != null && ("preparar".equals(pedido.getEstado()) || "recoger".equals(pedido.getEstado()))) {
                                 pedidosActivos.add(pedido);
+                                Log.d("PedidoACTIVOENCNTRADO", "Pedido encontrado por id: " + pedido.toString());
                             }
                             //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
                             listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
@@ -89,6 +90,8 @@ public class VerPedidoActivity extends AppCompatActivity {
                                         TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
                                         TextView textViewIdPedido = view.findViewById(R.id.textViewIdPedido);
                                         TableRow filaPedidoColor = view.findViewById(R.id.filaPedidoColor);
+                                        LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
+
 
                                         //Cargar los datos en los campos
 
@@ -96,8 +99,17 @@ public class VerPedidoActivity extends AppCompatActivity {
                                         textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                                         textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
                                         textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
-                                        textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()));
+                                        textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()) + "\u20AC");
                                         textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()) );
+
+                                        //Evento de click en el pedido para pasar a los detalles del pedido
+                                        linarLayoutDetallePedido.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                verDetallesDEPedido(pedidoActivo.getIdPedido());
+                                            }
+                                        });
+
                                         //Cambiar colo en funcion del estado
                                         if (pedidoActivo.getEstado().equals("preparar"))
                                         {
@@ -131,6 +143,16 @@ public class VerPedidoActivity extends AppCompatActivity {
                         Log.e("Error obtener pedidos", "Error al obtener los pedidos:", databaseError.toException());
                     }
                 });
+    }
+
+    /**
+     * Método para pasar a la actividad de ver los detalles del peiddo clickado
+     */
+    private void verDetallesDEPedido(String idPedido) {
+        Intent verDetallesPedido = new Intent(VerPedidoActivity.this, VerDetallesPedidoActivity.class);
+        verDetallesPedido.putExtra("idPedido", idPedido);
+        startActivity(verDetallesPedido);
+        finish();
     }
 
     /**

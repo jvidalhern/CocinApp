@@ -82,7 +82,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
-                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()));
+                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
 
 
                 }
@@ -239,7 +239,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Insertar en indices para las busqeudas sencillas--TODO definir indices bien,
         }
 
-    /**
+    /**todo Esto pueder ser una interfaz
      * Método para transformar un detalle de pedido de la clase DetallePedido en un objeto exactamente igual de la clase DetallePedidoNoParcel pero sin que implemente la interfaz pacelable
      * Previamente usada para pasar los detalles entre activity, de no hacerlo se pasa el campo stability = 0 ya que firebase usa parcelable al insertar el objeto y no se puede ignorar pasarlo
      * La solución es crear un nuevo objeto exactamente igual sin implementar parcelable

@@ -16,7 +16,7 @@
             android:name=".VerPedidoActivity"
             android:exported="false" />
         <activity
-            android:name=".EditarPedidoActivity"
+            android:name=".VerDetallesPedidoActivity"
             android:exported="false" />
         <activity
             android:name=".HacerPedidoActivity"
