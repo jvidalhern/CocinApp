@@ -73,7 +73,15 @@ public class VerPedidoActivity extends AppCompatActivity {
                             pedido.setIdPedido(snapshot.getKey());
                             // Verificar si el pedido tiene estado "preparar" o "recoger"
                             if (pedido != null && ("preparar".equals(pedido.getEstado()) || "recoger".equals(pedido.getEstado()))) {
-                                pedidosActivos.add(pedido);
+                                //Gregar en orden para mostrar primero los de estador recoger
+                                if (pedido.getEstado().equals("recoger")) {
+                                    // Agregar pedido con estado "recoger" al principio de la lista
+                                    pedidosActivos.add(0, pedido);
+                                } else {
+                                    // Agregar pedidos con etado preparar
+                                    pedidosActivos.add(pedido);
+                                }
+
                                 Log.d("PedidoACTIVOENCNTRADO", "Pedido encontrado por id: " + pedido.toString());
                             }
                             //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos

@@ -24,7 +24,7 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    private String idPedido =" ";
+    private String idPedido;
 
 
     public Pedido() {
