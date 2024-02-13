@@ -103,7 +103,7 @@ public class VerPedidoActivity extends AppCompatActivity {
 
                                         //Cargar los datos en los campos
 
-                                        textViewIdPedido.setText("ID pedido: " + String.valueOf(pedidoActivo.getIdPedido()).substring(3,7));
+                                        textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3,7));
                                         textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                                         textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
                                         textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
