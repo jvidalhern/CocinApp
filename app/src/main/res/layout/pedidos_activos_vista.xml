@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:textStyle="bold"
+
         android:background="@color/principal"
+        android:textColor="@color/white"
         android:padding="8dp" />
     <TableLayout
         android:layout_width="match_parent"

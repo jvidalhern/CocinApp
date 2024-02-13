@@ -28,24 +28,28 @@
                 android:padding="8dp"
                 android:text="@string/fecha_pedido"
                 android:background="@color/principal"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
                 android:padding="8dp"
                 android:text="@string/fecha_entrega"
                 android:background="@color/principal"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
                 android:padding="8dp"
                 android:text="@string/estado"
                 android:background="@color/principal"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
                 android:padding="8dp"
                 android:text="@string/precio"
                 android:background="@color/principal"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>

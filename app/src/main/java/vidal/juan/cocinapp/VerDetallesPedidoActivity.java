@@ -22,7 +22,7 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
 
     private Button volverPedidosButton;
     private ListView listaDetalle;
-    private TextView fechaPedidoDetalle,fechaPedidoEntregaDetalle,cometariosPedidoDEtalle,totaPedidoDetalle;
+    private TextView fechaPedidoDetalleText,fechaEntregaDetalleText,cometariosDetalleText,totalDetalleText,idPedidoTextView;
     private String idPedido;
 
     @Override
@@ -32,10 +32,11 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
         //referencia a items xml
         volverPedidosButton = findViewById(R.id.volverPedidosButton);
         listaDetalle = findViewById(R.id.listaDetalle);
-        fechaPedidoDetalle = findViewById(R.id.fechaPedidoDetalle);
-        fechaPedidoEntregaDetalle = findViewById(R.id.fechaPedidoEntregaDetalle);
-        cometariosPedidoDEtalle = findViewById(R.id.cometariosPedidoDEtalle);
-        totaPedidoDetalle = findViewById(R.id.totaPedidoDetalle);
+        fechaPedidoDetalleText = findViewById(R.id.fechaPedidoDetalleText);
+        fechaEntregaDetalleText = findViewById(R.id.fechaEntregaDetalleText);
+        cometariosDetalleText = findViewById(R.id.cometariosDetalleText);
+        totalDetalleText = findViewById(R.id.totalDetalleText);
+        idPedidoTextView  = findViewById(R.id.idPedidoTextView);
 
         //Volver a la pantalla principal
         volverPedidosButton.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +67,11 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                     Log.d("PedidoEncontrado", "Pedido encontrado por id: " + pedido.toString());
                     //Pasar el pedido a lista
                     llenarLista(pedido);
-                    fechaPedidoDetalle.setText(getString(R.string.fecha_pedido) + "\n " + pedido.getFecha_pedido().toString());
-                    fechaPedidoEntregaDetalle.setText(getString(R.string.fechaEntrega)+ "\n " + pedido.getFecha_entrega().toString());
-                    cometariosPedidoDEtalle.setText(getString(R.string.comentarios)+ "\n " + pedido.getComentarios().toString());
-                    totaPedidoDetalle.setText(String.valueOf(getString(R.string.total)+ "\n " + pedido.getPrecio_total()) + "\u20AC" );
+                    fechaPedidoDetalleText.setText(pedido.getFecha_pedido().toString());
+                    fechaEntregaDetalleText.setText( pedido.getFecha_entrega().toString());
+                    cometariosDetalleText.setText(pedido.getComentarios().toString());
+                    totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
+                    idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
 
             }
             @Override

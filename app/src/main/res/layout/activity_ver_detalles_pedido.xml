@@ -7,7 +7,7 @@
     android:background="@drawable/fondo"
     tools:context=".VerDetallesPedidoActivity">
     <TextView
-        android:id="@+id/confirmarPedidoTextView"
+        android:id="@+id/detallestituloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-3dp"
@@ -15,7 +15,20 @@
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
+        android:layout_gravity="center"
         android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/idPedidoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_gravity="left"
+        android:background="@color/principal"
         />
 
     <ListView
@@ -31,37 +44,84 @@
     <TextView
         android:layout_marginTop="0dp"
         android:id="@+id/fechaPedidoDetalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="@string/fecha_pedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:background="@color/principal"
+        android:textColor="@color/white"
+         />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/fechaPedidoDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:background="@color/white"
+        />
     <TextView
         android:id="@+id/fechaPedidoEntregaDetalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="@string/fecha_entrega"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/fechaEntregaDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:background="@color/white"
+        />
     <TextView
         android:id="@+id/cometariosPedidoDEtalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="@string/comentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/cometariosDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:lines="3"
+        android:background="@color/white"
+        />
+
     <TextView
         android:id="@+id/totaPedidoDetalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:text="@string/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
         android:textSize="18sp"
-        android:layout_gravity="center"
-        android:textStyle="bold" />
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/totalDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:background="@color/white"
+        />
     <Button
         android:id="@+id/volverPedidosButton"
         android:layout_width="match_parent"
