@@ -31,7 +31,7 @@
         android:background="@drawable/fondo"
         android:descendantFocusability="beforeDescendants"
         android:divider="@android:color/black"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="0dp" />
 
     <TextView
         android:id="@+id/total"
