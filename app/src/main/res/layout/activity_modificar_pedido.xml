@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo"
-    tools:context=".VerDetallesPedidoActivity">
+    tools:context=".ModificarPedidoActivity">
     <TextView
-        android:id="@+id/detallestituloTextView"
+        android:id="@+id/detallesModtituloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-3dp"
-        android:text="@string/detallesDelPedido"
+        android:text="@string/modificar_pedido"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
@@ -20,7 +20,7 @@
         />
 
     <TextView
-        android:id="@+id/idPedidoTextView"
+        android:id="@+id/idPedidoModTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -32,7 +32,7 @@
         />
 
     <ListView
-        android:id="@+id/listaDetalle"
+        android:id="@+id/listaDetalleMod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
@@ -43,7 +43,7 @@
 
     <TextView
         android:layout_marginTop="0dp"
-        android:id="@+id/fechaPedidoDetalle"
+        android:id="@+id/fechaPedidoDetalleMod"
         android:text="@string/fecha_pedido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,10 +51,10 @@
         android:textSize="18sp"
         android:background="@color/principal"
         android:textColor="@color/white"
-         />
+        />
     <TextView
         android:layout_marginTop="0dp"
-        android:id="@+id/fechaPedidoDetalleText"
+        android:id="@+id/fechaPedidoDetalleTextMod"
         android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,18 +72,33 @@
         android:textSize="18sp"
         android:background="@color/principal"
         android:textColor="@color/white" />
-    <TextView
-        android:layout_marginTop="0dp"
-        android:id="@+id/fechaEntregaDetalleText"
-        android:text=""
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:paddingStart="12dp"
         android:background="@color/white"
-        />
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/fechaEntregaModTextview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/fecha_entrega"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:paddingStart="12dp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/seleccionarFechaEntregaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="@string/NuevafechaEntrega"
+            android:layout_weight="1"/>
+    </LinearLayout>
     <TextView
-        android:id="@+id/cometariosPedidoDEtalle"
+        android:id="@+id/cometariosPedidoDEtalleMod"
         android:text="@string/comentarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,21 +106,20 @@
         android:textSize="18sp"
         android:background="@color/principal"
         android:textColor="@color/white" />
-    <TextView
+    <EditText
         android:layout_marginTop="0dp"
-        android:id="@+id/cometariosDetalleText"
-        android:text=""
+        android:id="@+id/cometariosDetalleTextMod"
+        android:text="@string/comentarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingStart="12dp"
         android:lines="3"
-        android:editable="false"
         android:background="@color/white"
         tools:ignore="Deprecated" />
 
     <TextView
-        android:id="@+id/totaPedidoDetalle"
+        android:id="@+id/totaPedidoDetalleMod"
         android:text="@string/total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -115,7 +129,7 @@
         android:textColor="@color/white" />
     <TextView
         android:layout_marginTop="0dp"
-        android:id="@+id/totalDetalleText"
+        android:id="@+id/totalDetalleTextMod"
         android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,46 +137,16 @@
         android:paddingStart="12dp"
         android:background="@color/white"
         />
-    <TextView
-        android:id="@+id/textModPedidoInfo"
-        android:text="@string/modPedidoMensaje"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:textSize="18sp"
-        android:background="@color/recogerPedidoColor"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black" />
-
-    <LinearLayout
-        android:id="@+id/layoutModPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/eliminarPedidoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="@string/eliminar"
-            />
-        <Button
-            android:id="@+id/modPediddoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginStart= "8dp"
-            android:layout_weight="1"
-            android:text="@string/modPedido"
-            />
-    </LinearLayout>
-
     <Button
-        android:id="@+id/volverPedidosButton"
+        android:id="@+id/confirmModPedidoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/modPedido"
+        />
+    <Button
+        android:id="@+id/volverDetallesPedidosButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
