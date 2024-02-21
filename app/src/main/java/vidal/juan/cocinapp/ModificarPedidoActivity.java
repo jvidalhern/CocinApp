@@ -1,5 +1,6 @@
 package vidal.juan.cocinapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -13,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,13 +62,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 volverDetallePedido();
             }
         });
-        //Modificar pedido
-        confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmModificarPedido();
-            }
-        });
+
         //Seleccionar nueva fecha pedido
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +79,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         buscarPedido(idPedido);
 
     }
-
-    private void confirmModificarPedido() {
-
-    }
-
-
 
     /**
      * Buscar el pedido por el id de la ativity anterior
@@ -112,6 +103,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
                 //Pasar el pedido a lista
                 llenarLista(pedido);
+                //Modificar pedido
+
+                confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        confirmModificarPedido(pedido,databaseReference);
+                    }
+                });
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -306,5 +305,27 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         datePickerDialog.show();
 
 
+    }
+    private void confirmModificarPedido(Pedido pedido, DatabaseReference databaseReference) {
+        String totalString = totalDetalleTextMod.getText().toString();
+        pedido.setPrecio_total(Double.parseDouble( totalString.substring(0, totalString.length() - 1)));
+        pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
+        pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
+        //Actulizar
+        databaseReference.setValue(pedido).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // DATO MODIFICADO EN BBDD
+                        Toast.makeText(ModificarPedidoActivity.this,"Pedido modificado "  , Toast.LENGTH_LONG).show();
+                        //volver a l
+                        volverDetallePedido();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ModificarPedidoActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }
