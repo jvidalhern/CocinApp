@@ -2,13 +2,13 @@ package vidal.juan.cocinapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,15 +19,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ModificarPedidoActivity extends AppCompatActivity {
 
-    private Button volverDetallesPedidosButton,confirmModPedidoButton;
+    private Button volverDetallesPedidosButton,confirmModPedidoButton,seleccionarFechaEntregaButton;
     private ListView listaDetalleMod;
     private TextView fechaPedidoDetalleTextMod,fechaEntregaModTextview,cometariosDetalleTextMod,totalDetalleTextMod,idPedidoModTextView;
     private String idPedido;
     private double precioTotalPedido = 0;
+    private String nuevaFechaEntrega, fechaPedido;
+    // Formatear la fecha al formato deseado: aaaa-MM-dd
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    //Formatear para guardar hora minutos y segundos
+    SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         //referencia a items xml
         volverDetallesPedidosButton = findViewById(R.id.volverDetallesPedidosButton);
         confirmModPedidoButton = findViewById(R.id.confirmModPedidoButton);
-
+        seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
         listaDetalleMod = findViewById(R.id.listaDetalleMod);
         fechaPedidoDetalleTextMod = findViewById(R.id.fechaPedidoDetalleTextMod);
         fechaEntregaModTextview = findViewById(R.id.fechaEntregaModTextview);
@@ -52,7 +59,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 volverDetallePedido();
             }
         });
-
         //Modificar pedido
         confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +66,17 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 confirmModificarPedido();
             }
         });
-
+        //Seleccionar nueva fecha pedido
+        seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                obtenerFechaDatepicker();
+            }
+        });
 
         // Recuperar detalles seleccionados y precio total de la anterior actividad
         idPedido = getIntent().getStringExtra("idPedido");
+        //Log
         Log.d("PedidoRecib", "Pedido: " + idPedido);
         //buscar y mostrar los detalles del pedido a partir de id
         buscarPedido(idPedido);
@@ -71,6 +84,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     }
 
     private void confirmModificarPedido() {
+
     }
 
 
@@ -220,5 +234,77 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         startActivity(intent);
 
         finish();
+    }
+
+    /**
+     * Metodo para obener la fecha seleccionada en el datepicker; Tiene restricion mediante la CONSTANTE a paritr dias recoge
+     * Se muestran los dias siempre a partir de esta constante.
+     */
+    private void obtenerFechaDatepicker() {
+
+        //Obtener referencias al dia de hoy
+        final Calendar calendar =  Calendar.getInstance();
+        final int ano = calendar.get(Calendar.YEAR);
+        final int mes = calendar.get(Calendar.MONTH);
+        final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        //Formatear la fecha a dia de hoy para pasarla al insert
+        fechaPedido = formatoHoraMinSeg.format(calendar.getTime());
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this , new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                //Setear calendar con la fecha seleccionada
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+                // Validar si la fecha seleccionada es igual al día de hoy
+                Calendar fechaSeleccionada = Calendar.getInstance();
+                fechaSeleccionada.set(year, month, day);
+                //Que la fecha seleccionada no sea el dia de hoy
+                if (fechaSeleccionada.get(Calendar.YEAR) == ano &&
+                        fechaSeleccionada.get(Calendar.MONTH) == mes &&
+                        fechaSeleccionada.get(Calendar.DAY_OF_MONTH) == dia) {
+                    Toast.makeText(ModificarPedidoActivity.this, "Seleccione una fecha diferente al día de hoy", Toast.LENGTH_SHORT).show();
+                }else {
+                    String fechaFormateada = formato.format(calendar.getTime());
+                    //Que hacer cuando se seleccione la fecha
+                    Toast.makeText(ModificarPedidoActivity.this, "Nueva fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
+                    nuevaFechaEntrega = fechaFormateada;
+                    Log.d("FechaSel", "FechaSel: " + nuevaFechaEntrega);
+                    Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
+                    fechaEntregaModTextview.setText(nuevaFechaEntrega);
+                }
+            }
+        }, ano, mes, dia);
+        // Restricción para que no se pueda seleccionar el día de hoy
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        //Restriccion de fines de semana
+        datePickerDialog.getDatePicker().init(ano, mes, dia, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // Verificar si la fecha seleccionada es fin de semana
+                calendar.set(year, monthOfYear, dayOfMonth);
+                int finde = calendar.get(Calendar.DAY_OF_WEEK);
+
+                // Verificar si la fecha seleccionada es sabado o domingo
+                if (finde == Calendar.SATURDAY || finde == Calendar.SUNDAY) {
+                    // Si es un fin de semana, error
+                    Toast.makeText(getApplicationContext(), "No se pueden seleccionar fines de semana", Toast.LENGTH_SHORT).show();
+
+                    // Restablecer la fecha seleccionada al dia a partir del cual se puede hacer el pedido
+                    datePickerDialog.getDatePicker().updateDate(ano, mes, dia);
+                }
+            }
+        });
+
+        //Restriccion de fecha
+        Calendar calendarioMin = Calendar.getInstance();
+        //Apartir de los dias que diga ESTHER se puede recoger el pedido todo esto se hace con una constante local; habria que hacerlo de BBDD para que sea mas sencillo de configurar
+        calendarioMin.add(Calendar.DAY_OF_MONTH, + apartirDiasRecoger);
+        //Setear el dia minimo
+        datePickerDialog.getDatePicker().setMinDate(calendarioMin.getTimeInMillis() - 1000);
+        //TODO hace falta setear dia máximo?
+        datePickerDialog.show();
+
+
     }
 }
