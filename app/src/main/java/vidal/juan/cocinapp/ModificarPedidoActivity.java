@@ -216,7 +216,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                             String totalStringAnt = totalDetalleTextMod.getText().toString();
                                             precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
                                             //if(detallePedido.getCantidad() > 0)
-                                            totalDetalleTextMod.setText(String.valueOf(precioAnt - precioUnaracion) + "\u20AC");
+                                            //totalDetalleTextMod.setText(String.valueOf(precioAnt - precioUnaracion) + "\u20AC");
+                                            totalDetalleTextMod.setText(String.format("%.2f",precioAnt - precioUnaracion) + "\u20AC");
                                             //totalDetalleTextMod.setText(String.format("%.2f", precioTotalPedido) + "\u20AC");
 
                                     }
