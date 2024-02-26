@@ -72,11 +72,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             }
         });
 
-        // Recuperar detalles seleccionados y precio total de la anterior actividad
+        // Recuperar id pedido del pedido seleccionado en la anterior actividad
         idPedido = getIntent().getStringExtra("idPedido");
         //Log
-        Log.d("PedidoRecib", "Pedido: " + idPedido);
-        //buscar y mostrar los detalles del pedido a partir de id
+        Log.d("idPedidoRecib", "Pedido: " + idPedido);
+        // Buscar y mostrar los detalles del pedido a partir de id
         buscarPedido(idPedido);
 
     }
@@ -88,35 +88,25 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     private void buscarPedido(String idPedido) {
         // Referencia a la base de datos mediante el id pedido
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("pedidos").child(idPedido);
-        Log.d("PedidoBuscar", "Pedido buscado : " + idPedido);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Obj Pedido encontrado a partir del Idpedido
-
                 Pedido pedido = dataSnapshot.getValue(Pedido.class);
-                //Almacenar el pedido orginal para luego comparar los datos a actulizar en el stock
-                Pedido pedidoOrginal = new Pedido(pedido.getComentarios(),pedido.getDetalles(),pedido.getEstado(),pedido.getFecha_pedido(),pedido.getFecha_entrega(),pedido.getPrecio_total(),pedido.getUsuario());
-                Log.e("stockdetalles", "detales original."+ pedidoOrginal.toString());
-                Log.e("stockdetalles", "detalles mod."+ pedido.toString());
-                //Todo quitar Log.d("PedidoEncontrado", "Pedido encontrado por id: " + pedido.toString());
-
-
+                Log.e("PedidoObjetoEncontrado", "pedido orig."+ pedido.toString());
+                //Valores del pedido a la vista
                 fechaPedidoDetalleTextMod.setText(pedido.getFecha_pedido().toString());
                 fechaEntregaModTextview.setText( pedido.getFecha_entrega().toString());
                 cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
                 totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
                 idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
-                //Pasar el pedido a lista
+                //Pasar el pedido a lista en la que se mostrarn sus detalles
                 llenarLista(pedido);
-                Log.e("stockdetalles", "Traslenar detales original."+ pedidoOrginal.toString());
-                Log.e("stockdetalles", "Tras lenar detalles mod."+ pedido.toString());
-                //Modificar pedido
-
+                //Accion del boton modificar pedido
                 confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        confirmModificarPedido(pedido,databaseReference);
+                        //confirmModificarPedido(pedido,databaseReference);
                     }
                 });
             }
@@ -145,13 +135,13 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     modDetalleBotonQuitar = view.findViewById(R.id.modDetalleBotonQuitar);
                     modDetalleBotonAnadir = view.findViewById(R.id.modDetalleBotonAnadir);
 
-                    //Valores inciales
+                    //Valores inciales de la vista de la lista
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                     precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
-                    //Obtener datso de la racion por nombre de la racion para saber el max y el stock limitantes en la modificación
+                    //Obtener datos de la racion por nombre de la racion para saber el max y el stock limitantes en la modificación
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("raciones").child(detallePedido.getRacion());
-                    Log.d("Racion nombre", "Datos racion buscada : " + detallePedido.getRacion());
+                    Log.d("RacionNombre", "Datos racion buscada : " + detallePedido.getRacion());
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -159,7 +149,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
                             //Obj Racion encontrado a partir del nombre de la racion
                             Racion racion = dataSnapshot.getValue(Racion.class);
-                            Log.d("RacionEncontrada", "Racion encontrada por id: " + racion.toString());
+                            Log.d("RacionEncontradaStock", "Stock de la racion " + detallePedido.getRacion() + ": " + racion.getStock() );
                             //El precio de una racion para añadir o quitar al total
                             double precioUnaracion = Double.parseDouble(racion.getPrecio());
                             // Configura los listeners para los botones
@@ -170,7 +160,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     int cantidadActual = detallePedido.getCantidad();
                                     int cantidadMaxima = racion.getPedido_max();
                                     int stock = Integer.parseInt(racion.getStock());
-
+                                    Log.d("RacionEncontradaStockAntes+", "Stock de la racion antes " + detallePedido.getRacion() + ": " + racion.getStock() );
                                     if (cantidadActual < Math.min(cantidadMaxima, stock)) {
                                         detallePedido.setCantidad(cantidadActual + 1);//Aumentar la cantidad en 1 del pedido
                                         racion.setStock(String.valueOf(stock-1));//Disminuir 1 de sotck
@@ -241,16 +231,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     });
                 }
             }
-        });
+        });//Fin llenar lista
 
     }
-/*
-    private void recalcularTotalPedido(Pedido pedido)
-    {
-        for (DetallePedidoNoParcel detalle : listaDetalles) {
-            // Hacer algo con el detalle actual
-        }
-    }*/
+
 
     /**
      * Volver Detalles del pedido
