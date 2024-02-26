@@ -173,7 +173,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
                                     if (cantidadActual < Math.min(cantidadMaxima, stock)) {
                                         detallePedido.setCantidad(cantidadActual + 1);//Aumentar la cantidad en 1 del pedido
-                                        racion.setStock(String.valueOf(stock-1));
+                                        racion.setStock(String.valueOf(stock-1));//Disminuir 1 de sotck
+                                        Log.d("StockActual+", "Stock del producto : " + racion.getStock());
                                         cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));//Mostrar la actu en la view
                                         double nuevoPrecio = Double.parseDouble(racion.getPrecio())*(detallePedido.getCantidad());
                                         detallePedido.setPrecio(nuevoPrecio);//Actualizar el precio del pedido
@@ -186,7 +187,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         String totalStringAnt = totalDetalleTextMod.getText().toString();
                                         precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
                                         totalDetalleTextMod.setText(String.valueOf(precioAnt +  precioUnaracion) +  "\u20AC");
-                                        Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
+                                        //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
 
                                     } else {
@@ -205,7 +206,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     if (detallePedido.getCantidad() > 0) {
-                                        racion.setStock(String.valueOf(Integer.parseInt(racion.getStock())+1));
+                                        int stock = Integer.parseInt(racion.getStock());
+                                        racion.setStock(String.valueOf(stock+1));
+                                        Log.d("StockActual-", "Stock del producto : " + (racion.getStock()));
                                         detallePedido.setCantidad(detallePedido.getCantidad() - 1);
                                         if (detallePedido.getCantidad() == 0){
                                             Toast.makeText(ModificarPedidoActivity.this, detallePedido.getRacion() + " se eliminará del pedido", Toast.LENGTH_SHORT).show();
