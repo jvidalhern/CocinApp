@@ -134,14 +134,16 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     Button modDetalleBotonQuitar,modDetalleBotonAnadir;
                     modDetalleBotonQuitar = view.findViewById(R.id.modDetalleBotonQuitar);
                     modDetalleBotonAnadir = view.findViewById(R.id.modDetalleBotonAnadir);
-
+                    Log.d("RacionNombre", "Datos racion buscada : " + detallePedido.getRacion());
+                    Log.d("detallesAlaLista", "Datos introducidos a la lista : " + pedido.getDetalles().toString());
+                    Log.d("detallesAlaLista", "Tamaño de la lista : " + pedido.getDetalles().size());
                     //Valores inciales de la vista de la lista
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                     precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
+
                     //Obtener datos de la racion por nombre de la racion para saber el max y el stock limitantes en la modificación
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("raciones").child(detallePedido.getRacion());
-                    Log.d("RacionNombre", "Datos racion buscada : " + detallePedido.getRacion());
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,6 +192,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     }
 
                                 }
+
                             });
                             // Boton quitar
                             modDetalleBotonQuitar.setOnClickListener(new View.OnClickListener() {
@@ -229,10 +232,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         //Catidad max de la ración
                         //Stock atual de la ración
                     });
+
                 }
             }
         });//Fin llenar lista
-
+        ((AdaptadorDetallesNoparcel) listaDetalleMod.getAdapter()).notifyDataSetChanged();
     }
 
 
