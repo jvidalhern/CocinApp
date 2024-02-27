@@ -81,68 +81,70 @@ public class VerPedidoActivity extends AppCompatActivity {
                                     // Agregar pedidos con etado preparar
                                     pedidosActivos.add(pedido);
                                 }
-
-                                Log.d("PedidoACTIVOENCNTRADO", "Pedido encontrado por id: " + pedido.toString());
                             }
-                            //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
-                            listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
-                                @Override
-                                public void onEntrada(Pedido pedidoActivo, View view) {
-                                    if (pedidosActivos != null) {
-                                        //Refencias a los elementos de la vista
+                        }
+                        //Ver el a list de pediddos acivos
+                        for (Pedido pedidoe : pedidosActivos) {
+                            Log.d("PedidoActivos", "Fecha Pedido: " + pedidoe.getFecha_pedido() +
+                                    ", Fecha Entrega: " + pedidoe.getFecha_entrega() +
+                                    ", Estado: " + pedidoe.getEstado() +
+                                    ", Precio: " + pedidoe.getPrecio_total());
+                        }
+                        Log.d("TamPedidoActivos", "Tamaño de la lista de pedidosActivos: " + pedidosActivos.size());
+                        //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
+                        listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
 
-                                        TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
-                                        TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
-                                        TextView textViewEstado = view.findViewById(R.id.textViewEstado);
-                                        TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
-                                        TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
-                                        TextView textViewIdPedido = view.findViewById(R.id.textViewIdPedido);
-                                        TableRow filaPedidoColor = view.findViewById(R.id.filaPedidoColor);
-                                        LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
+                            @Override
+                            public void onEntrada(Pedido pedidoActivo, View view) {
+                                Log.d("TamPedidoActivosDentroAdapter", "Tamaño de la lista de pedidosActivos Dentro del adapter: " + pedidosActivos.size());
+                                if (pedidosActivos != null) {
+                                    //Refencias a los elementos de la vista
 
+                                    TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
+                                    TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
+                                    TextView textViewEstado = view.findViewById(R.id.textViewEstado);
+                                    TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
+                                    TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
+                                    TextView textViewIdPedido = view.findViewById(R.id.textViewIdPedido);
+                                    TableRow filaPedidoColor = view.findViewById(R.id.filaPedidoColor);
+                                    LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
+                                    Log.d("PedidoList", "Pedido encontrado por id: " + pedidoActivo.getIdPedido());
 
-                                        //Cargar los datos en los campos
+                                    //Cargar los datos en los campos
 
-                                        textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3,7));
-                                        textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
-                                        textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
-                                        textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
-                                        textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()) + "\u20AC");
-                                        textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()) );
+                                    textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3,7));
+                                    textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
+                                    textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
+                                    textViewEstado.setText(String.valueOf (pedidoActivo.getEstado()));
+                                    textViewPrecio.setText(String.valueOf (pedidoActivo.getPrecio_total()) + "\u20AC");
+                                    textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf (pedidoActivo.getComentarios()) );
 
-                                        //Evento de click en el pedido para pasar a los detalles del pedido
-                                        linarLayoutDetallePedido.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                verDetallesDEPedido(pedidoActivo.getIdPedido());
-                                            }
-                                        });
+                                    //Evento de click en el pedido para pasar a los detalles del pedido
+                                    linarLayoutDetallePedido.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            verDetallesDEPedido(pedidoActivo.getIdPedido());
+                                        }
+                                    });
 
-                                        //Cambiar colo en funcion del estado
-                                        if (pedidoActivo.getEstado().equals("preparar"))
-                                        {
-                                            filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
-                                            textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
-                                        } else if (pedidoActivo.getEstado().equals("recoger")) {
-                                                filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
-                                                textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
-                                                }
-
-                                                else{
-                                                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
-                                                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));}
-
+                                    //Cambiar colo en funcion del estado
+                                    if (pedidoActivo.getEstado().equals("preparar"))
+                                    {
+                                        filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                                        textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                                    } else if (pedidoActivo.getEstado().equals("recoger")) {
+                                        filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                                        textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
                                     }
+
+                                    else{
+                                        filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                                        textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));}
+
                                 }
-                            });
-                        }
-                        //Prueba en log
-                        for (Pedido pedido : pedidosActivos) {
-                            Log.d("Pedido", "Fecha Pedido: " + pedido.getFecha_pedido() +
-                                    ", Fecha Entrega: " + pedido.getFecha_entrega() +
-                                    ", Estado: " + pedido.getEstado() +
-                                    ", Precio: " + pedido.getPrecio_total());
-                        }
+                            }
+                        });//Fin llenar lista pedido
+
 
                     }
 
