@@ -18,9 +18,13 @@ public abstract class AdaptadorDetallesNoparcel extends BaseAdapter {
     public AdaptadorDetallesNoparcel(Context contexto, int R_Layout_IdView, List<DetallePedidoNoParcel> detallesPedidoNoParcel) {
         super();
         this.contexto = contexto;
-        this.detallesPedidoNoParcel = detallesPedidoNoParcel;
+        this.detallesPedidoNoParcel = new ArrayList<>(); // Crear una nueva lista vacía
         this.R_layout_IdView = R_Layout_IdView;
+        if (detallesPedidoNoParcel != null) {
+            this.detallesPedidoNoParcel.addAll(detallesPedidoNoParcel); // Agregar los detalles existentes a la lista
+        }
     }
+
 
     public abstract void onEntrada(DetallePedidoNoParcel detallePedidoNoParcel, View view);
 
@@ -45,6 +49,7 @@ public abstract class AdaptadorDetallesNoparcel extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater)
                     contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R_layout_IdView, null);
+
         }
 
         onEntrada(detallesPedidoNoParcel.get(position), convertView);

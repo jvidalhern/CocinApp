@@ -1,5 +1,6 @@
 package vidal.juan.cocinapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -126,6 +127,19 @@ public class VerPedidoActivity extends AppCompatActivity {
     }
 
     private void verDetallesDEPedido(String idPedido) {
+        //Consultar raciones todo quitar esto
+        DatabaseReference databaseReferenceRacion = FirebaseDatabase.getInstance().getReference().child("raciones");
+        databaseReferenceRacion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Racion racion = snapshot.getValue(Racion.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         Intent verDetallesPedido = new Intent(VerPedidoActivity.this, VerDetallesPedidoActivity.class);
         verDetallesPedido.putExtra("idPedido", idPedido);
         startActivity(verDetallesPedido);
