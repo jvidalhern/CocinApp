@@ -35,7 +35,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     private TextView fechaPedidoDetalleTextMod,fechaEntregaModTextview,cometariosDetalleTextMod,totalDetalleTextMod,idPedidoModTextView;
     private String idPedido;
     private double precioTotalPedido = 0;
-
+    private  final Racion [] racionOriginal = {null};
     private String nuevaFechaEntrega, fechaPedido;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -164,7 +164,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             //Racion aux
-                            final Racion [] racionOriginal = {null};
+
                             //Obj racion de la BBDD
                             Racion racion = dataSnapshot.getValue(Racion.class);
                             racionOriginal[0] = new Racion(racion.getAlergenos(),racion.getDescripcion(),racion.getFoto(),racion.getPedido_max(),racion.getPrecio(),racion.getStock());
@@ -174,13 +174,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             final int[] modCantidad = {0};
                             if(racionOriginal[0] != null) {
                                 //Log.d("ExecRacionEQ", "Las raciones son iguales" + dataSnapshot.getKey()  + (detallePedido.getRacion()));
-                                //Log.d("ExecRacionEnStock", "Stock Al encontrar Racion " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
+                                Log.d("ExecRacionEnStock", "Stock Al encontrar Racion " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
 
                                 // Configura los listeners para los botones
                                 //Boton añadir
                                 modDetalleBotonAnadir.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        Log.d("ExecRacionEnStock", "Stock al hacer + " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
                                         //El precio de una racion para añadir o quitar al total
                                         double precioUnaracion = Double.parseDouble(racionOriginal[0].getPrecio());
                                         int cantidadActual = detallePedido.getCantidad();
@@ -261,8 +262,15 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 });
 
                                 //Boton Modificar el pedido
+                                confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        updateStock(racionOriginal[0],dataSnapshot);
+                                    }
+                                });
 
                             }
+                            Log.d("ExecRacionEnStock", "Stock Al encontrar Racion " + detallePedido.getRacion() + ": " + stockOrig[0]);
                         }//Fin ondatachange
 
                         @Override
@@ -280,6 +288,25 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         });//Fin llenar lista
         Log.d("ExecTamLista", "tamaño de la lista: " + listaDetalleMod.getAdapter().getCount());
         ((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
+    }
+
+    private void updateStock(Racion racion, DataSnapshot dataSnapshotRacion) {
+        dataSnapshotRacion.getRef().setValue(racion).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // DATO MODIFICADO EN BBDD
+                        Toast.makeText(ModificarPedidoActivity.this,"Stock modificado "  , Toast.LENGTH_LONG).show();
+                        Log.d("StockAtualizado", "Stock actulizado:  "+ racion.toString());
+                        //volver a l
+                        volverDetallePedido();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ModificarPedidoActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
