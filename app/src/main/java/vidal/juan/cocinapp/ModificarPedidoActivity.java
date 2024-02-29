@@ -2,6 +2,7 @@ package vidal.juan.cocinapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -162,19 +163,18 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     valueEventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //Almacenar el total del pedido
-                            final int[] modCantidad = {0};
-                            //Obj Racion encontrado a partir del nombre de la racion
-                            Racion racion = dataSnapshot.getValue(Racion.class);
+                            //Racion aux
                             final Racion [] racionOriginal = {null};
-                            racionOriginal[0] = racion;
+                            //Obj racion de la BBDD
+                            Racion racion = dataSnapshot.getValue(Racion.class);
+                            racionOriginal[0] = new Racion(racion.getAlergenos(),racion.getDescripcion(),racion.getFoto(),racion.getPedido_max(),racion.getPrecio(),racion.getStock());
                             //Stock original
                             final int[] stockOrig = {0};
                             stockOrig[0] = Integer.parseInt(racionOriginal[0].getStock());
-                            //Log.d("ExecRacion", "Stock del detalle " + detallePedido.getRacion() + "" + racion.getStock());
-                            if(racionOriginal[0] != null && dataSnapshot.getKey().equals(detallePedido.getRacion())) {
+                            final int[] modCantidad = {0};
+                            if(racionOriginal[0] != null) {
                                 //Log.d("ExecRacionEQ", "Las raciones son iguales" + dataSnapshot.getKey()  + (detallePedido.getRacion()));
-                                Log.d("ExecRacionEnStock", "Stock de la racion " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
+                                //Log.d("ExecRacionEnStock", "Stock Al encontrar Racion " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
 
                                 // Configura los listeners para los botones
                                 //Boton añadir
@@ -190,10 +190,16 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         Log.d("ExecRaStockAntes+", "Stock antes de hacer click en + " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
                                         Log.d("ValorModCantidadA", "Valor de mod cantidad Antes de if: " + modCantidad[0] );
                                         if (modCantidad[0] < Math.min(cantidadMaxima, stockOrig[0])) {
-                                            detallePedido.setCantidad(cantidadActual + 1);//Aumentar la cantidad en 1 del pedido
+                                            //Aumentar las veces que se dio a +
                                             modCantidad[0] += 1;
+                                            //Modificar el stock
+                                            int stock = Integer.parseInt(racionOriginal[0].getStock());
+                                            racionOriginal[0].setStock(String.valueOf(stock- 1));//Disminuir 1 de sotck
+
+                                            detallePedido.setCantidad(cantidadActual + 1);//Aumentar la cantidad en 1 del pedido
+
                                             Log.d("ValorModCantidadB", "Valor de mod cantidad depues de if: " + modCantidad[0] );
-                                            racionOriginal[0].setStock(String.valueOf(stockOrig[0] - 1));//Disminuir 1 de sotck
+
                                             Log.d("ExecRaStockdesp+", "Stock despues de hacer click en + " + detallePedido.getRacion() + ": " + racionOriginal[0].getStock());
                                             cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));//Mostrar la actu en la view
                                             double nuevoPrecio = Double.parseDouble(racionOriginal[0].getPrecio()) * (detallePedido.getCantidad());
@@ -209,7 +215,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                             totalDetalleTextMod.setText(String.valueOf(precioAnt + precioUnaracion) + "\u20AC");
                                             //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
-
                                         } else {
                                             if (modCantidad[0] == cantidadMaxima) {
                                                 Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
@@ -218,7 +223,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                                 Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
                                             }
                                         }
-
                                     }
 
                                 });
@@ -227,17 +231,18 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         //El precio de una racion para añadir o quitar al total
-                                        double precioUnaracion = Double.parseDouble(racion.getPrecio());
+                                        double precioUnaracion = Double.parseDouble(racionOriginal[0].getPrecio());
                                         if (detallePedido.getCantidad() > 0) {
-                                            int stock = Integer.parseInt(racion.getStock());
-                                            racion.setStock(String.valueOf(stock + 1));
-                                            Log.d("StockActual-", "Stock del producto : " + (racion.getStock()));
+                                            int stock = Integer.parseInt(racionOriginal[0].getStock());
+                                            racionOriginal[0].setStock(String.valueOf(stock + 1));
+                                            Log.d("StockActual-", "Stock del producto : " + racionOriginal[0].getDescripcion() + " " + (racionOriginal[0].getStock()));
+                                            //Disminuir cantidad mostrada
                                             detallePedido.setCantidad(detallePedido.getCantidad() - 1);
                                             if (detallePedido.getCantidad() == 0) {
                                                 Toast.makeText(ModificarPedidoActivity.this, detallePedido.getRacion() + " se eliminará del pedido", Toast.LENGTH_SHORT).show();
                                             }
                                             cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));//Mostrar la actu en la view
-                                            detallePedido.setPrecio(Double.parseDouble(racion.getPrecio()) * (detallePedido.getCantidad()));//Actualizar el precio del pedido
+                                            detallePedido.setPrecio(Double.parseDouble(racionOriginal[0].getPrecio()) * (detallePedido.getCantidad()));//Actualizar el precio del pedido
                                             precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC");//Mostrar actu del precio en la view
 
                                             //Precio total anteriro original
@@ -252,13 +257,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-                                confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
 
-                                        //confirmModificarPedido(pedido,databaseReference,racion,databaseReferenceRacion);
-                                    }
-                                });
                             }
                         }//Fin ondatachange
 
