@@ -127,7 +127,8 @@ public class VerPedidoActivity extends AppCompatActivity {
     }
 
     private void verDetallesDEPedido(String idPedido) {
-        //Consultar raciones todo quitar esto
+        //Consultar raciones ;Accer al nodo racion para que funcio el cambio de la racion; si no se hace esta conxión con el listener luego no funciona la modificación
+        //No se porque pero es la unica solución que he encontrado de momento 28/02/2023
         DatabaseReference databaseReferenceRacion = FirebaseDatabase.getInstance().getReference().child("raciones");
         databaseReferenceRacion.addValueEventListener(new ValueEventListener() {
             @Override
