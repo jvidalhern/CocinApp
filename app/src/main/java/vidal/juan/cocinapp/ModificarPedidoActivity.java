@@ -212,7 +212,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                             //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
                                             String totalStringAnt = totalDetalleTextMod.getText().toString();
                                             precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-                                            totalDetalleTextMod.setText(String.valueOf(precioAnt + precioUnaracion) + "\u20AC");
+                                            totalDetalleTextMod.setText(String.format("%.2f", precioAnt + precioUnaracion) + "\u20AC");
                                             //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
                                         } else {
@@ -233,6 +233,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         //El precio de una racion para añadir o quitar al total
                                         double precioUnaracion = Double.parseDouble(racionOriginal[0].getPrecio());
                                         if (detallePedido.getCantidad() > 0) {
+                                            //Disminuir las veces que se dio a +
+                                            modCantidad[0] -= 1;
                                             int stock = Integer.parseInt(racionOriginal[0].getStock());
                                             racionOriginal[0].setStock(String.valueOf(stock + 1));
                                             Log.d("StockActual-", "Stock del producto : " + racionOriginal[0].getDescripcion() + " " + (racionOriginal[0].getStock()));
@@ -257,6 +259,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
+
+                                //Boton Modificar el pedido
 
                             }
                         }//Fin ondatachange
