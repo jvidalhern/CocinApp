@@ -9,18 +9,20 @@ public class DetallePedidoNoParcel {
     private int cantidad;
     private double precio;
     private String precioRacion;
-    private int pedidoMaxRacion;
+    private int pedidoMaxRacion = 0;
     private String stockRacion;
     private String stockOriginal;
-    // Constructor para firebase
-    public DetallePedidoNoParcel() {
-    }
 
     public DetallePedidoNoParcel(String racion, int cantidad, double precio) {
         this.racion = racion;
         this.cantidad = cantidad;
         this.precio = precio;
     }
+
+    // Constructor para firebase
+    public DetallePedidoNoParcel() {
+    }
+
 
     // GET/SET
 
