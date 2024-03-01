@@ -9,7 +9,7 @@ public class DetallePedidoNoParcel {
     private int cantidad;
     private double precio;
     private String precioRacion;
-    private int pedidoMaxRacion = 0;
+    private String pedidoMaxRacion ;
     private String stockRacion;
     private String stockOriginal;
 
@@ -42,11 +42,11 @@ public class DetallePedidoNoParcel {
         this.precioRacion = precioRacion;
     }
 
-    public int getPedidoMaxRacion() {
+    public String getPedidoMaxRacion() {
         return pedidoMaxRacion;
     }
 
-    public void setPedidoMaxRacion(int pedidoMaxRacion) {
+    public void setPedidoMaxRacion(String pedidoMaxRacion) {
         this.pedidoMaxRacion = pedidoMaxRacion;
     }
 
