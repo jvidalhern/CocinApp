@@ -126,7 +126,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //Pasar el stock,precioRacion,cantidadMaximaRacion al detalle del pedido
                                 detalle.setStockRacion(racion.getStock());
                                 detalle.setPrecioRacion(racion.getPrecio());
-                                detalle.setPedidoMaxRacion(racion.getPedido_max());
+                                detalle.setPedidoMaxRacion(String.valueOf(racion.getPedido_max()));
                                 detalle.setStockOriginal(racion.getStock());
                                 Log.d("AddRacionADetalle", "ADD cant,stock y preico orig."+ detalle.toString());
                                 racionesRecuperadas[0]++;
@@ -208,12 +208,12 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             //El precio de una racion para añadir o quitar al total
                             double precioUnaracion = Double.parseDouble(detallePedido.getPrecioRacion());
                             int cantidadActual = detallePedido.getCantidad();
-                            int cantidadMaxima = detallePedido.getPedidoMaxRacion();
+                            String cantidadMaxima = detallePedido.getPedidoMaxRacion();
                             //int stock = Integer.parseInt(racion.getStock());
 
                             Log.d("ExecRaStockAntes+", "Stock antes de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion());
                             Log.d("ValorModCantidadA", "Valor de mod cantidad Antes de if: " + modCantidad[0] );
-                            if (modCantidad[0] < Math.min(cantidadMaxima, stockOrig[0])) {
+                            if (modCantidad[0] < Math.min(Integer.parseInt(cantidadMaxima), stockOrig[0])) {
                                 //Aumentar las veces que se dio a +
                                 modCantidad[0] += 1;
                                 //Modificar el stock
@@ -241,7 +241,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
                             } else {
-                                if (modCantidad[0] == cantidadMaxima) {
+                                if (modCantidad[0] == Integer.parseInt(cantidadMaxima)) {
                                     Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
 
                                 } else {
