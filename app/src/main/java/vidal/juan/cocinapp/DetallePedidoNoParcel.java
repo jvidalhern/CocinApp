@@ -91,6 +91,7 @@ public class DetallePedidoNoParcel {
                 ", precioRacion='" + precioRacion + '\'' +
                 ", pedidoMaxRacion=" + pedidoMaxRacion +
                 ", stockRacion='" + stockRacion + '\'' +
+                ", stockOriginal='" + stockOriginal + '\'' +
                 '}';
     }
 }
