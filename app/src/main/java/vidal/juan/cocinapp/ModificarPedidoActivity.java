@@ -422,16 +422,27 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         //List para detalles nuevos sin datos del stock
                         List<DetallePedidoNoParcel> detallesSinDatosStock = new ArrayList<>();
                         for (DetallePedidoNoParcel detalleConDatosStock : pedido.getDetalles()) {
-                            detallesSinDatosStock.add(new DetallePedidoNoParcel(detalleConDatosStock.getRacion(), detalleConDatosStock.getCantidad(), detalleConDatosStock.getPrecio()));
+                            // Crear un nuevo objeto DetallePedidoNoParcel sin incluir los campos precioRacion, pedidoMaxRacion y stockRacion
+                            String racionActu = detalleConDatosStock.getRacion();
+                            int cantidadActu = detalleConDatosStock.getCantidad();
+                            double precioActu = detalleConDatosStock.getPrecio();
+                            DetallePedidoNoParcel detalleSinDatosStock = new DetallePedidoNoParcel(
+                                    racionActu,
+                                    cantidadActu,
+                                    precioActu
+                            );
+                            Log.d("ListaSinStock", "Detalles sin stock " + detallesSinDatosStock.toString());
+                            detallesSinDatosStock.add(detalleSinDatosStock);
                         }
                         //Pasar la lista al pedido
-                        pedido.setDetalles(detallesSinDatosStock);
+
+                        Log.d("ActuPedidoSinStock", "Detalles sin stock " + detallesSinDatosStock.toString());
                         //Crear un Map con lo que se tiene que actulizar del pedido
                         Map<String, Object> actuPedido = new HashMap<>();
                         actuPedido.put("comentarios", pedido.getComentarios());
                         actuPedido.put("precio_total", pedido.getPrecio_total());
                         actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
-                        actuPedido.put("detalles", pedido.getDetalles());
+                        actuPedido.put("detalles", detallesSinDatosStock);
                         // Actualizar los campos en la base de datos
                         dataSnapshotPedido.getRef().updateChildren(actuPedido).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
