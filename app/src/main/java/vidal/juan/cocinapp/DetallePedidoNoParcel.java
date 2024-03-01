@@ -8,7 +8,10 @@ public class DetallePedidoNoParcel {
     private String racion;
     private int cantidad;
     private double precio;
-
+    private String precioRacion;
+    private int pedidoMaxRacion;
+    private String stockRacion;
+    private String stockOriginal;
     // Constructor para firebase
     public DetallePedidoNoParcel() {
     }
@@ -20,6 +23,40 @@ public class DetallePedidoNoParcel {
     }
 
     // GET/SET
+
+    public String getStockOriginal() {
+        return stockOriginal;
+    }
+
+    public void setStockOriginal(String stockOriginal) {
+        this.stockOriginal = stockOriginal;
+    }
+
+    public String getPrecioRacion() {
+        return precioRacion;
+    }
+
+    public void setPrecioRacion(String precioRacion) {
+        this.precioRacion = precioRacion;
+    }
+
+    public int getPedidoMaxRacion() {
+        return pedidoMaxRacion;
+    }
+
+    public void setPedidoMaxRacion(int pedidoMaxRacion) {
+        this.pedidoMaxRacion = pedidoMaxRacion;
+    }
+
+    public String getStockRacion() {
+        return stockRacion;
+    }
+
+    public void setStockRacion(String stockRacion) {
+        this.stockRacion = stockRacion;
+    }
+
+
     public int getCantidad() {
         return cantidad;
     }
@@ -51,6 +88,9 @@ public class DetallePedidoNoParcel {
                 "cantidad=" + cantidad +
                 ", precio=" + precio +
                 ", racion='" + racion + '\'' +
+                ", precioRacion='" + precioRacion + '\'' +
+                ", pedidoMaxRacion=" + pedidoMaxRacion +
+                ", stockRacion='" + stockRacion + '\'' +
                 '}';
     }
 }
