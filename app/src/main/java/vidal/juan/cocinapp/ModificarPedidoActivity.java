@@ -121,7 +121,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //Pasar el stock,precioRacion,cantidadMaximaRacion al detalle del pedido
                                 detalle.setStockRacion(racion.getStock());
                                 detalle.setPrecioRacion(racion.getPrecio());
-                                detalle.setCantidad(racion.getPedido_max());
+                                detalle.setPedidoMaxRacion(racion.getPedido_max());
                                 detalle.setStockOriginal(racion.getStock());
                                 Log.d("AddRacionADetalle", "ADD cant,stock y preico orig."+ detalle.toString());
                                 racionesRecuperadas[0]++;
@@ -169,7 +169,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             public void onEntrada(DetallePedidoNoParcel detallePedido, View view) {
                 if (detallePedido != null) {
                     //Componentes de la vista que muestra el detalle del pediddo
-                    Log.d("ExecDetalleAddLista", "DetalleAñadido " + detallePedido.getRacion() +" a la lista: " );
+                    Log.d("ExecDetalleAddLista", "DetalleAñadido " + detallePedido.toString() );
                     TextView nombreRacionDetalle = view.findViewById(R.id.nombreRacionDetalle);
                     TextView cantidadRacionDetalleVistaDetalle = view.findViewById(R.id.cantidadRacionDetalleVistaDetalle);
                     TextView precioRacionDetalleVistaDetalle = view.findViewById(R.id.precioRacionDetalleVistaDetalle);
@@ -189,7 +189,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     final int[] modCantidad = {0};
                     final int[] stockOrig ={0};
                     //Stock original del detalle
-                    stockOrig[0] = Integer.parseInt(detallePedido.getStockRacion());
+                    stockOrig[0] = Integer.parseInt(detallePedido.getStockOriginal());
                     //Boton añadir
                     modDetalleBotonAnadir.setOnClickListener(new View.OnClickListener() {
                         @Override
