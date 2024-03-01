@@ -410,6 +410,50 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 public void onSuccess(Void unused) {
                     Log.d("ActuRacion", "Racion " + detalleActu.getRacion() + "actualizada");
                     contadorActuRaciones[0]++;//Aumentar el contador cuando se actulice la racoin en la BBDD
+                    Log.d("ActuRacion", "Valor del contador " + contadorActuRaciones[0]);
+                    if (contadorActuRaciones[0] == pedido.getDetalles().size()) {
+                        //Actualizar el pedido
+                        //Datos modificados en la vista, pasarlos al pedido
+                        Log.d("ActuRacion", "Entro en update pedido Valor del contador" + contadorActuRaciones[0]);
+                        String totalString = totalDetalleTextMod.getText().toString();
+                        pedido.setPrecio_total(Double.parseDouble(totalString.substring(0, totalString.length() - 1)));
+                        pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
+                        pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
+                        //List para detalles nuevos sin datos del stock
+                        List<DetallePedidoNoParcel> detallesSinDatosStock = new ArrayList<>();
+                        for (DetallePedidoNoParcel detalleConDatosStock : pedido.getDetalles()) {
+                            detallesSinDatosStock.add(new DetallePedidoNoParcel(detalleConDatosStock.getRacion(), detalleConDatosStock.getCantidad(), detalleConDatosStock.getPrecio()));
+                        }
+                        //Pasar la lista al pedido
+                        pedido.setDetalles(detallesSinDatosStock);
+                        //Crear un Map con lo que se tiene que actulizar del pedido
+                        Map<String, Object> actuPedido = new HashMap<>();
+                        actuPedido.put("comentarios", pedido.getComentarios());
+                        actuPedido.put("precio_total", pedido.getPrecio_total());
+                        actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
+                        actuPedido.put("detalles", pedido.getDetalles());
+                        // Actualizar los campos en la base de datos
+                        dataSnapshotPedido.getRef().updateChildren(actuPedido).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()) {
+                                    // La actualización se realizó correctamente
+                                    Log.d("ACtuPedido", "Actualización exitosa");
+                                    Toast.makeText(ModificarPedidoActivity.this, "Pedido modificado ", Toast.LENGTH_LONG).show();
+                                    volverDetallePedido();
+                                } else {
+                                    // La actualización falló
+                                    Exception e = task.getException();
+                                    if (e != null) {
+                                        Toast.makeText(ModificarPedidoActivity.this, "Error, peiddo no modificado ", Toast.LENGTH_LONG).show();
+                                        Log.e("ACtuPedido", "Error al actualizar: " + e.getMessage());
+                                        volverDetallePedido();
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -420,50 +464,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 }
             });
         }
-        if (contadorActuRaciones[0] == pedido.getDetalles().size()) {
-            //Actualizar el pedido
-            //Datos modificados en la vista, pasarlos al pedido
-            String totalString = totalDetalleTextMod.getText().toString();
-            pedido.setPrecio_total(Double.parseDouble(totalString.substring(0, totalString.length() - 1)));
-            pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
-            pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
-            //List para detalles nuevos sin datos del stock
-            List<DetallePedidoNoParcel> detallesSinDatosStock = new ArrayList<>();
-            for (DetallePedidoNoParcel detalleConDatosStock : pedido.getDetalles()) {
-                detallesSinDatosStock.add(new DetallePedidoNoParcel(detalleConDatosStock.getRacion(), detalleConDatosStock.getCantidad(), detalleConDatosStock.getPrecio()));
-            }
-            //Pasar la lista al pedido
-            pedido.setDetalles(detallesSinDatosStock);
-            //Crear un Map con lo que se tiene que actulizar del pedido
-            Map<String, Object> actuPedido = new HashMap<>();
-            actuPedido.put("comentarios", pedido.getComentarios());
-            actuPedido.put("precio_total", pedido.getPrecio_total());
-            actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
-            actuPedido.put("detalles", pedido.getDetalles());
-            // Actualizar los campos en la base de datos
-            dataSnapshotPedido.getRef().updateChildren(actuPedido).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    if (task.isSuccessful()) {
-                        // La actualización se realizó correctamente
-                        Log.d("ACtuPedido", "Actualización exitosa");
-                        Toast.makeText(ModificarPedidoActivity.this, "Pedido modificado ", Toast.LENGTH_LONG).show();
-                        volverDetallePedido();
-                    } else {
-                        // La actualización falló
-                        Exception e = task.getException();
-                        if (e != null) {
-                            Toast.makeText(ModificarPedidoActivity.this, "Error, peiddo no modificado ", Toast.LENGTH_LONG).show();
-                            Log.e("ACtuPedido", "Error al actualizar: " + e.getMessage());
-                            volverDetallePedido();
-                        }
-                    }
-                }
-            });
-        }
-
-
     }
 
     /**
