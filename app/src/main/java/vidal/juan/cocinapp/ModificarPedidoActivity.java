@@ -26,7 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModificarPedidoActivity extends AppCompatActivity {
 
@@ -127,28 +129,33 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 racionesRecuperadas[0]++;
                                 // Verificar si se han recuperado todas las raciones
                                 if (racionesRecuperadas[0] == pedido.getDetalles().size()) {
-                                    // Todas las raciones han sido recuperadas, llenar la lista y realizar otras operaciones
                                     llenarLista(pedido);
+                                    //Boton Modificar el pedido
+
                                 }
+
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
+                            //Litener de confirmar
                         };
                         racionRef.addValueEventListener(valueEventListenerRacion);
+
+                        Log.d("Conex", "Conex"+ racionRef.toString());
                     }
-                    //Pasar el pedido a lista
-                    //llenarLista(pedido);
-                    //Boton Modificar el pedido
                     confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //updateStock(racionOriginal[0],dataSnapshot);
+                            //confirmModificarPedido(pedido,dataSnapshotPedido);
+                            Log.d("PedidoMod", "El pedido modficado"+ pedido.toString());
+                            Log.d("PedidoMod", "El DDetalles del pedido"+ pedido.getDetalles().toString());
+
                         }
                     });
                 }
-            }
+            }//Fin on datachange Pediddos
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Manejar errores de la base de datos
@@ -384,47 +391,37 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
 
     }
-    private void confirmModificarPedido( Pedido pedido, DatabaseReference databaseReferencePedido,Racion racion,DatabaseReference databaseReferenceRacion) {
-
+    private void confirmModificarPedido( Pedido pedido,DataSnapshot dataSnapshotPedido) {
+        //Datos modificados en la vista
         String totalString = totalDetalleTextMod.getText().toString();
         pedido.setPrecio_total(Double.parseDouble( totalString.substring(0, totalString.length() - 1)));
         pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
         pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
-        //Actulizar el peddio con los nuevos datos
-        databaseReferencePedido.setValue(pedido).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // DATO MODIFICADO EN BBDD
-                        Toast.makeText(ModificarPedidoActivity.this,"Pedido modificado "  , Toast.LENGTH_LONG).show();
-                        //volver a l
-                        //volverDetallePedido();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ModificarPedidoActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
-                    }
-                });
+        //List para detalles nuevos sin datos del stock
+        DetallePedidoNoParcel detallesSinDatosStock = new DetallePedidoNoParcel();
+        for (DetallePedidoNoParcel detalleConDatosStock : pedido.getDetalles()) {
+            detallesSinDatosStock = new DetallePedidoNoParcel(detalleConDatosStock.getRacion(),detalleConDatosStock.getCantidad(),detalleConDatosStock.getPrecio());
+        }
+        //Crear un Map con lo que se tiene que actulizar del pedido
+        Map<String, Object> actuPedido = new HashMap<>();
+        actuPedido.put("comentarios", pedido.getComentarios());
+        actuPedido.put("precio_total", pedido.getPrecio_total());
+        actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
+
+        //Hay que quitar los datos del stock a los detalles
+
+
+
         //Actulizar el stock con los nuevos datos
         //Obtener datos de la racion por nombre de la racion
+        //Recorrer los detalles
+        for (DetallePedidoNoParcel detalleActu: pedido.getDetalles())
+        {
+            DatabaseReference datarefActuRacion;
+            datarefActuRacion = FirebaseDatabase.getInstance().getReference().child("raciones").child(detalleActu.getRacion());
+            datarefActuRacion.child("stock").setValue(detalleActu.getStockRacion());
+        }
 
-        databaseReferenceRacion.setValue(racion).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // DATO MODIFICADO EN BBDD
-                        Toast.makeText(ModificarPedidoActivity.this,"Pedido modificado "  , Toast.LENGTH_LONG).show();
-                        Log.d("StockAtualizado", "Stock actulizado:  "+ racion.toString());
-                        //volver a l
-                        volverDetallePedido();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ModificarPedidoActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
-                    }
-                });
 
     }
 
