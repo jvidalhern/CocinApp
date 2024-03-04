@@ -147,6 +147,9 @@ public class VerPedidoActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Volver Pantalla principal
+     */
     private void volverPprincipal() {
         Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
         startActivity(intent);
