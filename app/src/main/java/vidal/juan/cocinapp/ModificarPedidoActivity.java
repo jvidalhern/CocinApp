@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ModificarPedidoActivity extends AppCompatActivity {
@@ -254,6 +255,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //Mostrar la actu en la view
                                 cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                                 double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
+                                Log.d("Nuevoprecio", "Nuevo precio:  " + nuevoPrecio);
                                 //Actualizar el precio del pedido
                                 detallePedido.setPrecio(nuevoPrecio);
                                 //precioRacionActu[0] = precioUnaracionMas;
@@ -264,7 +266,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
                                 String totalStringAnt = totalDetalleTextMod.getText().toString();
                                 precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-                                totalDetalleTextMod.setText(String.format("%.2f", precioAnt + precioUnaracion) + "\u20AC");
+                                Locale locale = Locale.US;//Para poner el . como serparador
+                                totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt + precioUnaracion) + "\u20AC");
                                 //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
                             } else {
@@ -305,8 +308,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //String del precio total actual en la vista geneeral, hayq que quitar el simbolo $ con un substring
                                 String totalStringAnt = totalDetalleTextMod.getText().toString();
                                 precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-
-                                totalDetalleTextMod.setText(String.format("%.2f", precioAnt - precioUnaracion) + "\u20AC");
+                                Locale locale = Locale.US;//Para poner el . como serparador
+                                totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt - precioUnaracion) + "\u20AC");
 
 
                             }
@@ -451,7 +454,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         //Datos modificados en la vista, pasarlos al pedido
                         Log.d("ActuRacion", "Entro en update pedido Valor del contador" + contadorActuRaciones[0]);
                         String totalString = totalDetalleTextMod.getText().toString();
-                        pedido.setPrecio_total(Double.parseDouble(totalString.substring(0, totalString.length() - 1)));
+                        pedido.setPrecio_total((totalString.substring(0, totalString.length() - 1)));
                         pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
                         pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
                         //List para detalles nuevos sin datos del stock
@@ -479,50 +482,53 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
                         actuPedido.put("detalles", detallesSinDatosStock);
                         // Actualizar los campos en la base de datos
+                        if(Double.parseDouble(pedido.getPrecio_total()) > 0)
+                        {
                         dataSnapshotPedido.getRef().updateChildren(actuPedido).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
-                                if (task.isSuccessful()) {
-                                    if(pedido.getPrecio_total() > 0){
+                                if (task.isSuccessful() && pedido != null) {
+
                                     // La actualización se realizó correctamente
                                     Log.d("ACtuPedido", "Actualización correcta");
                                     Toast.makeText(ModificarPedidoActivity.this, "Pedido modificado ", Toast.LENGTH_LONG).show();
                                     volverDetallePedido();
-                                    }else {
-                                        dataSnapshotPedido.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    // El pedido se ha eliminado correctamente
-                                                    Log.d("EliminarPedido", "Pedido eliminado correctamente");
-                                                    Toast.makeText(ModificarPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    // Error al eliminar el pedido
-                                                    Log.e("EliminarPedido", "Error al eliminar el pedido: " + task.getException().getMessage());
-                                                }
-                                            }
-                                        });
-                                        volverPprincipal();
-                                    }
                                 } else {
                                     // La actualización falló
                                     Exception e = task.getException();
                                     if (e != null) {
-                                        Toast.makeText(ModificarPedidoActivity.this, "Error, peiddo no modificado ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ModificarPedidoActivity.this, "Error, pediddo no modificado ", Toast.LENGTH_LONG).show();
                                         Log.e("ACtuPedido", "Error al actualizar: " + e.getMessage());
                                         volverDetallePedido();
                                     }
                                 }
                             }
                         });
+                        }
+                        else{
+                            dataSnapshotPedido.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        // El pedido se ha eliminado correctamente
+                                        Log.d("EliminarPedido", "Pedido eliminado correctamente");
+                                        Toast.makeText(ModificarPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
+                                        volverPprincipal();
+                                    } else {
+                                        // Error al eliminar el pedido
+                                        Log.e("EliminarPedido", "Error al eliminar el pedido: " + task.getException().getMessage());
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e("ActuRacion", "Error al escribir en la base de datos: " + e.getMessage());
-                    Toast.makeText(ModificarPedidoActivity.this, "Error, peiddo no modificado ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModificarPedidoActivity.this, "Error, pedido no modificado ", Toast.LENGTH_LONG).show();
                     volverDetallePedido();
                 }
             });

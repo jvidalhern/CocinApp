@@ -223,7 +223,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Pasar los detalles a un objeto que no implemente parcelable para que no inserte stability 0 en firebase
             transFormNoParcel();
             //Crear el bojeto pedido con los datos;El estado predeterminado al hacer un pedido es : Preparar
-            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"preparar",fechaPedido,fechaEntrega,precioTotal,userId);
+            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"preparar",fechaPedido,fechaEntrega,String.valueOf(precioTotal),userId);
             //Log para ver pedido
             Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
             // Insertar el nuevo pedido en la colección de pedidos verificando si ha ido bien o no
