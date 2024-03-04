@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -151,9 +153,34 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            confirmModificarPedido(pedido,dataSnapshotPedido);
-                            Log.d("PedidoMod", "El pedido modficado"+ pedido.toString());
-                            Log.d("PedidoMod", "El DDetalles del pedido"+ pedido.getDetalles().toString());
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPedidoActivity.this);
+                            String mensajeConfirmacionMod = "¿Estás seguro de que quieres modificar este pedido?";
+                            String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
+                            String totalString = totalDetalleTextMod.getText().toString();
+
+                            if(Double.parseDouble(totalString.substring(0, totalString.length() - 1)) == 0)
+
+                                builder.setMessage(mensajeConfirmacionElim);
+
+                            else
+                                builder.setMessage(mensajeConfirmacionMod);
+                            builder        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            confirmModificarPedido(pedido,dataSnapshotPedido);
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    });
+
+                            // Crea el AlertDialog y lo muestra
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
 
                         }
                     });
@@ -322,6 +349,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
         finish();
     }
+    /**
+     * Volver Pantalla principal
+     */
+    private void volverPprincipal() {
+        Intent intent = new Intent(ModificarPedidoActivity.this, PantallaPrincipalActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     /**
      * Metodo para obener la fecha seleccionada en el datepicker; Tiene restricion mediante la CONSTANTE a paritr dias recoge
@@ -407,11 +442,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             datarefActuRacion = FirebaseDatabase.getInstance().getReference().child("raciones").child(detalleActu.getRacion());
             datarefActuRacion.child("stock").setValue(detalleActu.getStockRacion()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onSuccess(Void unused) {
+                public void onSuccess(Void unused) {//Cuando la racion se halla actualizado correctamente->Aumentar el contador de raciones actualizadas
                     Log.d("ActuRacion", "Racion " + detalleActu.getRacion() + "actualizada");
                     contadorActuRaciones[0]++;//Aumentar el contador cuando se actulice la racoin en la BBDD
                     Log.d("ActuRacion", "Valor del contador " + contadorActuRaciones[0]);
-                    if (contadorActuRaciones[0] == pedido.getDetalles().size()) {
+                    if (contadorActuRaciones[0] == pedido.getDetalles().size()) {//Cuando se hallan actualizado todas las raciones->Actualizar el pedido con los nuevos datos
                         //Actualizar el pedido
                         //Datos modificados en la vista, pasarlos al pedido
                         Log.d("ActuRacion", "Entro en update pedido Valor del contador" + contadorActuRaciones[0]);
@@ -449,10 +484,27 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if (task.isSuccessful()) {
+                                    if(pedido.getPrecio_total() > 0){
                                     // La actualización se realizó correctamente
-                                    Log.d("ACtuPedido", "Actualización exitosa");
+                                    Log.d("ACtuPedido", "Actualización correcta");
                                     Toast.makeText(ModificarPedidoActivity.this, "Pedido modificado ", Toast.LENGTH_LONG).show();
                                     volverDetallePedido();
+                                    }else {
+                                        dataSnapshotPedido.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    // El pedido se ha eliminado correctamente
+                                                    Log.d("EliminarPedido", "Pedido eliminado correctamente");
+                                                    Toast.makeText(ModificarPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    // Error al eliminar el pedido
+                                                    Log.e("EliminarPedido", "Error al eliminar el pedido: " + task.getException().getMessage());
+                                                }
+                                            }
+                                        });
+                                        volverPprincipal();
+                                    }
                                 } else {
                                     // La actualización falló
                                     Exception e = task.getException();
