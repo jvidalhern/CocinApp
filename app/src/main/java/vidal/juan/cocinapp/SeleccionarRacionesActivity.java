@@ -22,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SeleccionarRacionesActivity extends AppCompatActivity {
 
@@ -102,9 +104,19 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
+                        // Crea una instancia de DecimalFormat con el formato deseado
+                        Log.d("getDecimalPrecio", "Decimal y precio de bbdd" +  DecimalFormatSymbols.getInstance().getDecimalSeparator() + "precio:  " + precioPrev);
+                        Locale locale = Locale.getDefault();
+                        Log.d("Locale", "Idioma: " + locale.getLanguage() + ", País: " + locale.getCountry());
+
                         double precioDecimal = Double.parseDouble(precioPrev);
-                        DecimalFormat df = new DecimalFormat("#.00");
+                        Log.d("getDecimalPrecio", "Precio decimal" +  precioDecimal);
+                        // Crear DecimalFormatSymbols con el punto como separador decimal
+                        DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+                        symbols.setDecimalSeparator('.');
+                        DecimalFormat df = new DecimalFormat("#.00",symbols);
                         String precio = df.format(precioDecimal);
+                        Log.d("getDecimalPrecio", "Precio decimal depues del format" +  precio);
                         String stock = childSnapshot.child("stock").getValue(String.class);
                         String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
 
