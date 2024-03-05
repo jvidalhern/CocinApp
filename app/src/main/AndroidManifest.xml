@@ -41,13 +41,13 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ReestablecerPswActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".EditarRegistroActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

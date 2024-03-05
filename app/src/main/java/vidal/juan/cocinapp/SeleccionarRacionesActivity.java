@@ -38,7 +38,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realizar_pedido);
-
+        Log.d("ActivityLifecycle", "onCreate() SeleccionarRaciones");
         // Referencias a los elementos en activity_realizar_pedido.xml
         lista = findViewById(R.id.lista);
         botonPedir = findViewById(R.id.botonPedir);
@@ -72,6 +72,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                     intent.putParcelableArrayListExtra("detallesSeleccionados", detallesSeleccionados);
                     intent.putExtra("precioTotal", precioTotal);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -79,6 +80,11 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
         // Ocultar el botón Pedir inicialmente
         botonPedir.setVisibility(View.GONE);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() SeleccionarRaciones");
     }
 
     private void cargarDatosFirebase() {

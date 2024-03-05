@@ -2,7 +2,6 @@ package vidal.juan.cocinapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -18,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,13 +50,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     //Formatear para guardar hora minutos y segundos
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
-
+    private boolean pedidoEliminado;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_pedido);
+        Log.d("ActivityLifecycle", "onCreate() ModificarPedido");
         //referencia a items xml
         volverDetallesPedidosButton = findViewById(R.id.volverDetallesPedidosButton);
         confirmModPedidoButton = findViewById(R.id.confirmModPedidoButton);
@@ -74,6 +75,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 volverDetallePedido();
+
             }
         });
 
@@ -93,7 +95,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         buscarPedido(idPedido);
 
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() ModificarPedido");
+    }
     /**
      * Buscar el pedido por el id de la ativity anterior
      * @param idPedido id del pedido obtenido en la activity anterior
@@ -170,6 +176,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             confirmModificarPedido(pedido,dataSnapshotPedido);
+
                                         }
                                     })
                                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -186,6 +193,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else
+                    volverPprincipal();
             }//Fin on datachange Pediddos
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -322,43 +331,27 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         ((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
     }
 
-    private void updateStock(Racion racion, DataSnapshot dataSnapshotRacion) {
-        dataSnapshotRacion.getRef().setValue(racion).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // DATO MODIFICADO EN BBDD
-                        Toast.makeText(ModificarPedidoActivity.this,"Stock modificado "  , Toast.LENGTH_LONG).show();
-                        Log.d("StockAtualizado", "Stock actulizado:  "+ racion.toString());
-                        //volver a l
-                        volverDetallePedido();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ModificarPedidoActivity.this,"ERROR no se registraron los cambios "  , Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
+
 
 
     /**
      * Volver Detalles del pedido
      */
     private  void volverDetallePedido() {
-        Intent intent = new Intent(ModificarPedidoActivity.this, VerDetallesPedidoActivity.class);
-        intent.putExtra("idPedido", idPedido);//Pasar el id del detalle del peddido para volver a donde estaba
-        startActivity(intent);
-
+        Intent intentDetallesPedido = new Intent(ModificarPedidoActivity.this, VerDetallesPedidoActivity.class);
+        intentDetallesPedido.putExtra("idPedido", idPedido);//Pasar el id del detalle del peddido para volver a donde estaba
+        startActivity(intentDetallesPedido);
         finish();
+
     }
     /**
      * Volver Pantalla principal
      */
     private void volverPprincipal() {
-        Intent intent = new Intent(ModificarPedidoActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
+        /*Intent intentPprincipal = new Intent(ModificarPedidoActivity.this, PantallaPrincipalActivity.class);*/
+
         finish();
+
     }
 
     /**
@@ -454,7 +447,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         //Datos modificados en la vista, pasarlos al pedido
                         Log.d("ActuRacion", "Entro en update pedido Valor del contador" + contadorActuRaciones[0]);
                         String totalString = totalDetalleTextMod.getText().toString();
-                        pedido.setPrecio_total((totalString.substring(0, totalString.length() - 1)));
+                        pedido.setPrecio_total((Double.parseDouble(totalString.substring(0, totalString.length() - 1))));
                         pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
                         pedido.setFecha_entrega(fechaEntregaModTextview.getText().toString());
                         //List para detalles nuevos sin datos del stock
@@ -482,132 +475,66 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
                         actuPedido.put("detalles", detallesSinDatosStock);
                         // Actualizar los campos en la base de datos
-                        if(Double.parseDouble(pedido.getPrecio_total()) > 0)
+                        Log.d("ActuPedido", "Pedido antes de añadir listener " + pedido.toString());
+
+                        if((pedido.getPrecio_total()) > 0)
                         {
-                        dataSnapshotPedido.getRef().updateChildren(actuPedido).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            modificarPedido(dataSnapshotPedido, actuPedido);
 
-                                if (task.isSuccessful() && pedido != null) {
-
-                                    // La actualización se realizó correctamente
-                                    Log.d("ACtuPedido", "Actualización correcta");
-                                    Toast.makeText(ModificarPedidoActivity.this, "Pedido modificado ", Toast.LENGTH_LONG).show();
-                                    volverDetallePedido();
-                                } else {
-                                    // La actualización falló
-                                    Exception e = task.getException();
-                                    if (e != null) {
-                                        Toast.makeText(ModificarPedidoActivity.this, "Error, pediddo no modificado ", Toast.LENGTH_LONG).show();
-                                        Log.e("ACtuPedido", "Error al actualizar: " + e.getMessage());
-                                        volverDetallePedido();
-                                    }
-                                }
-                            }
-                        });
                         }
                         else{
-                            dataSnapshotPedido.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        // El pedido se ha eliminado correctamente
-                                        Log.d("EliminarPedido", "Pedido eliminado correctamente");
-                                        Toast.makeText(ModificarPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
-                                        volverPprincipal();
-                                    } else {
-                                        // Error al eliminar el pedido
-                                        Log.e("EliminarPedido", "Error al eliminar el pedido: " + task.getException().getMessage());
-                                    }
-                                }
-                            });
+                            eliminarPedido(dataSnapshotPedido);
                         }
+
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e("ActuRacion", "Error al escribir en la base de datos: " + e.getMessage());
-                    Toast.makeText(ModificarPedidoActivity.this, "Error, pedido no modificado ", Toast.LENGTH_LONG).show();
                     volverDetallePedido();
                 }
             });
         }
     }
+    private void modificarPedido(DataSnapshot dataSnapshotPedidoActu, Map actuPedido) {
 
-    /**
-     * Método para actulizar el stock una vez modificado el pedido
-     * @param pedido
-     */
-    private void actulizarStock(DatabaseReference databaseReference , Pedido pedido) {
-        // Obtener detalles originales del pedido
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        dataSnapshotPedidoActu.getRef().updateChildren(actuPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Pedido pedidoOriginal = dataSnapshot.getValue(Pedido.class);
-                if (pedidoOriginal != null) {
-                    // Detalles originales del pedido
-
-                    List<DetallePedidoNoParcel> detallesOriginales = pedidoOriginal.getDetalles();
-                    // Detalles modificados
-                    List<DetallePedidoNoParcel> detallesModificados = pedido.getDetalles();
-                    //Ver detalles en log
-
-                    // Actualizar el stock en la base de datos según las diferencias entre las cantidades originales y modificadas
-                    for (int i = 0; i < detallesOriginales.size(); i++) {
-                        DetallePedidoNoParcel detalleOriginal = detallesOriginales.get(i);
-                        DetallePedidoNoParcel detalleModificado = detallesModificados.get(i);
-
-                        // Calcular la diferencia entre la cantidad original y la cantidad modificada
-                        int diferencia = detalleModificado.getCantidad() - detalleOriginal.getCantidad();
-                        Log.e("stockPrueba", "Diferencia Stock ." + diferencia);
-
-                        // Obtener la referencia al  de la ración en la base de datos
-                        DatabaseReference racionRef = FirebaseDatabase.getInstance().getReference().child("raciones").child(detalleOriginal.getRacion());
-
-                        // Actualizar el stock, es la suma del stock atual con la diferencia
-                        racionRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Racion racion = dataSnapshot.getValue(Racion.class);
-
-                                if (racion != null) {
-                                    int stockActual = Integer.parseInt(racion.getStock());
-                                    Log.e("stockPrueba", "Stock actual." + racion.getStock());
-                                    int nuevoStock = stockActual + diferencia;
-                                    Log.e("stockPrueba", "Nuevo stock." + nuevoStock);
-                                    if (nuevoStock >= 0) {
-                                        // Actualizar el stock en la base de datos
-                                        racion.setStock(String.valueOf(nuevoStock));
-                                        racionRef.setValue(racion);
-                                        Log.d("StockActualizado", "Stock de la ración " + detalleOriginal.getRacion() + " actualizado a: " + nuevoStock);
-                                    } else {
-                                        // Log prueba error negativo
-                                        Log.e("ErrorStock", "El nuevo stock es negativo.");
-                                    }
-                                } else {
-                                    Log.e("ErrorStock", "No se encontró la ración en la base de datos.");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                // Errores de la base de datos
-                                Log.e("Error BBDD", "Error al obtener la ración: " + databaseError.getMessage());
-                            }
-                        });
-                    }
-                } else {
-                    Log.e("ErrorPedido", "No se encontró el pedido en la base de datos.");
-                }
-
+            public void onSuccess(Void unused) {
+                // El pedido se ha eliminado correctamente
+                Log.d("ModPedido", "Pedido actulizado correctamente");
+                Toast.makeText(ModificarPedidoActivity.this, "Pedido actulizado ", Toast.LENGTH_LONG).show();
+                volverDetallePedido();
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Manejar errores de la base de datos
-                Log.e("Error BBDD", "Error al obtener el pedido: " + databaseError.getMessage());
+            public void onFailure(@NonNull Exception e) {
+                //Toast.makeText(ModificarPedidoActivity.this, "Error al eliminar el pedido", Toast.LENGTH_LONG).show();
+                Log.d("ModPedido", "Error al actulizar pedido: " + e.getMessage());
+                volverPprincipal();
             }
         });
     }
+
+    private void eliminarPedido(DataSnapshot dataSnapshotEliminar) {
+        dataSnapshotEliminar.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                //  pedido  eliminado correctamente
+                Log.d("EliminarPedido", "Pedido eliminado correctamente");
+                Toast.makeText(ModificarPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
+                volverPprincipal();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ModificarPedidoActivity.this, "Error al eliminar el pedido", Toast.LENGTH_LONG).show();
+                Log.d("EliminarPedido", "Error eliminar pedido: " + e.getMessage());
+                volverPprincipal();
+            }
+        });
+
+    }
+
 }

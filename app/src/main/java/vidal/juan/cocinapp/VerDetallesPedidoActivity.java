@@ -31,6 +31,7 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ActivityLifecycle", "onCreate() VerDetalles");
         setContentView(R.layout.activity_ver_detalles_pedido);
         //referencia a items xml
         volverPedidosButton = findViewById(R.id.volverPedidosButton);
@@ -72,7 +73,19 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
         idPedido = getIntent().getStringExtra("idPedido");
         Log.d("PedidoRecib", "Pedido: " + idPedido);
         //buscar y mostrar los detalles del pedido a partir de id
+
         buscarPedido(idPedido);
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() VerDetalles");
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("ActivityLifecycle", "onPause() Verdetalles");
 
     }
 
@@ -99,24 +112,25 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                     //Obj Pedido encontrado a partir del Idpedido
                     Pedido pedido = dataSnapshot.getValue(Pedido.class);
+                    if (pedido!= null){
                     Log.d("PedidoEncontrado", "Pedido encontrado por id: " + pedido.toString());
                     //Pasar el pedido a lista
                     llenarLista(pedido);
                     fechaPedidoDetalleText.setText(pedido.getFecha_pedido().toString());
-                    fechaEntregaDetalleText.setText( pedido.getFecha_entrega().toString());
+                    fechaEntregaDetalleText.setText(pedido.getFecha_entrega().toString());
                     cometariosDetalleText.setText(pedido.getComentarios().toString());
-                    totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
-                    idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
+                    totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
+                    idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
                     //Controlar editar el peddio en funcion de si el pedido es editable
                     //Cambiar color y la visibilidad en funcion del estado
                     if (pedido.getEditable() == true)
                         layoutEditarPedido.setVisibility(View.VISIBLE);
-                    else{
+                    else {
                         textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
                         textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));
                         layoutEditarPedido.setVisibility(View.GONE);
                     }
-
+                    }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
