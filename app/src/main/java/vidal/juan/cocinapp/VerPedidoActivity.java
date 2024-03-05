@@ -34,7 +34,7 @@ public class VerPedidoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_pedido);
-
+        Log.d("ActivityLifecycle", "onCreate() VerPedidos");
         cancelVerPedidosActivosButton = findViewById(R.id.cancelVerPedidosActivosButton);
         listaPedidosActivos = findViewById(R.id.listaPedidosActivos);
 
@@ -94,6 +94,11 @@ public class VerPedidoActivity extends AppCompatActivity {
 
         obtenerPedidos();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() Verpedido");
+    }
 
     private void obtenerPedidos() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -151,8 +156,8 @@ public class VerPedidoActivity extends AppCompatActivity {
      * Volver Pantalla principal
      */
     private void volverPprincipal() {
-        Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
+        startActivity(intent);*/
         finish();
     }
 

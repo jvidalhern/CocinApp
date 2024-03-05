@@ -48,6 +48,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hacer_pedido);
+        Log.d("ActivityLifecycle", "onCreate() HacerPedido");
         //referencia a items xml
         cancelNuevopedidoButton = findViewById(R.id.cancelNuevopedidoButton);
         seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
@@ -119,6 +120,11 @@ public class HacerPedidoActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() HacerPedido");
     }
 
     /**
@@ -198,8 +204,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
      * Para volver a la ventana principal
      */
     private  void volverPprincipal() {
-        Intent intent = new Intent(HacerPedidoActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(HacerPedidoActivity.this, PantallaPrincipalActivity.class);
+        startActivity(intent);*/
         finish();
     }
 
@@ -223,7 +229,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
             //Pasar los detalles a un objeto que no implemente parcelable para que no inserte stability 0 en firebase
             transFormNoParcel();
             //Crear el bojeto pedido con los datos;El estado predeterminado al hacer un pedido es : Preparar
-            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"preparar",fechaPedido,fechaEntrega,String.valueOf(precioTotal),userId);
+            Pedido nuevoPedido = new Pedido(comentarios,detallesSeleccionadosNoParcel,"preparar",fechaPedido,fechaEntrega,precioTotal,userId);
             //Log para ver pedido
             Log.d("NuevoPedido", "Pedido: " + nuevoPedido.toString());
             // Insertar el nuevo pedido en la colección de pedidos verificando si ha ido bien o no

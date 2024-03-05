@@ -22,6 +22,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
+        Log.d("ActivityLifecycle", "onCreate() PantallaPrincipal");
         //ver si usa . o coma todo quitar esto, es una prueba
         Log.d("getDecimal", "Decimal" +  DecimalFormatSymbols.getInstance().getDecimalSeparator());
         //Ref items del xml
@@ -76,6 +77,11 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() Pantalla principal");
+    }
 
     /**
      * Método para pasar a la ventana ver pedidos en estado preparar o recoger
@@ -83,7 +89,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
     private void verPedidos() {
         Intent verPedidosIntent = new Intent(PantallaPrincipalActivity.this, VerPedidoActivity.class);
         startActivity(verPedidosIntent);
-        finish();
+
     }
 
     /**
@@ -92,7 +98,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
     private void hacerPedido() {
         Intent hacerPedidoIntent = new Intent(PantallaPrincipalActivity.this, SeleccionarRacionesActivity.class);
         startActivity(hacerPedidoIntent);
-        finish();
+
     }
 
     /**
@@ -102,7 +108,7 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         //Pasar a la vista de editar registro
         Intent editarRegistroIntent   = new Intent(PantallaPrincipalActivity.this, EditarRegistroActivity.class);
         startActivity(editarRegistroIntent);
-        finish();
+
     }
 
 }
