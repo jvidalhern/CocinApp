@@ -56,6 +56,7 @@
         android:layout_marginTop="0dp"
         android:id="@+id/fechaPedidoDetalleTextMod"
         android:text=""
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -84,17 +85,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/fecha_entrega"
+            android:textColor="@color/black"
             android:gravity="center_vertical"
             android:textSize="18sp"
             android:paddingStart="12dp"
-            android:textStyle="bold" />
+             />
         <Button
             android:id="@+id/seleccionarFechaEntregaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="@string/NuevafechaEntrega"
+            android:textColor="@color/white"
             android:layout_weight="1"/>
     </LinearLayout>
     <TextView
@@ -116,6 +118,7 @@
         android:paddingStart="12dp"
         android:lines="3"
         android:background="@color/white"
+        android:textColor="@color/black"
         tools:ignore="Deprecated" />
 
     <TextView
@@ -136,6 +139,7 @@
         android:textSize="18sp"
         android:paddingStart="12dp"
         android:background="@color/white"
+        android:textColor="@color/black"
         />
     <Button
         android:id="@+id/confirmModPedidoButton"
@@ -143,6 +147,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         android:text="@string/modPedido"
         />
     <Button
@@ -150,6 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
         android:text="@string/volver"
         />
 

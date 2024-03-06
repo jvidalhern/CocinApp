@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorError">#FF0000</color>
+    <color name="principal">#7E4932</color>
+    <color name="recogerPedidoColor">#7FFF33</color>
+    <color name="prepararPedidoColor">#F48901</color>
+    <color name="defPedidoColor">#F42301</color>
+    <color name="hintColor">#42403E</color>
 </resources>
