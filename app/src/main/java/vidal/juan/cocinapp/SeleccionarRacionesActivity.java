@@ -29,7 +29,7 @@ import java.util.Locale;
 public class SeleccionarRacionesActivity extends AppCompatActivity {
 
     private ListView lista;
-    private Button botonPedir;
+    private Button botonPedir,cancelarButton;
     private ArrayList<EncapsuladorEntradas> datos;
     private boolean datosCargados = false;
 
@@ -46,7 +46,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         // Referencias a los elementos en activity_realizar_pedido.xml
         lista = findViewById(R.id.lista);
         botonPedir = findViewById(R.id.botonPedir);
-
+        cancelarButton = findViewById(R.id.cancelarButton);
         datos = new ArrayList<>();
 
         // Cargar datos desde Firebase
@@ -79,6 +79,13 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                     finish();
                 }
 
+            }
+        });
+        cancelarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
             }
         });
 
