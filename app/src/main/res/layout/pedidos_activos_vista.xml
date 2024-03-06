@@ -29,6 +29,7 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -43,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -50,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
         </TableRow>
     </TableLayout>
@@ -59,6 +63,7 @@
         android:background="@color/defPedidoColor"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
 </LinearLayout>
