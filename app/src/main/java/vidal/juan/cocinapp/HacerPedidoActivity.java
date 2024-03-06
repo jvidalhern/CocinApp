@@ -140,7 +140,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
         //Formatear la fecha a dia de hoy para pasarla al insert
         fechaPedido = formatoHoraMinSeg.format(calendar.getTime());
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this , new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this ,R.style.DatePickerTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 //Setear calendar con la fecha seleccionada
