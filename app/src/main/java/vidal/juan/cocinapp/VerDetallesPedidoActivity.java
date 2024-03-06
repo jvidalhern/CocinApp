@@ -1,7 +1,10 @@
 package vidal.juan.cocinapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
@@ -11,7 +14,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,13 +59,7 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                 volverPedidos();
             }
         });
-        //Eliminar pedido
-        eliminarPedidoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                eliminarPedido();
-            }
-        });
+
         //Modificar pedido
         modPediddoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,44 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
         finish();
     }
 
-    private void eliminarPedido() {
+    private void eliminarPedido(DataSnapshot dataSnapshotEliminar) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(VerDetallesPedidoActivity.this,R.style.DatePickerTheme);
+        String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
+        builder.setMessage(mensajeConfirmacionElim);
+        builder        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dataSnapshotEliminar.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                //  pedido  eliminado correctamente
+                                Log.d("EliminarPedido", "Pedido eliminado correctamente");
+                                Toast.makeText(VerDetallesPedidoActivity.this, "Pedido eliminado ", Toast.LENGTH_LONG).show();
+                                volverPedidos();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(VerDetallesPedidoActivity.this, "Error al eliminar el pedido", Toast.LENGTH_LONG).show();
+                                Log.d("EliminarPedido", "Error eliminar pedido: " + e.getMessage());
+                                volverPedidos();
+                            }
+                        });
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        // Crea el AlertDialog y lo muestra
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
     }
 
     /**
@@ -113,23 +150,29 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                     //Obj Pedido encontrado a partir del Idpedido
                     Pedido pedido = dataSnapshot.getValue(Pedido.class);
                     if (pedido!= null){
-                    Log.d("PedidoEncontrado", "Pedido encontrado por id: " + pedido.toString());
-                    //Pasar el pedido a lista
-                    llenarLista(pedido);
-                    fechaPedidoDetalleText.setText(pedido.getFecha_pedido().toString());
-                    fechaEntregaDetalleText.setText(pedido.getFecha_entrega().toString());
-                    cometariosDetalleText.setText(pedido.getComentarios().toString());
-                    totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
-                    idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
-                    //Controlar editar el peddio en funcion de si el pedido es editable
-                    //Cambiar color y la visibilidad en funcion del estado
-                    if (pedido.getEditable() == true)
-                        layoutEditarPedido.setVisibility(View.VISIBLE);
-                    else {
-                        textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
-                        textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));
-                        layoutEditarPedido.setVisibility(View.GONE);
-                    }
+                        Log.d("PedidoEncontrado", "Pedido encontrado por id: " + pedido.toString());
+                        //Boton eliminar pedido, el listener tiene que estar dentro del ondatachange
+                        eliminarPedidoButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                eliminarPedido(dataSnapshot);
+                            }
+                        });
+                        llenarLista(pedido);
+                        fechaPedidoDetalleText.setText(pedido.getFecha_pedido().toString());
+                        fechaEntregaDetalleText.setText(pedido.getFecha_entrega().toString());
+                        cometariosDetalleText.setText(pedido.getComentarios().toString());
+                        totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
+                        idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
+                        //Controlar editar el peddio en funcion de si el pedido es editable
+                        //Cambiar color y la visibilidad en funcion del estado
+                        if (pedido.getEditable() == true)
+                            layoutEditarPedido.setVisibility(View.VISIBLE);
+                        else {
+                            textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                            textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));
+                            layoutEditarPedido.setVisibility(View.GONE);
+                        }
                     }
             }
             @Override
