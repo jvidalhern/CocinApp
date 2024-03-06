@@ -166,8 +166,11 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                         idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
                         //Controlar editar el peddio en funcion de si el pedido es editable
                         //Cambiar color y la visibilidad en funcion del estado
-                        if (pedido.getEditable() == true)
+                        if (pedido.getEditable() == true){
+                            textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                            textModPedidoInfo.setText(getString(R.string.modPedidoMensaje));
                             layoutEditarPedido.setVisibility(View.VISIBLE);
+                        }
                         else {
                             textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
                             textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));

@@ -66,7 +66,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                 textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
                 textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
                 textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total()) + "\u20AC");
-                textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf(pedidoActivo.getComentarios()));
+                textViewComentarios.setText(getString(R.string.comentarios) +" " +  String.valueOf(pedidoActivo.getComentarios()));
 
                 // Evento de click en el pedido para pasar a los detalles del pedido
                 linarLayoutDetallePedido.setOnClickListener(new View.OnClickListener() {

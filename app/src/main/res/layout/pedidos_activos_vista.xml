@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:background="@color/defPedidoColor"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:textColor="@color/black"
         android:padding="8dp" />
 

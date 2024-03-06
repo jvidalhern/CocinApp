@@ -160,41 +160,48 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if(pedido.getEditable() == true) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPedidoActivity.this, R.style.DatePickerTheme);
+                                String mensajeConfirmacionMod = "¿Estás seguro de que quieres modificar este pedido?";
+                                String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
+                                String totalString = totalDetalleTextMod.getText().toString();
 
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPedidoActivity.this,R.style.DatePickerTheme);
-                            String mensajeConfirmacionMod = "¿Estás seguro de que quieres modificar este pedido?";
-                            String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
-                            String totalString = totalDetalleTextMod.getText().toString();
+                                if (Double.parseDouble(totalString.substring(0, totalString.length() - 1)) == 0)
 
-                            if(Double.parseDouble(totalString.substring(0, totalString.length() - 1)) == 0)
+                                    builder.setMessage(mensajeConfirmacionElim);
 
-                                builder.setMessage(mensajeConfirmacionElim);
+                                else
+                                    builder.setMessage(mensajeConfirmacionMod);
+                                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                confirmModificarPedido(pedido, dataSnapshotPedido);
 
-                            else
-                                builder.setMessage(mensajeConfirmacionMod);
-                            builder        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            confirmModificarPedido(pedido,dataSnapshotPedido);
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
 
-                                        }
-                                    })
-                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.dismiss();
-                                        }
-                                    });
-
-                            // Crea el AlertDialog y lo muestra
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-
+                                // Crea el AlertDialog y lo muestra
+                                AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
+                            }
+                            else{
+                                Toast.makeText(ModificarPedidoActivity.this, "Este pedido ya no es editable", Toast.LENGTH_SHORT).show();
+                                volverPprincipal();
+                            }
                         }
                     });
+
                 }
-                else
+                else {
+                    Toast.makeText(ModificarPedidoActivity.this, "No se ha encontrado el pedido", Toast.LENGTH_SHORT).show();
                     volverPprincipal();
+                }
             }//Fin on datachange Pediddos
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -463,7 +470,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     precioActu
                             );
                             Log.d("ListaSinStock", "Detalles sin stock " + detallesSinDatosStock.toString());
-                            detallesSinDatosStock.add(detalleSinDatosStock);
+                            //Añadir a la lista los que no esten vacios
+                            if(detalleSinDatosStock.getCantidad()>0)
+                                detallesSinDatosStock.add(detalleSinDatosStock);
                         }
                         //Pasar la lista al pedido
 
