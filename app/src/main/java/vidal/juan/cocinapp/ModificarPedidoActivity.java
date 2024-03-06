@@ -38,11 +38,12 @@ import java.util.Map;
 
 public class ModificarPedidoActivity extends AppCompatActivity {
 
-    private Button volverDetallesPedidosButton,confirmModPedidoButton,seleccionarFechaEntregaButton;
+    private Button volverDetallesPedidosButton,confirmModPedidoButton,seleccionarFechaEntregaButton,addRacionButton;
     private ListView listaDetalleMod = null;
     private TextView fechaPedidoDetalleTextMod,fechaEntregaModTextview,cometariosDetalleTextMod,totalDetalleTextMod,idPedidoModTextView;
     private String idPedido;
     private double precioTotalPedido = 0;
+    static final int REQUEST_CODE = 1;
 
     private String nuevaFechaEntrega, fechaPedido;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
@@ -50,8 +51,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     //Formatear para guardar hora minutos y segundos
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
-    private boolean pedidoEliminado;
-
+    private ArrayList<DetallePedido> detallesNuevosAgregados;
+    private double precioTotalDeNuevoAgregado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         //referencia a items xml
         volverDetallesPedidosButton = findViewById(R.id.volverDetallesPedidosButton);
         confirmModPedidoButton = findViewById(R.id.confirmModPedidoButton);
+        addRacionButton = findViewById(R.id.addRacionButton);
         seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
         listaDetalleMod = findViewById(R.id.listaDetalleMod);
         fechaPedidoDetalleTextMod = findViewById(R.id.fechaPedidoDetalleTextMod);
@@ -94,6 +96,19 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         // Buscar y mostrar los detalles del pedido a partir de id
         buscarPedido(idPedido);
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Obtener el ArrayList de detalles seleccionados
+                detallesNuevosAgregados = data.getParcelableArrayListExtra("detallesSeleccionados");
+                // Obtener el precio total
+                precioTotalDeNuevoAgregado = data.getDoubleExtra("precioTotal", 0.0);
+                Log.d("detallesNuevos", "detalles nuevos orig."+ detallesNuevosAgregados.toString() + "precio total: " + precioTotalDeNuevoAgregado);
+            }
+        }
     }
     @Override
     protected void onDestroy() {
@@ -157,10 +172,12 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
                         Log.d("Conex", "Conex"+ racionRef.toString());
                     }
+                    //Funcionalidad confirmar pedido
                     confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if(pedido.getEditable() == true) {
+                                Log.d("editable", "Edicion = "+ pedido.getEditable());
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ModificarPedidoActivity.this, R.style.DatePickerTheme);
                                 String mensajeConfirmacionMod = "¿Estás seguro de que quieres modificar este pedido?";
                                 String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
@@ -196,6 +213,13 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    //Funcionalidad agregarNuevaRacion
+                    addRacionButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            seleccionarNuevasRacions();
+                        }
+                    });
 
                 }
                 else {
@@ -210,6 +234,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void seleccionarNuevasRacions() {
+        Intent intentSeleccionarNuevasRaciones = new Intent(ModificarPedidoActivity.this, AgregarRacionesPedido.class);
+        startActivityForResult(intentSeleccionarNuevasRaciones, REQUEST_CODE);
     }
 
     /**
