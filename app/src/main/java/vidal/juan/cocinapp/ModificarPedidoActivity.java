@@ -52,7 +52,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     private ArrayList<DetallePedido> detallesNuevosAgregados;
-    private double precioTotalDeNuevoAgregado;
+    private ArrayList<DetallePedidoNoParcel> detallesNuevosAgregadosNoParcel = null;//Iincializar el array list para luego hacer la transformación
+    private double precioTotalDeNuevoAgregado = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 // Obtener el precio total
                 precioTotalDeNuevoAgregado = data.getDoubleExtra("precioTotal", 0.0);
                 Log.d("detallesNuevos", "detalles nuevos orig."+ detallesNuevosAgregados.toString() + "precio total: " + precioTotalDeNuevoAgregado);
+                //Trasformar la lista de detalles seleecionados en no parcelabre; si no se agrega un 0 en la bbd por el consutructor que usa firebase, usa parcelable el predeterminado que envia el staturs = 0
+                transFormNoParcel();
+                //Para forzar el onData cahnge y que se regenere la vista
+                buscarPedido(idPedido);
             }
         }
     }
@@ -136,7 +141,24 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
                     idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
                     //Agregar al objeto pedido el stock,cantidadMax, y precio de la racion en cada detalle del pedido
-                    //Buscar los datos de la racion a partir del nombre de la racion
+                    //Si existen nuevos pedidos agregarlos al pedido
+                    if (detallesNuevosAgregadosNoParcel !=null)
+                    {
+                        for(DetallePedidoNoParcel detalleNuevo : detallesNuevosAgregadosNoParcel){
+                            for(DetallePedidoNoParcel detallesOriginales : pedido.getDetalles()){
+                                if (!detalleNuevo.getRacion().equals(detallesOriginales.getRacion())){
+                                    pedido.getDetalles().add(detalleNuevo);
+                                    double precioAnt = pedido.getPrecio_total();
+                                    pedido.setPrecio_total(precioAnt+ detalleNuevo.getPrecio());
+                                    Log.d("detallesNuevos", "Precio total nuevo."+ pedido.getPrecio_total());
+                                    totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
+
+                                }
+                            }
+                        }
+
+                        Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
+                    }
                     final int[] racionesRecuperadas = {0};
                     for (DetallePedidoNoParcel detalle : pedido.getDetalles()) {
                         //Encontrar la racion en la BBDD para cada detalle
@@ -240,7 +262,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         Intent intentSeleccionarNuevasRaciones = new Intent(ModificarPedidoActivity.this, AgregarRacionesPedido.class);
         startActivityForResult(intentSeleccionarNuevasRaciones, REQUEST_CODE);
     }
-
+    private void transFormNoParcel() {
+        detallesNuevosAgregadosNoParcel = new ArrayList<>();
+        for (DetallePedido detalle : detallesNuevosAgregados) {
+            //Cada objeto de la lista detallesSeleccionados pasarlo al arraylist DetallePedidoNoParcel exactamente igual a como estaba
+            detallesNuevosAgregadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
+        }
+        Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
+    }
     /**
      * Llenar la lista con los detalles del pedido
      * @param pedido objeto pedido del que se obtienen los detalles
