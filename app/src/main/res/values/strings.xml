@@ -63,5 +63,7 @@
     <string name="modPedidoMensaje">Estas a tiempo de modificar el pedido</string>
     <string name="modificar_pedido">Modificar pedido</string>
     <string name="NuevafechaEntrega">Nueva fecha de entrega</string>
+    <string name="addRacion">Añadir ración</string>
+    <string name="addAlPedido">Agregar al pedido</string>
 
 </resources>
