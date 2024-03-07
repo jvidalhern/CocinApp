@@ -1,14 +1,17 @@
 package vidal.juan.cocinapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,21 +27,19 @@ public class VerPedidoActivity extends AppCompatActivity {
 
     private Button cancelVerPedidosActivosButton;
     private ListView listaPedidosActivos;
-    private FirebaseUser usuarioLogeado ;
-    private ArrayList<Pedido> pedidosActivos = new ArrayList<>();
+    private FirebaseUser usuarioLogeado;
+    private AdaptadorPedidosActivos adaptadorPedidosActivos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_pedido);
-
-        //referencia a items xml
+        Log.d("ActivityLifecycle", "onCreate() VerPedidos");
         cancelVerPedidosActivosButton = findViewById(R.id.cancelVerPedidosActivosButton);
         listaPedidosActivos = findViewById(R.id.listaPedidosActivos);
 
-        //Usuario logeado en la app
         usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
-        //volverPrpincipal boton
-        //Volver a la pantalla principal
+
         cancelVerPedidosActivosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,81 +47,118 @@ public class VerPedidoActivity extends AppCompatActivity {
             }
         });
 
-        obtenerPedidos();
+        adaptadorPedidosActivos = new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista) {
+            @Override
+            public void onEntrada(Pedido pedidoActivo, View view) {
+                // Referencias a los elementos de la vista
+                TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
+                TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
+                TextView textViewEstado = view.findViewById(R.id.textViewEstado);
+                TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
+                TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
+                TextView textViewIdPedido = view.findViewById(R.id.textViewIdPedido);
+                TableRow filaPedidoColor = view.findViewById(R.id.filaPedidoColor);
+                LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
 
+                // Cargar los datos en los campos
+                textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
+                textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
+                textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
+                textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
+                textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total()) + "\u20AC");
+                textViewComentarios.setText(getString(R.string.comentarios) +": " +  String.valueOf(pedidoActivo.getComentarios()));
+
+                // Evento de click en el pedido para pasar a los detalles del pedido
+                linarLayoutDetallePedido.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        verDetallesDEPedido(pedidoActivo.getIdPedido());
+                    }
+                });
+
+                // Cambiar color en función del estado
+                if (pedidoActivo.getEstado().equals("preparar")) {
+                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                } else if (pedidoActivo.getEstado().equals("recoger")) {
+                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                } else {
+                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                }
+            }
+        };
+
+        listaPedidosActivos.setAdapter(adaptadorPedidosActivos);
+
+        obtenerPedidos();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy() Verpedido");
     }
 
-    /**
-     * Metodo que carga una lista de pedidos activos del usuario logeado
-     *
-     */
     private void obtenerPedidos() {
-        // Referencia a la base de datos en tiempo real
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // Realizar la consulta para obtener los pedidos del usuario con estado "preparar" o "recoger"
         databaseReference.child("pedidos").orderByChild("usuario").equalTo(usuarioLogeado.getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<Pedido> pedidosActivos = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Pedido pedido = snapshot.getValue(Pedido.class);
-                            // Verificar si el pedido tiene estado "preparar" o "recoger"
+                            pedido.setIdPedido(snapshot.getKey());
                             if (pedido != null && ("preparar".equals(pedido.getEstado()) || "recoger".equals(pedido.getEstado()))) {
-                                pedidosActivos.add(pedido);
-                            }
-                        }
-                        //Prueba en log
-                        for (Pedido pedido : pedidosActivos) {
-                            Log.d("Pedido", "Fecha Pedido: " + pedido.getFecha_pedido() +
-                                    ", Fecha Entrega: " + pedido.getFecha_entrega() +
-                                    ", Estado: " + pedido.getEstado() +
-                                    ", Precio: " + pedido.getPrecio_total() + "€");
-                        }
-                        //Llenar la lista de la vista pedidos_activos_vista.xml  con los pedidos activos obtenidos
-                        listaPedidosActivos.setAdapter(new AdaptadorPedidosActivos(VerPedidoActivity.this, R.layout.pedidos_activos_vista, pedidosActivos) {
-                            @Override
-                            public void onEntrada(Pedido pedidoActivo, View view) {
-                                if (pedidosActivos != null) {
-                                    //Refencias a los elementos de la vista
-
-                                    TextView textViewFechaPedido = view.findViewById(R.id.textViewFechaPedido);
-                                    TextView textViewFechaEntrega = view.findViewById(R.id.textViewFechaEntrega);
-                                    TextView textViewEstado = view.findViewById(R.id.textViewEstado);
-                                    TextView textViewPrecio = view.findViewById(R.id.textViewPrecio);
-                                    TextView textViewComentarios = view.findViewById(R.id.textViewComentarios);
-
-                                    //Cargar los datos en los campos
-
-                                    textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
-                                    textViewFechaEntrega.setText(String.valueOf (pedidoActivo.getFecha_entrega()));
-                                    textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
-                                    textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total() + "€"));
-                                    textViewComentarios.setText(getString(R.string.comentarios) + String.valueOf(pedidoActivo.getComentarios()));
+                                if (pedido.getEstado().equals("recoger")) {
+                                    pedidosActivos.add(0, pedido);
+                                } else {
+                                    pedidosActivos.add(pedido);
                                 }
                             }
-                        });
+                        }
+                        // Actualizar la lista de pedidos en el adaptador
+                        Log.d("VerPedidoActivity", "Atulizando lista");
+                        adaptadorPedidosActivos.actualizarLista(pedidosActivos);
                     }
 
                     @Override
-                    public void onCancelled( DatabaseError databaseError) {
+                    public void onCancelled(DatabaseError databaseError) {
                         Log.e("Error obtener pedidos", "Error al obtener los pedidos:", databaseError.toException());
                     }
                 });
     }
 
-    /**
-     * Volver PPrincipal
-     */
-    private void volverPprincipal() {
-        Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
+    private void verDetallesDEPedido(String idPedido) {
+        //Consultar raciones ;Accer al nodo racion para que funcio el cambio de la racion; si no se hace esta conxión con el listener luego no funciona la modificación
+        //No se porque pero es la unica solución que he encontrado de momento 28/02/2023
+        DatabaseReference databaseReferenceRacion = FirebaseDatabase.getInstance().getReference().child("raciones");
+        databaseReferenceRacion.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Racion racion = snapshot.getValue(Racion.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Intent verDetallesPedido = new Intent(VerPedidoActivity.this, VerDetallesPedidoActivity.class);
+        verDetallesPedido.putExtra("idPedido", idPedido);
+        startActivity(verDetallesPedido);
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        volverPprincipal();
+    /**
+     * Volver Pantalla principal
+     */
+    private void volverPprincipal() {
+        /*Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
+        startActivity(intent);*/
+        finish();
     }
 
 }

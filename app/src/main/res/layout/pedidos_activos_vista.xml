@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linarLayoutDetallePedido"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewIdPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
 
+        android:background="@color/principal"
+        android:textColor="@color/white"
+        android:padding="8dp" />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
         <TableRow
+            android:id="@+id/filaPedidoColor"
             android:layout_width="match_parent"
+            android:background="@color/defPedidoColor"
             android:layout_height="wrap_content">
 
             <TextView
@@ -18,6 +29,7 @@
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -25,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -32,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
 
             <TextView
@@ -39,14 +53,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:textColor="@color/black"
                 android:padding="8dp" />
         </TableRow>
     </TableLayout>
     <TextView
         android:id="@+id/textViewComentarios"
         android:layout_width="match_parent"
+        android:background="@color/defPedidoColor"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
 </LinearLayout>
