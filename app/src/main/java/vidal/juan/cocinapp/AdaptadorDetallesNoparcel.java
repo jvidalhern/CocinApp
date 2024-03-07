@@ -1,6 +1,7 @@
 package vidal.juan.cocinapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public abstract class AdaptadorDetallesNoparcel extends BaseAdapter {
         }
 
         onEntrada(detallesPedidoNoParcel.get(position), convertView);
-
+        Log.d("Onentrada", "Onentrada ejecutado:  Psition: " + (position) + " Count " + getCount() );
         return convertView;
     }
 }
