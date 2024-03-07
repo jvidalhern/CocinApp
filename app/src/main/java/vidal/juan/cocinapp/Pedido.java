@@ -16,9 +16,19 @@ public class Pedido {
     private String usuario;
     private Boolean editable = true;//PASAR a BBDD editable como true al registrar el pedido->esto habra que cambiarlo desde un servidor TODO hacer servicio APP java escritorio
 
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    private String idPedido;
+
 
     public Pedido() {
-        // Constructor vacío requerido por Firebase
+        // Para firebase
     }
     //TODO se podria quitar el estado del constructor y pasarlo siempre como "preparar" al igual que se hace con editable
     public Pedido(String comentarios, List<DetallePedidoNoParcel> detalles, String estado, String fecha_pedido, String fecha_entrega, double precio_total, String usuario) {
@@ -103,6 +113,7 @@ public class Pedido {
                 ", estado='" + estado + '\'' +
                 ", fecha_pedido='" + fecha_pedido + '\'' +
                 ", fecha_entrega='" + fecha_entrega + '\'' +
+                ", editable='" + editable + '\'' +
                 ", precio_total=" + precio_total +
                 ", usuario='" + usuario + '\'' +
                 '}';

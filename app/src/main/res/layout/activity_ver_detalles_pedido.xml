@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo"
+    tools:context=".VerDetallesPedidoActivity">
+    <TextView
+        android:id="@+id/detallestituloTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:text="@string/detallesDelPedido"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/idPedidoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_gravity="left"
+        android:background="@color/principal"
+        />
+
+    <ListView
+        android:id="@+id/listaDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/fondo"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/black"
+        android:dividerHeight="0dp" />
+
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/fechaPedidoDetalle"
+        android:text="@string/fecha_pedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:background="@color/principal"
+        android:textColor="@color/white"
+         />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/fechaPedidoDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:background="@color/white"
+        />
+    <TextView
+        android:id="@+id/fechaPedidoEntregaDetalle"
+        android:text="@string/fecha_entrega"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/fechaEntregaDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        />
+    <TextView
+        android:id="@+id/cometariosPedidoDEtalle"
+        android:text="@string/comentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/cometariosDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:lines="3"
+        android:editable="false"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        tools:ignore="Deprecated" />
+
+    <TextView
+        android:id="@+id/totaPedidoDetalle"
+        android:text="@string/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:background="@color/principal"
+        android:textColor="@color/white" />
+    <TextView
+        android:layout_marginTop="0dp"
+        android:id="@+id/totalDetalleText"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingStart="12dp"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        />
+    <TextView
+        android:id="@+id/textModPedidoInfo"
+        android:text="@string/modPedidoMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        android:background="@color/recogerPedidoColor"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:id="@+id/layoutModPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/eliminarPedidoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="@string/eliminar"
+            />
+        <Button
+            android:id="@+id/modPediddoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart= "8dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="@string/modPedido"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/volverPedidosButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:text="@string/volver"
+        />
+
+
+</LinearLayout>

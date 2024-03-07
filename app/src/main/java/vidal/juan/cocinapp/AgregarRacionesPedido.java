@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,15 +25,12 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class SeleccionarRacionesActivity extends AppCompatActivity {
+public class AgregarRacionesPedido extends AppCompatActivity {
 
     private ListView lista;
-    private Button botonPedir,cancelarButton;
+    private Button addRacionButton,cancelarButton;
     private ArrayList<EncapsuladorEntradas> datos;
     private boolean datosCargados = false;
-
-    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
-    private final String URL_SUFIJO = "?alt=media";
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference().child("raciones");
 
@@ -45,7 +41,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         Log.d("ActivityLifecycle", "onCreate() SeleccionarRaciones");
         // Referencias a los elementos en activity_realizar_pedido.xml
         lista = findViewById(R.id.lista);
-        botonPedir = findViewById(R.id.botonPedir);
+        addRacionButton = findViewById(R.id.botonPedir);
         cancelarButton = findViewById(R.id.cancelarButton);
         datos = new ArrayList<>();
 
@@ -53,7 +49,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         cargarDatosFirebase();
 
         // Configurar listener para el botón Pedir
-        botonPedir.setOnClickListener(new View.OnClickListener() {
+        addRacionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Obtener la cantidad total y el precio total
@@ -63,19 +59,11 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                 ArrayList<DetallePedido> detallesSeleccionados = obtenerDetallesSeleccionados();
                 //Comprobar que se seleeciona algo para pasar a la siguiente activity
                 if (!detallesSeleccionados.isEmpty()) {
-/*
-                    //Prueba mostrar en el log lo que se ha seleccionado
-                    for (DetallePedido detalle : detallesSeleccionados) {
-                        Log.d("DetallesSeleccionados", "Nombre: " + detalle.getNombreRacion() +
-                                ", Cantidad: " + detalle.getCantidad() +
-                                ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
-                    }*/
-                    // Iniciar la actividad para escoger fecha; hay que pasar el arraylist
-                    //Pasar arraylist  detallesSeleccionados + preciototal a siguiente activity
-                    Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
+                    //Devolver detales seleccionados a actividad anteriror
+                    Intent intent = new Intent();
                     intent.putParcelableArrayListExtra("detallesSeleccionados", detallesSeleccionados);
                     intent.putExtra("precioTotal", precioTotal);
-                    startActivity(intent);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
 
@@ -90,16 +78,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         });
 
         // Ocultar el botón Pedir inicialmente
-        botonPedir.setVisibility(View.GONE);
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Iniciar la actividad PantallaPrincipal
-        Intent intent = new Intent(SeleccionarRacionesActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
-        finish();  // Finaliza la actividad actual para que no puedas volver atrás a ella
+        addRacionButton.setVisibility(View.GONE);
     }
     @Override
     protected void onDestroy() {
@@ -113,7 +92,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        String tituloEntrada = childSnapshot.getKey().toUpperCase();
+                        String tituloEntrada = childSnapshot.getKey();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
@@ -131,20 +110,18 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         String precio = df.format(precioDecimal);
                         Log.d("getDecimalPrecio", "Precio decimal depues del format" +  precio);
                         String stock = childSnapshot.child("stock").getValue(String.class);
-                        String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
 
-                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock + ", URL imagen: " + urlImagen);
+                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock);
 
-                        datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        datos.add(new EncapsuladorEntradas(R.drawable.tortilla, tituloEntrada, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
                     }
 
                     // Inicializa tu adaptador después de que se hayan cargado los datos
-                    lista.setAdapter(new AdaptadorEntradas(SeleccionarRacionesActivity.this, R.layout.entrada, datos) {
+                    lista.setAdapter(new AdaptadorEntradas(AgregarRacionesPedido.this, R.layout.entrada, datos) {
                         @Override
                         public void onEntrada(EncapsuladorEntradas entrada, View view) {
                             if (entrada != null) {
                                 TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
-                                TextView descripcion = view.findViewById(R.id.descripcion_entrada);
                                 TextView precio_entrada = view.findViewById(R.id.precio_entrada);
                                 ImageView imagen_entrada = view.findViewById(R.id.imagen);
 
@@ -152,18 +129,12 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 Button botonQuitar = view.findViewById(R.id.botonQuitar);
                                 TextView textoCantidad = view.findViewById(R.id.textoCantidad);
 
-                                // Utiliza Glide para cargar la imagen desde la URL
-                                Glide.with(SeleccionarRacionesActivity.this)
-                                        .load(entrada.getUrlImagen())
-                                        .into(imagen_entrada);
-
-
                                 // Configura los listeners para los botones
                                 botonAnadir.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         incrementarCantidad(entrada, textoCantidad);
-                                        actualizarBotonPedir();
+                                        actualizarBotonAdd();
                                     }
                                 });
 
@@ -171,13 +142,13 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         decrementarCantidad(entrada, textoCantidad);
-                                        actualizarBotonPedir();
+                                        actualizarBotonAdd();
                                     }
                                 });
 
                                 titulo_entrada.setText(entrada.get_textoTitulo());
-                                descripcion.setText(entrada.getDescripcion());
-                                precio_entrada.setText(entrada.get_Precio() + "€");
+                                precio_entrada.setText(entrada.get_Precio());
+                                imagen_entrada.setImageResource(entrada.get_idImagen());
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
                             }
                         }
@@ -186,7 +157,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                     // Realiza otras operaciones después de que se hayan cargado los datos
                     datosCargados = true;
                     // Actualiza el estado del botónPedir después de cargar los datos
-                    actualizarBotonPedir();
+                    actualizarBotonAdd();
                 } else {
                     // Manejar el caso en el que el nodo no existe
                     datosCargados = false;
@@ -236,7 +207,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
     }
 
-    private void actualizarBotonPedir() {
+    private void actualizarBotonAdd() {
         // Verificar si hay al menos un producto con cantidad mayor que 0
         boolean mostrarBoton = false;
         for (EncapsuladorEntradas entrada : datos) {
@@ -247,8 +218,8 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             }
         }
 
-        // Mostrar u ocultar el botón Pedir según sea necesario
-        botonPedir.setVisibility(mostrarBoton ? View.VISIBLE : View.GONE);
+        // Mostrar u ocultar el botón add según sea necesario
+        addRacionButton.setVisibility(mostrarBoton ? View.VISIBLE : View.GONE);
     }
 
     private int obtenerCantidadTotal(ArrayList<EncapsuladorEntradas> datos) {
@@ -262,7 +233,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private double obtenerPrecioTotal(ArrayList<EncapsuladorEntradas> datos) {
         double precioTotal = 0;
         for (EncapsuladorEntradas entrada : datos) {
-            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio().replace(",", "."));
+            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio());
         }
         return precioTotal;
     }
@@ -278,14 +249,14 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
         }
 
         // Mostrar u ocultar el botón Pedir según sea necesario
-        botonPedir.setVisibility(mostrarBoton ? View.VISIBLE : View.GONE);
+        addRacionButton.setVisibility(mostrarBoton ? View.VISIBLE : View.GONE);
 
         // Actualizar el texto del botón con la cantidad total y el precio total
         if (mostrarBoton) {
             int cantidadTotal = obtenerCantidadTotal(datos);
             double precioTotal = obtenerPrecioTotal(datos);
-            String textoBoton = "Pedir " + cantidadTotal + " por " + String.format("%.2f", precioTotal) + " €";
-            botonPedir.setText(textoBoton);
+            String textoBoton = "Añadir " + cantidadTotal + " por " + String.format("%.2f", precioTotal) + " €";
+            addRacionButton.setText(textoBoton);
         }
     }
     //Obtener lista de detalles
@@ -297,12 +268,10 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
             // Solo agregar detalles con cantidad mayor que cero
             if (cantidadActual > 0) {
-                // Reemplazar la coma con punto en el precio antes de convertirlo a double
-                String precioString = entrada.get_Precio().replace(",", ".");
                 DetallePedido detalle = new DetallePedido(
                         entrada.get_textoTitulo(),
                         cantidadActual,
-                        Double.parseDouble(precioString)
+                        Double.parseDouble(entrada.get_Precio())
                 );
                 detallesSeleccionados.add(detalle);
             }
@@ -310,6 +279,5 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
         return detallesSeleccionados;
     }
-
 
 }
