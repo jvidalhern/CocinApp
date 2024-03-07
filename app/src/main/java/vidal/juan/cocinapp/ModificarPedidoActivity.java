@@ -125,6 +125,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
      * @param idPedido id del pedido obtenido en la activity anterior
      */
     private void buscarPedido(String idPedido) {
+
         // Referencia a la base de datos mediante el id pedido
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("pedidos").child(idPedido);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -133,7 +134,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                 //Obj Pedido encontrado a partir del Idpedido
                 Pedido pedido = dataSnapshotPedido.getValue(Pedido.class);
                 if(pedido != null){
-                    Log.d("ExecPedidoObj", "pedido orig."+ pedido.toString());
+                    Log.d("ModPedidoPed", "Pedido al inicar modificar pedido: "+ pedido.toString());
                     //Valores del pedido a la vista
                     fechaPedidoDetalleTextMod.setText(pedido.getFecha_pedido().toString());
                     fechaEntregaModTextview.setText( pedido.getFecha_entrega().toString());
@@ -144,20 +145,32 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)
                     {
-                        for(DetallePedidoNoParcel detalleNuevo : detallesNuevosAgregadosNoParcel){
-                            for(DetallePedidoNoParcel detallesOriginales : pedido.getDetalles()){
-                                if (!detalleNuevo.getRacion().equals(detallesOriginales.getRacion())){
-                                    pedido.getDetalles().add(detalleNuevo);
-                                    double precioAnt = pedido.getPrecio_total();
-                                    pedido.setPrecio_total(precioAnt+ detalleNuevo.getPrecio());
-                                    Log.d("detallesNuevos", "Precio total nuevo."+ pedido.getPrecio_total());
-                                    totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
+                        // Lista para almacenar los detalles que se van a agregar
+                        List<DetallePedidoNoParcel> detallesAgregados = new ArrayList<>();
 
+                        for (DetallePedidoNoParcel detalleNuevo : detallesNuevosAgregadosNoParcel) {
+                            boolean encontrado = false;
+                            for (DetallePedidoNoParcel detalleOriginal : pedido.getDetalles()) {
+                                if (detalleNuevo.getRacion().equals(detalleOriginal.getRacion())) {
+                                    encontrado = true;
+                                    break;
                                 }
+                            }
+                            if (!encontrado) {
+                                detalleNuevo.setStockOriginal("agregado"); // Para luego modificar el stock del que parte el poder modificar
+                                detallesAgregados.add(detalleNuevo);
+                                double precioAnt = pedido.getPrecio_total();
+                                pedido.setPrecio_total(precioAnt + detalleNuevo.getPrecio());
+                                Log.d("detallesNuevos", "Precio total nuevo." + pedido.getPrecio_total());
+                                totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
                             }
                         }
 
-                        Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
+                        // Agregar los detalles de la lista detalles agregados al pedido
+                        pedido.getDetalles().addAll(detallesAgregados);
+
+                        Log.d("ModPedidoPed", "Pedido al añdir raciones: "+ pedido.toString());
+                        //Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
                     }
                     final int[] racionesRecuperadas = {0};
                     for (DetallePedidoNoParcel detalle : pedido.getDetalles()) {
@@ -169,18 +182,30 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             public void onDataChange( DataSnapshot dataSnapshotRacion) {
                                 //Crear objeto racion a partir de datos de BBDD
                                 Racion racion = dataSnapshotRacion.getValue(Racion.class);
-                                //Pasar el stock,precioRacion,cantidadMaximaRacion al detalle del pedido
-                                detalle.setStockRacion(racion.getStock());
-                                detalle.setPrecioRacion(racion.getPrecio());
-                                detalle.setPedidoMaxRacion(String.valueOf(racion.getPedido_max()));
-                                detalle.setStockOriginal(racion.getStock());
-                                Log.d("AddRacionADetalle", "ADD cant,stock y preico orig."+ detalle.toString());
-                                racionesRecuperadas[0]++;
-                                // Verificar si se han recuperado todas las raciones
-                                if (racionesRecuperadas[0] == pedido.getDetalles().size()) {
-                                    llenarLista(pedido);
-                                    //Boton Modificar el pedido
+                                if (racion != null) {
+                                    //Pasar el stock,precioRacion,cantidadMaximaRacion al detalle del pedido
+                                    detalle.setPrecioRacion(racion.getPrecio());
+                                    detalle.setPedidoMaxRacion(String.valueOf(racion.getPedido_max()));
+                                    //Si el detalle es agregado hay que recalcular el stock original
+                                        if(detalle.getStockOriginal() != null){
+                                            int cantidadAgregadaRacion = detalle.getCantidad();
+                                            int sotkcBdd = Integer.parseInt(racion.getStock());
+                                            int stockDepuesAgregado = sotkcBdd-cantidadAgregadaRacion;
+                                            detalle.setStockOriginal(String.valueOf(stockDepuesAgregado));
+                                            detalle.setStockRacion(String.valueOf(stockDepuesAgregado));
+                                        }else{
+                                            detalle.setStockOriginal(racion.getStock());
+                                            detalle.setStockRacion(racion.getStock());
+                                        }
 
+                                    Log.d("AddRacionADetalle", "ADD cant,stock y preico orig." + detalle.toString());
+                                    racionesRecuperadas[0]++;
+                                    // Verificar si se han recuperado todas las raciones
+                                    if (racionesRecuperadas[0] == pedido.getDetalles().size()) {
+                                        llenarLista(pedido);
+                                        //Boton Modificar el pedido
+
+                                    }
                                 }
 
                             }
@@ -393,7 +418,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             }
         });//Fin llenar lista
         Log.d("ExecTamLista", "tamaño de la lista: " + listaDetalleMod.getAdapter().getCount());
-        ((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
+        //((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
     }
 
 
