@@ -41,7 +41,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_realizar_pedido);
+        setContentView(R.layout.activity_seleccionar_raciones);
         Log.d("ActivityLifecycle", "onCreate() SeleccionarRaciones");
         // Referencias a los elementos en activity_realizar_pedido.xml
         lista = findViewById(R.id.lista);
