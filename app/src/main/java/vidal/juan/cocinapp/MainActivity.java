@@ -30,7 +30,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Si el usuario ya esta logeado, pasar a la pantalla princiapl;
+        //Obtener el usuario logeado
+        FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuarioLogeado != null){
+            Intent usuarioYaLogeadoInt = new Intent(MainActivity.this, PantallaPrincipalActivity.class);
+            startActivity(usuarioYaLogeadoInt);
+            finish();
+        }
         //Obtener instancia de FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 

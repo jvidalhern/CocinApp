@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/descripcion_entrada"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <RelativeLayout
