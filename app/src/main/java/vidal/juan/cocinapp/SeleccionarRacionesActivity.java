@@ -41,7 +41,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_realizar_pedido);
+        setContentView(R.layout.activity_seleccionar_raciones);
         Log.d("ActivityLifecycle", "onCreate() SeleccionarRaciones");
         // Referencias a los elementos en activity_realizar_pedido.xml
         lista = findViewById(R.id.lista);
@@ -113,7 +113,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        String tituloEntrada = childSnapshot.getKey().toUpperCase();
+                        String tituloEntrada = childSnapshot.getKey();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
                         Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
@@ -262,7 +262,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
     private double obtenerPrecioTotal(ArrayList<EncapsuladorEntradas> datos) {
         double precioTotal = 0;
         for (EncapsuladorEntradas entrada : datos) {
-            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio().replace(",", "."));
+            precioTotal += entrada.getCantidadActual() * Double.parseDouble(entrada.get_Precio());
         }
         return precioTotal;
     }
