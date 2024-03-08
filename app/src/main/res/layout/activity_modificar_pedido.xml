@@ -42,12 +42,13 @@
         android:dividerHeight="0dp" />
     <Button
         android:id="@+id/addRacionButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="50dp"
-        android:text="@string/addRacion"
+        android:text="@string/add_racion"
+        android:background="@drawable/boton_redondeado"
         android:textColor="@color/white"
         />
 
@@ -102,11 +103,13 @@
              />
         <Button
             android:id="@+id/seleccionarFechaEntregaButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:text="@string/NuevafechaEntrega"
+            android:text="@string/nueva_fecha_entrega"
             android:textColor="@color/white"
+            android:textSize="8dp"
+            android:background="@drawable/boton_redondeado"
             android:layout_weight="1"/>
     </LinearLayout>
     <TextView
@@ -153,19 +156,23 @@
         />
     <Button
         android:id="@+id/confirmModPedidoButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:text="@string/modPedido"
+        android:background="@drawable/boton_redondeado"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/mod_pedido"
         />
     <Button
         android:id="@+id/volverDetallesPedidosButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
+        android:background="@drawable/boton_redondeado"
+        android:layout_gravity="center_horizontal"
         android:text="@string/volver"
         />
 

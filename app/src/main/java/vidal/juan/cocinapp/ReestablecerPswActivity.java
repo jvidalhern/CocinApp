@@ -74,4 +74,16 @@ public class ReestablecerPswActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        // Crea un Intent para abrir la MainActivity
+        Intent intent = new Intent(this, MainActivity.class);
+        // Agrega la bandera FLAG_ACTIVITY_CLEAR_TOP para limpiar el stack de actividades
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // Inicia la MainActivity
+        startActivity(intent);
+        // Finaliza la RegistroActivity
+        finish();
+    }
 }

@@ -163,17 +163,17 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                         fechaEntregaDetalleText.setText(pedido.getFecha_entrega().toString());
                         cometariosDetalleText.setText(pedido.getComentarios().toString());
                         totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
-                        idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
+                        idPedidoTextView.setText(getString(R.string.id_pedido_string) + idPedido.substring(3, 7));
                         //Controlar editar el peddio en funcion de si el pedido es editable
                         //Cambiar color y la visibilidad en funcion del estado
                         if (pedido.getEditable() == true){
                             textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
-                            textModPedidoInfo.setText(getString(R.string.modPedidoMensaje));
+                            textModPedidoInfo.setText(getString(R.string.mod_pedido_mensaje));
                             layoutEditarPedido.setVisibility(View.VISIBLE);
                         }
                         else {
                             textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
-                            textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));
+                            textModPedidoInfo.setText(getString(R.string.no_mod_pedido_mensaje));
                             layoutEditarPedido.setVisibility(View.GONE);
                         }
                     }

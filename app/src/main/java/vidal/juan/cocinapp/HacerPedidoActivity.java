@@ -1,7 +1,6 @@
 package vidal.juan.cocinapp;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -132,12 +131,12 @@ public class HacerPedidoActivity extends AppCompatActivity {
      * Se muestran los dias siempre a partir de esta constante. Tabién se obtiene la fecha del dia actual formateada
      */
     private void obtenerFechaDatepicker() {
-
         //Obtener referencias al dia de hoy
         final Calendar calendar =  Calendar.getInstance();
         final int ano = calendar.get(Calendar.YEAR);
         final int mes = calendar.get(Calendar.MONTH);
         final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        String fechaFormateada = String.format("%02d-%02d-%04d", dia, mes + 1, ano);
         //Formatear la fecha a dia de hoy para pasarla al insert
         fechaPedido = formatoHoraMinSeg.format(calendar.getTime());
         DatePickerDialog datePickerDialog = new DatePickerDialog(this ,R.style.DatePickerTheme, new DatePickerDialog.OnDateSetListener() {
@@ -155,10 +154,9 @@ public class HacerPedidoActivity extends AppCompatActivity {
                         fechaSeleccionada.get(Calendar.MONTH) == mes &&
                         fechaSeleccionada.get(Calendar.DAY_OF_MONTH) == dia) {
                     Toast.makeText(HacerPedidoActivity.this, "Seleccione una fecha diferente al día de hoy", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     String fechaFormateada = formato.format(calendar.getTime());
                     //Que hacer cuando se seleccione la fecha
-                    Toast.makeText(HacerPedidoActivity.this, "Fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
                     fechaEntrega = fechaFormateada;
                     Log.d("FechaSel", "FechaSel: " + fechaEntrega);
                     Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
@@ -196,9 +194,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(calendarioMin.getTimeInMillis() - 1000);
         //TODO hace falta setear dia máximo?
         datePickerDialog.show();
-
-
     }
+
 
     /**
      * Para volver a la ventana principal

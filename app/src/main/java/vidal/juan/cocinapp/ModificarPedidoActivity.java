@@ -10,18 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -140,7 +136,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     fechaEntregaModTextview.setText( pedido.getFecha_entrega().toString());
                     cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
                     totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
-                    idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
+                    idPedidoModTextView.setText(getString(R.string.id_pedido_string) + idPedido.substring(3,7));
                     //Agregar al objeto pedido el stock,cantidadMax, y precio de la racion en cada detalle del pedido
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)
@@ -301,7 +297,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
      */
     private void llenarLista(Pedido pedido ){
         Log.d("ExecLlenarLista", "Llenar lista ejecutado: " );
-        listaDetalleMod.setAdapter(new AdaptadorDetallesNoparcel(this, R.layout.detealle_pedido_mod_vista, pedido.getDetalles()) {
+        listaDetalleMod.setAdapter(new AdaptadorDetallesNoparcel(this, R.layout.detalle_pedido_mod_vista, pedido.getDetalles()) {
             @Override
             public void onEntrada(DetallePedidoNoParcel detallePedido, View view) {
                 if (detallePedido != null) {

@@ -14,4 +14,10 @@
     <color name="prepararPedidoColor">#F48901</color>
     <color name="defPedidoColor">#F42301</color>
     <color name="hintColor">#42403E</color>
+    <color name="paleta_5">#BF7636</color>
+    <color name="paleta_4">#D99F59</color>
+    <color name="paleta_3">#D9BA82</color>
+    <color name="paleta_2">#D9B166</color>
+    <color name="paleta_1">#D9BE6C</color>
+    <color name="paleta_0">#E3D095</color>
 </resources>

@@ -32,18 +32,23 @@
 
         <Button
             android:id="@+id/botonPedir"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Pedir"
             android:textColor="@color/white"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:background="@drawable/boton_redondeado"
+            android:layout_marginBottom="2dp"/>
     </LinearLayout>
+
     <Button
         android:id="@+id/cancelarButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/boton_redondeado"
         android:text="@string/cancelar"
         android:textColor="@color/white"
-         />
+        android:layout_marginBottom="16dp"/>
 
 </LinearLayout>

@@ -193,6 +193,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/repetirContrasenaEditText"
             android:layout_marginTop="16dp"
+            android:textColor="@color/white"
+            android:background="@drawable/boton_redondeado"
             android:text="@string/registrarse" />
 
     </RelativeLayout>

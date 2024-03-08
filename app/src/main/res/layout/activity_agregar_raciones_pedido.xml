@@ -34,7 +34,7 @@
             android:id="@+id/addRacionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/addAlPedido"
+            android:text="@string/add_al_pedido"
             android:textColor="@color/white"
             android:visibility="gone" />
     </LinearLayout>
