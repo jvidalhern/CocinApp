@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/niconne"
-        android:text="¿En qué podemos ayudarte?"
+        android:text="@string/mensaje_bienvenida_pantalla_principal"
         android:textColor="#000000"
         android:textSize="30dp"
         android:textStyle="bold" />
@@ -72,37 +72,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/hacerPedidobutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/white"
             android:background="@drawable/boton_redondeado"
-            android:text="@string/nuevo_pedido" />
+            android:text="@string/nuevo_pedido"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/verPedidosButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/white"
             android:background="@drawable/boton_redondeado"
-            android:text="@string/pedidos_activos" />
+            android:text="@string/pedidos_activos"
+            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/verHistoricoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/white"
             android:background="@drawable/boton_redondeado"
-            android:text="@string/historio_pedidos" />
+            android:text="@string/historio_pedidos"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/eliminarCuentaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/boton_redondeado"
+            android:text="@string/eliminar_cuenta"
+            android:textColor="@color/white" />
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

@@ -74,19 +74,4 @@
         android:background="@drawable/boton_redondeado"
         android:text="@string/reset_string" />
 
-
-
-    <TextView
-        android:id="@+id/derechosAutorTextView"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
-        android:text="@string/derechos_reservados"
-        android:textColor="#000000"
-        android:textStyle="bold" />
-
 </RelativeLayout>
