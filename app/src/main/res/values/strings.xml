@@ -48,6 +48,7 @@
     <string name="edit_password">Editar contraseña</string>
     <string name="edit_repetir_contrasena">Repetir contraseña</string>
     <string name="edit_recordatorio_contrasena">Editar recordatorio de contraseña</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
     <string name="eliminar_pedido">Eliminar pedido</string>
     <string name="estado">Estado</string>
     <string name="fecha_pedido">Fecha Pedido</string>
@@ -59,6 +60,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="login">ENTRAR</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="mensaje_bienvenida_pantalla_principal">¿En qué podemos ayudarle?</string>
     <string name="modificar_pedido">Modificar pedido</string>
     <string name="mod_pedido">Modificar pedido</string>
     <string name="mod_pedido_mensaje">Estas a tiempo de modificar el pedido</string>
@@ -67,7 +69,7 @@
     <string name="modificar_registro">Guardar cambios</string>
     <string name="nueva_fecha_entrega">Nueva fecha</string>
     <string name="nombre">Nombre</string>
-    <string name="nombreRacion">nombre detalle ración</string>
+    <string name="nombre_racion">nombre detalle ración</string>
     <string name="nuevo_pedido">Nuevo pedido</string>
     <string name="no_mod_pedido_mensaje">Lo sentimos, ya no es posible modificar el pedido</string>
     <string name="pedidos">Pedidos</string>
