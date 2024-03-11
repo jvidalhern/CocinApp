@@ -51,7 +51,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     //Formatear para guardar hora minutos y segundos
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
-    private ArrayList<DetallePedido> detallesNuevosAgregados;
+    private ArrayList<DetallePedido> detallesNuevosAgregados,detallesActuales;
     private ArrayList<DetallePedidoNoParcel> detallesNuevosAgregadosNoParcel = null;//Iincializar el array list para luego hacer la transformación
     private double precioTotalDeNuevoAgregado = 0;
 
@@ -104,7 +104,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Obtener el ArrayList de detalles seleccionados
-                detallesNuevosAgregados = data.getParcelableArrayListExtra("detallesSeleccionados");
+                detallesNuevosAgregados = data.getParcelableArrayListExtra("detallesAgregados");
                 // Obtener el precio total
                 precioTotalDeNuevoAgregado = data.getDoubleExtra("precioTotal", 0.0);
                 Log.d("detallesNuevos", "detalles nuevos orig."+ detallesNuevosAgregados.toString() + "precio total: " + precioTotalDeNuevoAgregado);
@@ -162,7 +162,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 double precioAnt = pedido.getPrecio_total();
                                 pedido.setPrecio_total(precioAnt + (detalleNuevo.getPrecio()  * detalleNuevo.getCantidad()));
                                 Log.d("detallesNuevos", "Precio total nuevo." + pedido.getPrecio_total());
-                                totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
+                                Locale locale = Locale.US;//Para poner el . como serparador
+                                totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
+                                //totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
                             }
                         }
 
@@ -264,7 +266,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     addRacionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            seleccionarNuevasRacions();
+                            seleccionarNuevasRacions(pedido.getDetalles());
                         }
                     });
 
@@ -283,10 +285,20 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
     }
 
-    private void seleccionarNuevasRacions() {
+    /**
+     * Iniciar actividad de seleccionar nuevas raciones
+     */
+    private void seleccionarNuevasRacions(List <DetallePedidoNoParcel> detallesAtualesDelPedido) {
+        //Pasar los de detalles mediante la clase detalles pediddo que implementa parcelable
+        transFormParcel(detallesAtualesDelPedido);
         Intent intentSeleccionarNuevasRaciones = new Intent(ModificarPedidoActivity.this, AgregarRacionesPedido.class);
+        intentSeleccionarNuevasRaciones.putParcelableArrayListExtra("detallesActuales", detallesActuales);
         startActivityForResult(intentSeleccionarNuevasRaciones, REQUEST_CODE);
     }
+
+    /**
+     * Pasar los detalles a la clase que no implementa parcelable para evitar incluir un campo = 0 en la BBDD
+     */
     private void transFormNoParcel() {
         detallesNuevosAgregadosNoParcel = new ArrayList<>();
         for (DetallePedido detalle : detallesNuevosAgregados) {
@@ -295,6 +307,20 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         }
         Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
     }
+
+    /**
+     * Pasar los detalles a la clase que implementa parcelable para poder pasarlos mediante put extra
+     */
+    private void transFormParcel(List <DetallePedidoNoParcel> detallesActualesNoparce) {
+        detallesActuales = new ArrayList<>();
+        for (DetallePedidoNoParcel detalle : detallesActualesNoparce) {
+            //Cada objeto de la lista detallesActualesNoparce pasarlo al arraylist detallesActuales exactamente igual a como estaba
+            detallesActuales.add(new DetallePedido(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
+
+        }
+        Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
+    }
+
     /**
      * Llenar la lista con los detalles del pedido
      * @param pedido objeto pedido del que se obtienen los detalles
@@ -421,9 +447,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         //((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
     }
 
-
-
-
     /**
      * Volver Detalles del pedido
      */
@@ -438,10 +461,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
      * Volver Pantalla principal
      */
     private void volverPprincipal() {
-        /*Intent intentPprincipal = new Intent(ModificarPedidoActivity.this, PantallaPrincipalActivity.class);*/
-
         finish();
-
     }
 
     /**
@@ -515,6 +535,12 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Confirmar la modiificacion de pedido, conlleva la actualizacion del stock de la tabla de raciones
+     * @param pedido pedido a modidifcar
+     * @param dataSnapshotPedido referencia a la BBDD del pedido a modificar
+     */
     private void confirmModificarPedido( Pedido pedido,DataSnapshot dataSnapshotPedido) {
         //Actulizar el stock con los nuevos datos
 
@@ -589,6 +615,12 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             });
         }
     }
+
+    /**
+     * Modifiar el pedido en la BBDD; Este metodo se usa en confirmModificarPedido
+     * @param dataSnapshotPedidoActu referencia a la BBDD para modificar el pedido
+     * @param actuPedido el pedido nuevo a updatear en la BBDD
+     */
     private void modificarPedido(DataSnapshot dataSnapshotPedidoActu, Map actuPedido) {
 
         dataSnapshotPedidoActu.getRef().updateChildren(actuPedido).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -608,6 +640,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Eliminar el pediddo en la BBDD; Este metodo se usa en confirmModificarPedido
+     * @param dataSnapshotEliminar referencia a la BBDD para eliminar el pedido
+     */
 
     private void eliminarPedido(DataSnapshot dataSnapshotEliminar) {
         dataSnapshotEliminar.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {

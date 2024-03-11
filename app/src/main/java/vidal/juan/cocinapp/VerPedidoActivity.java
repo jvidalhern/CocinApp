@@ -102,6 +102,7 @@ public class VerPedidoActivity extends AppCompatActivity {
 
     private void obtenerPedidos() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Log.d("database", "DatabaseReference" + databaseReference);
 
         databaseReference.child("pedidos").orderByChild("usuario").equalTo(usuarioLogeado.getUid())
                 .addValueEventListener(new ValueEventListener() {
