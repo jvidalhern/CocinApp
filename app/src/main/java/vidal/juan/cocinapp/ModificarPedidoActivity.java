@@ -141,7 +141,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
                     totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
                     idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
-                    //Agregar al objeto pedido el stock,cantidadMax, y precio de la racion en cada detalle del pedido
+
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)
                     {
@@ -161,7 +161,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 detallesAgregados.add(detalleNuevo);
                                 double precioAnt = pedido.getPrecio_total();
                                 pedido.setPrecio_total(precioAnt + (detalleNuevo.getPrecio()  * detalleNuevo.getCantidad()));
-                                Log.d("detallesNuevos", "Precio total nuevo." + pedido.getPrecio_total());
+
                                 Locale locale = Locale.US;//Para poner el . como serparador
                                 totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
                                 //totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
@@ -170,10 +170,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
                         // Agregar los detalles de la lista detalles agregados al pedido
                         pedido.getDetalles().addAll(detallesAgregados);
-
+                        //Logs
                         Log.d("ModPedidoPed", "Pedido al añdir raciones: "+ pedido.toString());
                         //Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
                     }
+
                     final int[] racionesRecuperadas = {0};
                     for (DetallePedidoNoParcel detalle : pedido.getDetalles()) {
                         //Encontrar la racion en la BBDD para cada detalle
@@ -305,7 +306,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             //Cada objeto de la lista detallesSeleccionados pasarlo al arraylist DetallePedidoNoParcel exactamente igual a como estaba
             detallesNuevosAgregadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
         }
-        Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
+        //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
     }
 
     /**
@@ -318,7 +319,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             detallesActuales.add(new DetallePedido(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
 
         }
-        Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
+        //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
     }
 
     /**

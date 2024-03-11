@@ -66,6 +66,7 @@ public class AgregarRacionesPedido extends AppCompatActivity {
                 //Comprobar que se seleeciona algo para pasar a la siguiente activity
                 if (!detallesSeleccionadosAgregados.isEmpty()) {
                     detallesActuales.addAll(detallesSeleccionadosAgregados);
+                    Log.d("DetallesActuales", "resultado suma detalles actuales + nuevos: " + detallesActuales.toString());
                     //Devolver detales seleccionados a actividad anteriror
                     Intent intent = new Intent();
                     intent.putParcelableArrayListExtra("detallesAgregados", detallesActuales);
