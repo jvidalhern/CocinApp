@@ -379,10 +379,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             //El precio de una racion para añadir o quitar al total
                             double precioUnaracion = Double.parseDouble(detallePedido.getPrecioRacion());
                             int cantidadActual = detallePedido.getCantidad();
-                            String cantidadMaxima = detallePedido.getPedidoMaxRacion();
+                            //String cantidadMaxima = detallePedido.getPedidoMaxRacion();
+                            String cantidadMaxima = String.valueOf(Integer.parseInt(detallePedido.getPedidoMaxRacion()) - cantidadActual + 1 );
                             //int stock = Integer.parseInt(racion.getStock());
 
-                            Log.d("ExecRaStockAntes+", "Stock antes de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion());
+                            Log.d("ExecRaStockAntes+", "Stock antes de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion() + "CantidadMax: " +  cantidadMaxima) ;
                             Log.d("ValorModCantidadA", "Valor de mod cantidad Antes de if: " + modCantidad[0] );
                             if (modCantidad[0] < Math.min(Integer.parseInt(cantidadMaxima), stockOrig[0])) {
                                 //Aumentar las veces que se dio a +
@@ -402,14 +403,16 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //Actualizar el precio del pedido
                                 detallePedido.setPrecio(nuevoPrecio);
                                 //precioRacionActu[0] = precioUnaracionMas;
+                                Locale locale = Locale.US;//Para poner el . como serparador
                                 //Mostrar actu del precio en la view
-                                precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC");
+                                precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
+                                //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto correcion formato
                                 //Precio total aterior
                                 double precioAnt;
                                 //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
                                 String totalStringAnt = totalDetalleTextMod.getText().toString();
                                 precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-                                Locale locale = Locale.US;//Para poner el . como serparador
+
                                 totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt + precioUnaracion) + "\u20AC");
                                 //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
@@ -445,13 +448,16 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                                 //Actualizar el precio del pedido
                                 detallePedido.setPrecio(Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad()));
-                                precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC");//Mostrar actu del precio en la view
+                                Locale locale = Locale.US;//Para poner el . como serparador
+                                //Mostrar actu del precio en la view
+                                precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
+                                //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto, correcion de formato mostrado
                                 //Precio total anterior original
                                 double precioAnt;
                                 //String del precio total actual en la vista geneeral, hayq que quitar el simbolo $ con un substring
                                 String totalStringAnt = totalDetalleTextMod.getText().toString();
                                 precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-                                Locale locale = Locale.US;//Para poner el . como serparador
+
                                 totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt - precioUnaracion) + "\u20AC");
 
 
