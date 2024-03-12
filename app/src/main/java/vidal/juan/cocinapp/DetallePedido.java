@@ -10,6 +10,42 @@ public class DetallePedido implements Parcelable {
     private String racion;
     private int cantidad;
     private double precio;
+    private String precioRacion;
+    private String pedidoMaxRacion ;
+    private String stockRacion;
+    private String stockOriginal;
+
+    public String getPrecioRacion() {
+        return precioRacion;
+    }
+
+    public void setPrecioRacion(String precioRacion) {
+        this.precioRacion = precioRacion;
+    }
+
+    public String getPedidoMaxRacion() {
+        return pedidoMaxRacion;
+    }
+
+    public void setPedidoMaxRacion(String pedidoMaxRacion) {
+        this.pedidoMaxRacion = pedidoMaxRacion;
+    }
+
+    public String getStockRacion() {
+        return stockRacion;
+    }
+
+    public void setStockRacion(String stockRacion) {
+        this.stockRacion = stockRacion;
+    }
+
+    public String getStockOriginal() {
+        return stockOriginal;
+    }
+
+    public void setStockOriginal(String stockOriginal) {
+        this.stockOriginal = stockOriginal;
+    }
 
     // Constructor necesario para Parcelable
     private DetallePedido(Parcel in) {
@@ -20,6 +56,16 @@ public class DetallePedido implements Parcelable {
 
     // Constructor para firebase
     public DetallePedido() {
+    }
+
+    public DetallePedido(String racion, int cantidad, double precio, String precioRacion, String pedidoMaxRacion, String stockRacion, String stockOriginal) {
+        this.racion = racion;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.precioRacion = precioRacion;
+        this.pedidoMaxRacion = pedidoMaxRacion;
+        this.stockRacion = stockRacion;
+        this.stockOriginal = stockOriginal;
     }
 
     public DetallePedido(String racion, int cantidad, double precio) {
