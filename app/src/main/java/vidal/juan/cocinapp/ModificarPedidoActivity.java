@@ -331,8 +331,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         for (DetallePedidoNoParcel detalle : detallesActualesNoparce) {
             //Cada objeto de la lista detallesActualesNoparce pasarlo al arraylist detallesActuales exactamente igual a como estaba
             //Pasar los datos de lo que hay seleecionado tambien
-            detallesActuales.add(new DetallePedido(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPrecioRacion(),detalle.getStockRacion(),detalle.getStockOriginal()));
-
+            detallesActuales.add (new DetallePedido( detalle.getRacion(),detalle.getCantidad(),detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPedidoMaxRacion(),detalle.getStockRacion(),detalle.getStockOriginal()));
+            //DetallePedido detaAux = new DetallePedido(detalle.getRacion(),detalle.getCantidad(),detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPedidoMaxRacion(),detalle.getStockRacion(),detalle.getStockOriginal());
+            //detallesActuales.add(detaAux);
         }
         //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
     }
