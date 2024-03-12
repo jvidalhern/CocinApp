@@ -1,8 +1,5 @@
 package vidal.juan.cocinapp;
 
-/**
- * Clase que representa la realidad de los detalles de un pedido
- */
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,7 +8,7 @@ public class DetallePedido implements Parcelable {
     private int cantidad;
     private double precio;
     private String precioRacion;
-    private String pedidoMaxRacion ;
+    private String pedidoMaxRacion;
     private String stockRacion;
     private String stockOriginal;
 
@@ -52,6 +49,10 @@ public class DetallePedido implements Parcelable {
         racion = in.readString();
         cantidad = in.readInt();
         precio = in.readDouble();
+        precioRacion = in.readString();
+        pedidoMaxRacion = in.readString();
+        stockRacion = in.readString();
+        stockOriginal = in.readString();
     }
 
     // Constructor para firebase
@@ -103,9 +104,13 @@ public class DetallePedido implements Parcelable {
     @Override
     public String toString() {
         return "DetallePedido{" +
-                "cantidad=" + cantidad +
+                "racion='" + racion + '\'' +
+                ", cantidad=" + cantidad +
                 ", precio=" + precio +
-                ", racion='" + racion + '\'' +
+                ", precioRacion='" + precioRacion + '\'' +
+                ", pedidoMaxRacion='" + pedidoMaxRacion + '\'' +
+                ", stockRacion='" + stockRacion + '\'' +
+                ", stockOriginal='" + stockOriginal + '\'' +
                 '}';
     }
 
@@ -120,10 +125,13 @@ public class DetallePedido implements Parcelable {
         dest.writeString(racion);
         dest.writeInt(cantidad);
         dest.writeDouble(precio);
-
+        dest.writeString(precioRacion);
+        dest.writeString(pedidoMaxRacion);
+        dest.writeString(stockRacion);
+        dest.writeString(stockOriginal);
     }
 
-    public static final Creator<DetallePedido> CREATOR = new Creator<DetallePedido>() {
+    public static final Parcelable.Creator<DetallePedido> CREATOR = new Parcelable.Creator<DetallePedido>() {
         @Override
         public DetallePedido createFromParcel(Parcel in) {
             return new DetallePedido(in);

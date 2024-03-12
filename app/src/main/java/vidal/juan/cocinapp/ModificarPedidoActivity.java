@@ -318,7 +318,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         detallesNuevosAgregadosNoParcel = new ArrayList<>();
         for (DetallePedido detalle : detallesNuevosAgregados) {
             //Cada objeto de la lista detallesSeleccionados pasarlo al arraylist DetallePedidoNoParcel exactamente igual a como estaba
-            detallesNuevosAgregadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
+            detallesNuevosAgregadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPedidoMaxRacion(),detalle.getStockRacion(), detalle.getStockOriginal()));
         }
         //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
     }

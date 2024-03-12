@@ -296,8 +296,9 @@ public class AgregarRacionesPedido extends AppCompatActivity {
                 DetallePedido detalle = new DetallePedido(
                         entrada.get_textoTitulo(),
                         cantidadActual,
-                        Double.parseDouble(entrada.get_Precio())
+                        Double.parseDouble(entrada.get_Precio()),null,null,null,"agregado"
                 );
+                Log.d("detallesNuevos", "detalleAgregado a al lista en Agregarraciones"+ detalle.toString() );
                 detallesSeleccionados.add(detalle);
             }
         }
