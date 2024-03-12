@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class HacerPedidoActivity extends AppCompatActivity {
 
@@ -83,14 +84,16 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
-                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
+                    Locale locale = Locale.US;//Para poner el . como serparador
+                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f",detallePedido.getPrecio() * detallePedido.getCantidad()) + "\u20AC");
 
 
                 }
             }
         });
         //Mostrar el total del pedido; obtenido de la activdad anterior
-        total.setText("Total: " + String.valueOf(precioTotal) + "\u20AC");//Todo formatear mejor esto, redondearlo
+        Locale locale = Locale.US;//Para poner el . como serparador
+        total.setText("Total: " + String.format(locale,"%.2f",precioTotal) + "\u20AC");
 
         //Evento Botón Seleccionar fecha de entrga
         seleccionarFechaEntregaButton.setOnClickListener(new View.OnClickListener() {

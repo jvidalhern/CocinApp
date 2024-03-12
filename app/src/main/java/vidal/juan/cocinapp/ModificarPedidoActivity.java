@@ -145,9 +145,19 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)
                     {
+                        //Los detalles del pedido pasan a ser los de la lista
+                        pedido.setDetalles(detallesNuevosAgregadosNoParcel);
+                        double precioTotalNuevo = 0;
+                        for (DetallePedidoNoParcel detallesNuevos : pedido.getDetalles()) {
+                            precioTotalNuevo += detallesNuevos.getPrecio() * detallesNuevos.getCantidad();
+                        }
+                        pedido.setPrecio_total(precioTotalNuevo);
+                        Locale locale = Locale.US;//Para poner el . como serparador
+                        totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
+
+                        /*//****
                         // Lista para almacenar los detalles que se van a agregar
                         List<DetallePedidoNoParcel> detallesAgregados = new ArrayList<>();
-
                         for (DetallePedidoNoParcel detalleNuevo : detallesNuevosAgregadosNoParcel) {
                             boolean encontrado = false;
                             for (DetallePedidoNoParcel detalleOriginal : pedido.getDetalles()) {
@@ -162,17 +172,18 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 double precioAnt = pedido.getPrecio_total();
                                 pedido.setPrecio_total(precioAnt + (detalleNuevo.getPrecio()  * detalleNuevo.getCantidad()));
 
-                                Locale locale = Locale.US;//Para poner el . como serparador
+                                //Locale locale = Locale.US;//Para poner el . como serparador
                                 totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
                                 //totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
                             }
                         }
 
                         // Agregar los detalles de la lista detalles agregados al pedido
-                        pedido.getDetalles().addAll(detallesAgregados);
+                        pedido.getDetalles().addAll(detallesAgregados);*/
                         //Logs
                         Log.d("ModPedidoPed", "Pedido al añdir raciones: "+ pedido.toString());
                         //Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
+                        //Recorrer los detalles
                     }
 
                     final int[] racionesRecuperadas = {0};
@@ -192,11 +203,13 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     //Si el detalle es agregado hay que recalcular el stock original
                                     //Los detalles agregados tienen como estock "agregado"
                                         if(detalle.getStockOriginal() != null){
-                                            int cantidadAgregadaRacion = detalle.getCantidad();
-                                            int sotkcBdd = Integer.parseInt(racion.getStock());
-                                            int stockDepuesAgregado = sotkcBdd-cantidadAgregadaRacion;
-                                            detalle.setStockOriginal(String.valueOf(stockDepuesAgregado));
-                                            detalle.setStockRacion(String.valueOf(stockDepuesAgregado));
+                                            if(detalle.getStockOriginal().equals("agregado")){
+                                                int cantidadAgregadaRacion = detalle.getCantidad();
+                                                int sotkcBdd = Integer.parseInt(racion.getStock());
+                                                int stockDepuesAgregado = sotkcBdd-cantidadAgregadaRacion;
+                                                detalle.setStockOriginal(String.valueOf(stockDepuesAgregado));
+                                                detalle.setStockRacion(String.valueOf(stockDepuesAgregado));
+                                            }
                                         }else{
                                             detalle.setStockOriginal(racion.getStock());
                                             detalle.setStockRacion(racion.getStock());
@@ -317,7 +330,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         detallesActuales = new ArrayList<>();
         for (DetallePedidoNoParcel detalle : detallesActualesNoparce) {
             //Cada objeto de la lista detallesActualesNoparce pasarlo al arraylist detallesActuales exactamente igual a como estaba
-            detallesActuales.add(new DetallePedido(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio()));
+            //Pasar los datos de lo que hay seleecionado tambien
+            detallesActuales.add(new DetallePedido(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPrecioRacion(),detalle.getStockRacion(),detalle.getStockOriginal()));
 
         }
         //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
@@ -348,7 +362,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     //Valores inciales de la vista de la lista
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
-                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
+                    Locale locale = Locale.US;//Para poner el . como serparador
+                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f",detallePedido.getPrecio() * detallePedido.getCantidad()) + "\u20AC");
                     //Listeners para los botones
                     //Contador
                     final int[] modCantidad = {0};
