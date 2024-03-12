@@ -190,6 +190,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     detalle.setPrecioRacion(racion.getPrecio());
                                     detalle.setPedidoMaxRacion(String.valueOf(racion.getPedido_max()));
                                     //Si el detalle es agregado hay que recalcular el stock original
+                                    //Los detalles agregados tienen como estock "agregado"
                                         if(detalle.getStockOriginal() != null){
                                             int cantidadAgregadaRacion = detalle.getCantidad();
                                             int sotkcBdd = Integer.parseInt(racion.getStock());
