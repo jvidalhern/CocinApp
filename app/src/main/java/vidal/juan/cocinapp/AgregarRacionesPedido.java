@@ -106,34 +106,40 @@ public class AgregarRacionesPedido extends AppCompatActivity {
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
                         //Tratar los decimales del precio
                         // Crea una instancia de DecimalFormat con el formato deseado
-                        Log.d("getDecimalPrecio", "Decimal y precio de bbdd" +  DecimalFormatSymbols.getInstance().getDecimalSeparator() + "precio:  " + precioPrev);
+                        Log.d("getDecimalPrecio", "Decimal y precio de bbdd" + DecimalFormatSymbols.getInstance().getDecimalSeparator() + "precio:  " + precioPrev);
                         Locale locale = Locale.getDefault();
                         Log.d("Locale", "Idioma: " + locale.getLanguage() + ", País: " + locale.getCountry());
                         double precioDecimal = Double.parseDouble(precioPrev);
-                        Log.d("getDecimalPrecio", "Precio decimal" +  precioDecimal);
+                        Log.d("getDecimalPrecio", "Precio decimal" + precioDecimal);
                         // Crear DecimalFormatSymbols con el punto como separador decimal
                         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
                         symbols.setDecimalSeparator('.');
-                        DecimalFormat df = new DecimalFormat("#.00",symbols);
+                        DecimalFormat df = new DecimalFormat("#.00", symbols);
                         String precio = df.format(precioDecimal);
-                        Log.d("getDecimalPrecio", "Precio decimal depues del format" +  precio);
+                        Log.d("getDecimalPrecio", "Precio decimal depues del format" + precio);
 
                         String stock = childSnapshot.child("stock").getValue(String.class);
                         String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
                         Log.d("DatosRacion", "Racion: " + tituloEntrada);
-                        //Añadir a datos solo los que no existan como detalles actuales
-                        // Verificar si el detalle actual ya está en detallesActuales
+                        //Añadir a datos solo las raciones que no existan como detalles actuales
+                        // Verificar si la racion ya está en detallesActuales
                         boolean detalleExistente = false;
-                        for (DetallePedido detalleActual : detallesActuales) {
-                            if (detalleActual.getRacion().equals(tituloEntrada)) {
+                        if (detallesActuales != null){
+                            for (DetallePedido detalleActual : detallesActuales) {
+                                if (detalleActual.getRacion().equals(tituloEntrada)) {
                                 detalleExistente = true;
                                 break;
+                             }
                             }
-                        }
-                        // Si el detalle no está en detallesActuales, agregarlo a la lista datos
-                        if (!detalleExistente) {
-                            Log.d("DatosRacion", "Racion gregarda : " + tituloEntrada);
-                            datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                            // Si la no está en detallesActuales, agregarlo a la lista datos
+                            if (!detalleExistente) {
+                                Log.d("DatosRacion", "Racion gregarda : " + tituloEntrada);
+                                ///Evitar crasheo al agregar mal raciones en la BBBDD
+                                if (urlImagen != null && tituloEntrada != null && descripcion != null && precio != null && pedidoMax != null && stock != null) {
+                                    datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                                }
+
+                            }
                         }
                     }
 

@@ -136,7 +136,11 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
                         Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock + ", URL imagen: " + urlImagen);
 
-                        datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        //datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        ///Evitar crasheo al agregar mal raciones en la BBBDD
+                        if (urlImagen != null && tituloEntrada != null && descripcion != null && precio != null && pedidoMax != null && stock != null) {
+                            datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
+                        }
                     }
 
                     // Inicializa tu adaptador después de que se hayan cargado los datos
