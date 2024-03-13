@@ -139,7 +139,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     fechaPedidoDetalleTextMod.setText(pedido.getFecha_pedido().toString());
                     fechaEntregaModTextview.setText( pedido.getFecha_entrega().toString());
                     cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
-                    totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC" );
+                    Locale locale = Locale.US;//Para poner el . como serparador
+                    totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
                     idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
 
                     //Si existen nuevos pedidos agregarlos al pedido
@@ -152,7 +153,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             precioTotalNuevo += detallesNuevos.getPrecio() * detallesNuevos.getCantidad();
                         }
                         pedido.setPrecio_total(precioTotalNuevo);
-                        Locale locale = Locale.US;//Para poner el . como serparador
+
                         totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
 
                         /*//****
@@ -379,13 +380,60 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             //El precio de una racion para añadir o quitar al total
                             double precioUnaracion = Double.parseDouble(detallePedido.getPrecioRacion());
                             int cantidadActual = detallePedido.getCantidad();
-                            //String cantidadMaxima = detallePedido.getPedidoMaxRacion();
-                            String cantidadMaxima = String.valueOf(Integer.parseInt(detallePedido.getPedidoMaxRacion()) - cantidadActual + 1 );
+                            String cantidadMaxima = detallePedido.getPedidoMaxRacion();
+                            //String cantidadMaxima = String.valueOf(Integer.parseInt(detallePedido.getPedidoMaxRacion()) - cantidadActual);
+
                             //int stock = Integer.parseInt(racion.getStock());
 
-                            Log.d("ExecRaStockAntes+", "Stock antes de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion() + "CantidadMax: " +  cantidadMaxima) ;
+                            Log.d("Valores+", "Valores antes del if: Racion " +  detallePedido.getRacion() + "CantidadActual: " + detallePedido.getCantidad() +  ": VarMod: " + modCantidad[0]  +   " CantidadMax: " +  cantidadMaxima + ": StokOrig: " + stockOrig[0] + " StockDim: " +  detallePedido.getStockRacion() ) ;
                             Log.d("ValorModCantidadA", "Valor de mod cantidad Antes de if: " + modCantidad[0] );
-                            if (modCantidad[0] < Math.min(Integer.parseInt(cantidadMaxima), stockOrig[0])) {
+                            //Si la cantidad actual es menor que la cantidad maxima
+                            if(detallePedido.getCantidad() < Integer.parseInt(cantidadMaxima)){
+                                if (modCantidad[0] < stockOrig[0])
+                                {
+                                    //Aumentar las veces que se dio a +
+                                    modCantidad[0] += 1;
+                                    //Modificar el stock
+                                    int stock = Integer.parseInt(detallePedido.getStockRacion());
+                                    //Disminuir 1 de sotck
+                                    detallePedido.setStockRacion(String.valueOf(stock- 1));
+                                    //Aumentar la cantidad en 1 del pedido
+                                    detallePedido.setCantidad(cantidadActual + 1);
+                                    Log.d("ValorModCantidadB", "Valor de mod cantidad depues de if: " + modCantidad[0] );
+                                    Log.d("ExecRaStockdesp+", "Stock despues de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion());
+                                    //Mostrar la actu en la view
+                                    cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
+                                    double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
+                                    Log.d("Nuevoprecio", "Nuevo precio:  " + nuevoPrecio);
+                                    //Actualizar el precio del pedido
+                                    detallePedido.setPrecio(nuevoPrecio);
+                                    //precioRacionActu[0] = precioUnaracionMas;
+                                    Locale locale = Locale.US;//Para poner el . como serparador
+                                    //Mostrar actu del precio en la view
+                                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
+                                    //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto correcion formato
+                                    //Precio total aterior
+                                    double precioAnt;
+                                    //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
+                                    String totalStringAnt = totalDetalleTextMod.getText().toString();
+                                    precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
+
+                                    totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt + precioUnaracion) + "\u20AC");
+                                    //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
+                                }
+                                else{
+                                    if(stockOrig[0] == 0)
+                                        Toast.makeText(ModificarPedidoActivity.this, "No quedan existencias en stock", Toast.LENGTH_SHORT).show();
+                                    else
+                                    Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
+                            }
+                            //Todo quitar esto; despues de verificar que funciann bien los limites de sotk y max racion
+                            /*if (modCantidad[0] <= Math.min(Integer.parseInt(cantidadMaxima), stockOrig[0])) {
                                 //Aumentar las veces que se dio a +
                                 modCantidad[0] += 1;
                                 //Modificar el stock
@@ -417,13 +465,13 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
 
                             } else {
-                                if (modCantidad[0] == Integer.parseInt(cantidadMaxima)) {
+                                if (modCantidad[0] > Integer.parseInt(cantidadMaxima)) {
                                     Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
                                 }
-                            }
+                            }*/
                         }
 
                     });
