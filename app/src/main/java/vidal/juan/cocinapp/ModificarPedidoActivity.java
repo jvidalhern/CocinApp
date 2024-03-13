@@ -321,7 +321,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             //Cada objeto de la lista detallesSeleccionados pasarlo al arraylist DetallePedidoNoParcel exactamente igual a como estaba
             detallesNuevosAgregadosNoParcel.add(new DetallePedidoNoParcel(detalle.getRacion(), detalle.getCantidad(), detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPedidoMaxRacion(),detalle.getStockRacion(), detalle.getStockOriginal()));
         }
-        //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesNuevosAgregadosNoParcel.toString());
+        Log.d("Transformación", "Detalles NoParcel: " + detallesNuevosAgregadosNoParcel.toString());
     }
 
     /**
@@ -336,7 +336,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             //DetallePedido detaAux = new DetallePedido(detalle.getRacion(),detalle.getCantidad(),detalle.getPrecio(),detalle.getPrecioRacion(),detalle.getPedidoMaxRacion(),detalle.getStockRacion(),detalle.getStockOriginal());
             //detallesActuales.add(detaAux);
         }
-        //Log.d("Transformación", "detallesNuevosAgregadosNoParcel: " + detallesActuales.toString());
+        Log.d("Transformación", "Detalles Parcel: " + detallesActuales.toString());
     }
 
     /**
@@ -406,11 +406,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
                                     Log.d("Nuevoprecio", "Nuevo precio:  " + nuevoPrecio);
                                     //Actualizar el precio del pedido
-                                    detallePedido.setPrecio(nuevoPrecio);
+                                    //detallePedido.setPrecio(nuevoPrecio); TODO quitar esta linea si funciona ok; el precio no tiene que modificarse en el objeto solo en la vista
                                     //precioRacionActu[0] = precioUnaracionMas;
                                     Locale locale = Locale.US;//Para poner el . como serparador
                                     //Mostrar actu del precio en la view
-                                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
+                                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", nuevoPrecio) + "\u20AC");
                                     //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto correcion formato
                                     //Precio total aterior
                                     double precioAnt;
@@ -425,7 +425,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     if(stockOrig[0] == 0)
                                         Toast.makeText(ModificarPedidoActivity.this, "No quedan existencias en stock", Toast.LENGTH_SHORT).show();
                                     else
-                                    Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else
@@ -495,10 +495,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 //Mostrar la actu en la view
                                 cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                                 //Actualizar el precio del pedido
-                                detallePedido.setPrecio(Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad()));
+                                double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
+                                //detallePedido.setPrecio(Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad()));
                                 Locale locale = Locale.US;//Para poner el . como serparador
                                 //Mostrar actu del precio en la view
-                                precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
+                                precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", nuevoPrecio) + "\u20AC");
                                 //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto, correcion de formato mostrado
                                 //Precio total anterior original
                                 double precioAnt;
