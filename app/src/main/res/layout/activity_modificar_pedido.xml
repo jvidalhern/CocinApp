@@ -35,7 +35,7 @@
         android:id="@+id/listaDetalleMod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:background="@drawable/fondo"
         android:descendantFocusability="beforeDescendants"
         android:divider="@android:color/black"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/addRacion"
         android:textColor="@color/white"
         />

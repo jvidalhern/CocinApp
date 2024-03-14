@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +43,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     private Button volverDetallesPedidosButton,confirmModPedidoButton,seleccionarFechaEntregaButton,addRacionButton;
     private ListView listaDetalleMod = null;
     private TextView fechaPedidoDetalleTextMod,fechaEntregaModTextview,cometariosDetalleTextMod,totalDetalleTextMod,idPedidoModTextView;
+    //Para la url de la imagen
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
+    private final String URL_SUFIJO = "?alt=media";
     private String idPedido;
     private double precioTotalPedido = 0;
     static final int REQUEST_CODE = 1;
@@ -355,15 +360,21 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     TextView cantidadRacionDetalleVistaDetalle = view.findViewById(R.id.cantidadRacionDetalleVistaDetalle);
                     TextView precioRacionDetalleVistaDetalle = view.findViewById(R.id.precioRacionDetalleVistaDetalle);
                     Button modDetalleBotonQuitar,modDetalleBotonAnadir;
+                    ImageView imagenRacion = view.findViewById(R.id.imagenRacion);
                     modDetalleBotonQuitar = view.findViewById(R.id.modDetalleBotonQuitar);
                     modDetalleBotonAnadir = view.findViewById(R.id.modDetalleBotonAnadir);
                     //Logs
                     /*Log.d("RacionNombre", "Datos racion buscada : " + detallePedido.getRacion());
                     Log.d("detallesAlaLista", "Datos introducidos a la lista : " + pedido.getDetalles().toString());
                     Log.d("detallesAlaLista", "Tamaño de la lista : " + pedido.getDetalles().size());*/
+
                     //Valores inciales de la vista de la lista
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
+                    // Utiliza Glide para cargar la imagen desde la URL
+                    Glide.with(ModificarPedidoActivity.this)
+                            .load(URL_FOTOS + detallePedido.getRacion() + URL_SUFIJO)
+                            .into(imagenRacion);
                     Locale locale = Locale.US;//Para poner el . como serparador
                     precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f",detallePedido.getPrecio() * detallePedido.getCantidad()) + "\u20AC");
                     //Listeners para los botones
