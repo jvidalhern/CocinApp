@@ -1,6 +1,9 @@
 package vidal.juan.cocinapp;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -9,6 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
 public class Notificaciones extends FirebaseMessagingService {
 
@@ -29,6 +33,19 @@ public class Notificaciones extends FirebaseMessagingService {
         actuTokenUser(token);
 
     }
+
+    @Override
+    public void onMessageReceived(@NonNull RemoteMessage message) {
+        super.onMessageReceived(message);
+
+        // Obtener  notificación
+        String notMsg = message.getNotification().getBody();
+        if (notMsg != null) {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> Toast.makeText(getApplicationContext(), notMsg, Toast.LENGTH_LONG).show());
+        }
+    }
+
 
     private void actuTokenUser(String token) {
         // referencia de la base de datos
