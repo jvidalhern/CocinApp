@@ -66,8 +66,13 @@
     <string name="NuevafechaEntrega">Nueva fecha de entrega</string>
     <string name="addRacion">Añadir ración</string>
     <string name="addAlPedido">Agregar al pedido</string>
+    <string name="add_al_pedido">Agregar al pedido</string>
     <string name="editarDetalles">+ Editar Detalles</string>
     <string name="editarDetallesMenos">- Editar Detalles</string>
     <string name="msgtoken">FCM Registration Token: %s</string>
-
+    <string name="mensaje_bienvenida_pantalla_principal">¿En qué podemos ayudarle?</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="detalles_del_pedido">Detalles del pedido</string>
+    <string name="mod_pedido_mensaje">Estás a tiempo de modificar el pedido</string>
+    <string name="mod_pedido">Modificar pedido</string>
 </resources>

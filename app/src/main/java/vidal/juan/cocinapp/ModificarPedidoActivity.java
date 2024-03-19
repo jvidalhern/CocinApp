@@ -387,7 +387,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
      */
     private void llenarLista(Pedido pedido ){
         Log.d("ExecLlenarLista", "Llenar lista ejecutado: " );
-        listaDetalleMod.setAdapter(new AdaptadorDetallesNoparcel(this, R.layout.detealle_pedido_mod_vista, pedido.getDetalles()) {
+        listaDetalleMod.setAdapter(new AdaptadorDetallesNoparcel(this, R.layout.detalle_pedido_mod_vista, pedido.getDetalles()) {
             @Override
             public void onEntrada(DetallePedidoNoParcel detallePedido, View view) {
                 if (detallePedido != null) {
