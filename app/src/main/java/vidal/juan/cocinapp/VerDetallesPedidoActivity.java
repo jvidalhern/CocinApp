@@ -11,11 +11,13 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VerDetallesPedidoActivity extends AppCompatActivity {
 
@@ -33,6 +36,9 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
     private TextView fechaPedidoDetalleText,fechaEntregaDetalleText,cometariosDetalleText,totalDetalleText,idPedidoTextView,textModPedidoInfo;
     private String idPedido;
     private LinearLayout layoutEditarPedido;
+    //Para la url de la imagen
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
+    private final String URL_SUFIJO = "?alt=media";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,18 +168,20 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                         fechaPedidoDetalleText.setText(pedido.getFecha_pedido().toString());
                         fechaEntregaDetalleText.setText(pedido.getFecha_entrega().toString());
                         cometariosDetalleText.setText(pedido.getComentarios().toString());
-                        totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
-                        idPedidoTextView.setText(getString(R.string.id_pedido_string) + idPedido.substring(3, 7));
+                        Locale locale = Locale.US;//Para poner el . como serparador
+                        totalDetalleText.setText(String.format(locale,"%.2f",pedido.getPrecio_total()) + "\u20AC");
+                        //totalDetalleText.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC"); todo quitar esto
+                        idPedidoTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3, 7));
                         //Controlar editar el peddio en funcion de si el pedido es editable
                         //Cambiar color y la visibilidad en funcion del estado
                         if (pedido.getEditable() == true){
                             textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
-                            textModPedidoInfo.setText(getString(R.string.mod_pedido_mensaje));
+                            textModPedidoInfo.setText(getString(R.string.modPedidoMensaje));
                             layoutEditarPedido.setVisibility(View.VISIBLE);
                         }
                         else {
                             textModPedidoInfo.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
-                            textModPedidoInfo.setText(getString(R.string.no_mod_pedido_mensaje));
+                            textModPedidoInfo.setText(getString(R.string.noModPedidoMensaje));
                             layoutEditarPedido.setVisibility(View.GONE);
                         }
                     }
@@ -199,11 +207,15 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
                     TextView cantidadRacionDetalleVistaDetalle = view.findViewById(R.id.cantidadRacionDetalleVistaDetalle);
                     TextView cantidadRacionVistaDetalle = view.findViewById(R.id.cantidadRacionVistaDetalle);
                     TextView precioRacionDetalleVistaDetalle = view.findViewById(R.id.precioRacionDetalleVistaDetalle);
-
+                    ImageView imagenRacion = view.findViewById(R.id.imagenRacion);
                     nombreRacionDetalle.setText(detallePedido.getRacion());
                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
-                    precioRacionDetalleVistaDetalle.setText(String.valueOf (detallePedido.getPrecio()) + "\u20AC");
-
+                    Locale locale = Locale.US;//Para poner el . como serparador
+                    precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f",detallePedido.getPrecio() * detallePedido.getCantidad()) + "\u20AC");
+                    // Utiliza Glide para cargar la imagen desde la URL
+                    Glide.with(VerDetallesPedidoActivity.this)
+                            .load(URL_FOTOS + detallePedido.getRacion() + URL_SUFIJO)
+                            .into(imagenRacion);
 
                 }
             }

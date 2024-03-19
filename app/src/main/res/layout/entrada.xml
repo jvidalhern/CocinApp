@@ -1,17 +1,9 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/paleta_0"
-        android:clickable="true">
+    android:layout_height="110dp"
+    android:padding="3dp"
+    android:background="@drawable/fondo_grad"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/imagen"
@@ -39,9 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/titulo_entrada"
+            android:textSize="18sp"
             android:textColor="@color/black"
-            android:maxLines="1"
-            android:textSize="18sp" />
+            />
 
         <TextView
             android:id="@+id/descripcion_entrada"
@@ -50,11 +42,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/descripcion_entrada"
             android:textColor="@color/black"
-            android:maxLines="2"
-            android:textSize="14sp"
-        android:ellipsize="end"
-        android:visibility="visible"
-        android:longClickable="true"/>
+            android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -72,8 +60,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_toEndOf="@id/botonQuitar"
                 android:gravity="center"
                 android:text="0"
@@ -102,10 +90,8 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="11dp"
         android:text="@string/precio_entrada"
-        android:textColor="@color/black"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:textStyle="bold" />
 
 </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>

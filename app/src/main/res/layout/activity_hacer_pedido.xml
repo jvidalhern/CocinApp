@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo_rep"
     tools:context=".HacerPedidoActivity">
     <TextView
         android:id="@+id/confirmarPedidoTextView"
@@ -52,7 +52,7 @@
         android:hint="Comentarios para cocina (opcional)"
         android:ems="10"
         android:gravity="start|top"
-        android:background="@android:color/white"
+        android:background="@color/editTrasparencia"
         android:textColor="@color/black"
         android:textColorHint="@color/hintColor"
         android:inputType="textMultiLine" />

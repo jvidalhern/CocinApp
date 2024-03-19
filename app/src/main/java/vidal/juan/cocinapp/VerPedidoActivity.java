@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class VerPedidoActivity extends AppCompatActivity {
 
@@ -65,7 +66,9 @@ public class VerPedidoActivity extends AppCompatActivity {
                 textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                 textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
                 textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
-                textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total()) + "\u20AC");
+                Locale locale = Locale.US;//Para poner el . como serparador
+                textViewPrecio.setText(String.format(locale,"%.2f",pedidoActivo.getPrecio_total()) + "\u20AC");
+                //textViewPrecio.setText(String.valueOf(pedidoActivo.getPrecio_total()) + "\u20AC"); TODO quitar esto
                 textViewComentarios.setText(getString(R.string.comentarios) +": " +  String.valueOf(pedidoActivo.getComentarios()));
 
                 // Evento de click en el pedido para pasar a los detalles del pedido
@@ -78,11 +81,15 @@ public class VerPedidoActivity extends AppCompatActivity {
 
                 // Cambiar color en función del estado
                 if (pedidoActivo.getEstado().equals("preparar")) {
-                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
-                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                    int drawableResourceId = getResources().getIdentifier("preparar_borde", "drawable", getPackageName());
+                    //filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                    //textViewComentarios.setBackgroundColor(getResources().getColor(R.color.prepararPedidoColor));
+                    textViewIdPedido.setBackgroundResource(drawableResourceId);
                 } else if (pedidoActivo.getEstado().equals("recoger")) {
-                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
-                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                    //filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                    //textViewComentarios.setBackgroundColor(getResources().getColor(R.color.recogerPedidoColor));
+                    int drawableResourceId = getResources().getIdentifier("recoger_borde", "drawable", getPackageName());
+                    textViewIdPedido.setBackgroundResource(drawableResourceId);
                 } else {
                     filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
                     textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
@@ -102,6 +109,7 @@ public class VerPedidoActivity extends AppCompatActivity {
 
     private void obtenerPedidos() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Log.d("database", "DatabaseReference" + databaseReference);
 
         databaseReference.child("pedidos").orderByChild("usuario").equalTo(usuarioLogeado.getUid())
                 .addValueEventListener(new ValueEventListener() {
