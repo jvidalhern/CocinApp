@@ -42,7 +42,7 @@
         android:id="@+id/cancelarButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cancelar"
+        android:text="@string/volver"
         android:textColor="@color/white"
         />
 

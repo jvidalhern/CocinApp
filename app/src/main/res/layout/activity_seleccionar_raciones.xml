@@ -36,6 +36,7 @@
         android:id="@+id/cancelarButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="@string/cancelar"
         android:textColor="@color/white"
          />
