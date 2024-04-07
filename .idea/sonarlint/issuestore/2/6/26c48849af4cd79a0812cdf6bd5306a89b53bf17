@@ -1,17 +1,0 @@
-
-k
-java:S1604+"(Make this anonymous inner class a lambda(ï¶†ì8í÷§Èë1J$27e7493c-91e9-4241-b46d-930ab2df913f
-y
-java:S1153["1Directly append the argument of String.valueOf().(„ÇŸÙøÿÿÿÿ8ï÷§Èë1J$87e2f128-2281-4083-8f2b-4df7c784e336
-¯
-java:S1450"lRemove the "cancelVerPedidosActivosButton" field and declare it as a local variable in the relevant methods.(È‹ñü8ÃÈ¢Éë1J$d1fe7680-c736-40b7-958f-e36fc62a064e
-ª
-java:S1450"bRemove the "listaPedidosActivos" field and declare it as a local variable in the relevant methods.(ôç°›ûÿÿÿÿ8–ø§Èë1J$787c2094-22d3-474c-867e-5f5c9e38b7d0
-i
-java:S1854="LRemove this useless assignment to local variable "linarLayoutDetallePedido".(ûÉ¡–8§««Éë1
-Z
-java:S1481="=Remove this unused "linarLayoutDetallePedido" local variable.(ûÉ¡–8©««Éë1
-r
-java:S1874^"0Remove this use of "getColor"; it is deprecated.(¯£òU8¬ø§Èë1J$beebb0b8-7573-44a2-b2b3-eacdc646c460
-x
-java:S1874_"0Remove this use of "getColor"; it is deprecated.(á¹Ÿúÿÿÿÿ8ú¦Éë1J$db065714-0e47-413e-8227-e58b2ce82cfa
