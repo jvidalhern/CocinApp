@@ -19,11 +19,7 @@ public class ReestablecerPswActivity extends AppCompatActivity {
     //resetear contraseña items
     Button resetPswButton;
     EditText usuarioEditText;
-    @Override
-    public void onBackPressed() {
 
-        finish();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/boton_redondeado"
-            android:text="@string/historio_pedidos"
+            android:text="@string/historico_pedidos"
             android:textColor="@color/white" />
 
         <Button

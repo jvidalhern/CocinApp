@@ -49,13 +49,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference("usuarios");
-    @Override
-    public void onBackPressed() {
-
-        finish();
-    }
-
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);

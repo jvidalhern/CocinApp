@@ -1,0 +1,51 @@
+
+u
+java:S1192¨"YDefine a constant instead of duplicating this literal "^[\\p{L}]+( [\\p{L}]+)*$" 3 times.(Ê²ƒçøÿÿÿÿ
+>
+java:S1604M"(Make this anonymous inner class a lambda(°Ùü
+D
+java:S1604"(Make this anonymous inner class a lambda(×©Àâşÿÿÿÿ
+?
+java:S1604…"(Make this anonymous inner class a lambda(³Ö×•
+D
+java:S1604€"(Make this anonymous inner class a lambda(Ùİúçûÿÿÿÿ
+D
+java:S1604¢"(Make this anonymous inner class a lambda(„¬é¿øÿÿÿÿ
+?
+java:S1604š"(Make this anonymous inner class a lambda(³Ö×•
+R
+java:S2589Q"7Remove this expression which always evaluates to "true"(Äóë¾ûÿÿÿÿ
+R
+java:S2589Q"7Remove this expression which always evaluates to "true"(Äóë¾ûÿÿÿÿ
+R
+java:S2589Q"7Remove this expression which always evaluates to "true"(Äóë¾ûÿÿÿÿ
+R
+java:S2589R"7Remove this expression which always evaluates to "true"(–Ì×êûÿÿÿÿ
+R
+java:S2589Q"7Remove this expression which always evaluates to "true"(Äóë¾ûÿÿÿÿ
+R
+java:S2589R"7Remove this expression which always evaluates to "true"(–Ì×êûÿÿÿÿ
+P
+java:S3516Ù"9Refactor this method to not always return the same value.(»ÔÀı
+U
+java:S3516Æ"9Refactor this method to not always return the same value.(ßÍôÓÿÿÿÿÿ
+P
+java:S3516°"9Refactor this method to not always return the same value.(¥˜½¼
+U
+java:S3516¥"9Refactor this method to not always return the same value.(¤’ŠÙıÿÿÿÿ
+U
+java:S3516»"9Refactor this method to not always return the same value.(¿ØÁşûÿÿÿÿ
+P
+java:S3516â"9Refactor this method to not always return the same value.(ÅªµŒ
+s
+java:S1450'"]Remove the "registroButton" field and declare it as a local variable in the relevant methods.(é³é›
+h
+java:S5998¨"LRefactor this repetition that can lead to a stack overflow for large inputs.(Ê²ƒçøÿÿÿÿ
+h
+java:S5998³"LRefactor this repetition that can lead to a stack overflow for large inputs.(Ê²ƒçøÿÿÿÿ
+h
+java:S5998¾"LRefactor this repetition that can lead to a stack overflow for large inputs.(Ê²ƒçøÿÿÿÿ
+S
+java:S6353Ğ"<Use concise character class syntax '\\d' instead of '[0-9]'.(ÔŞØü
+f
+java:S1874¾"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ

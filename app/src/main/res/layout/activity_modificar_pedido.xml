@@ -47,7 +47,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/addRacion"
+        android:text="@string/add_racion"
         android:textColor="@color/white"
         />
     <LinearLayout
@@ -91,7 +91,7 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:orientation="horizontal">
 
 
@@ -101,7 +101,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textColor="@color/black"
-            android:background="@color/editTrasparencia"
+            android:background="@color/edit_trasparencia"
             android:gravity="center_vertical"
             android:textSize="18sp"
             android:paddingStart="12dp"
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="@string/NuevafechaEntrega"
+            android:text="@string/nueva_fecha_entrega"
             android:textColor="@color/white"
             android:layout_weight="1"/>
     </LinearLayout>
@@ -133,13 +133,13 @@
         android:textSize="18sp"
         android:paddingStart="12dp"
         android:lines="3"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:textColor="@color/black"
         tools:ignore="Deprecated" />
     </LinearLayout>
     <TextView
         android:id="@+id/modDEtallesTextView"
-        android:text="@string/editarDetalles"
+        android:text="@string/editar_detalles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -175,7 +175,7 @@
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:text="@string/modPedido"
+        android:text="@string/mod_pedido"
         />
     <Button
         android:id="@+id/cancelarModButton"

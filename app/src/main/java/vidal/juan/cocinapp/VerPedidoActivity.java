@@ -62,7 +62,7 @@ public class VerPedidoActivity extends AppCompatActivity {
                 LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
 
                 // Cargar los datos en los campos
-                textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
+                textViewIdPedido.setText(getString(R.string.id_pedido_string) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
                 textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
                 textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
                 textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
@@ -91,8 +91,8 @@ public class VerPedidoActivity extends AppCompatActivity {
                     int drawableResourceId = getResources().getIdentifier("recoger_borde", "drawable", getPackageName());
                     textViewIdPedido.setBackgroundResource(drawableResourceId);
                 } else {
-                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
-                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.defPedidoColor));
+                    filaPedidoColor.setBackgroundColor(getResources().getColor(R.color.def_pedido_color));
+                    textViewComentarios.setBackgroundColor(getResources().getColor(R.color.def_pedido_color));
                 }
             }
         };

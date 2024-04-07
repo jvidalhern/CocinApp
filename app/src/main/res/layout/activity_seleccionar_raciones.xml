@@ -32,6 +32,7 @@
             android:textColor="@color/white"
             android:visibility="gone"
             android:background="@drawable/boton_redondeado"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="2dp"/>
     </LinearLayout>
 
@@ -43,6 +44,7 @@
         android:background="@drawable/boton_redondeado"
         android:text="@string/cancelar"
         android:textColor="@color/white"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
          />
 

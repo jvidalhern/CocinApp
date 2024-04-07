@@ -76,6 +76,14 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
             }
         });
 
+        //Accion del boton ver histórico de pedidos
+        verHistoricoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verHistoricoPedidos();
+            }
+        });
+
         // Accion del boton de logout
         cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +189,15 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
      */
     private void verPedidos() {
         Intent verPedidosIntent = new Intent(PantallaPrincipalActivity.this, VerPedidoActivity.class);
+        startActivity(verPedidosIntent);
+
+    }
+
+    /**
+     * Método para pasar a la ventana ver pedidos históricos
+     */
+    private void verHistoricoPedidos() {
+        Intent verPedidosIntent = new Intent(PantallaPrincipalActivity.this, VerHistoricoPedidosActivity.class);
         startActivity(verPedidosIntent);
 
     }

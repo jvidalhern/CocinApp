@@ -51,7 +51,7 @@
         android:layout_marginRight="10dp"
         android:inputType="textMultiLine|text|textCapSentences"
         android:textColor="@color/black"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:textSize="18sp"
          />
 
@@ -78,7 +78,7 @@
         android:layout_marginRight="10dp"
         android:inputType="textMultiLine|text|textCapSentences"
         android:textColor="@color/black"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:textSize="18sp"
          />
 
@@ -103,7 +103,7 @@
         android:layout_marginRight="10dp"
         android:inputType="textMultiLine|text|textCapSentences"
         android:textColor="@color/black"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:textSize="18sp"
         />
 
@@ -128,7 +128,7 @@
         android:layout_marginRight="10dp"
         android:inputType="phone"
         android:textColor="@color/black"
-        android:background="@color/editTrasparencia"
+        android:background="@color/edit_trasparencia"
         android:textSize="18sp"
          />
 

@@ -39,7 +39,8 @@ import java.util.Map;
 
 public class ModificarPedidoActivity extends AppCompatActivity {
 
-    private Button cancelarModButton,confirmModPedidoButton,seleccionarFechaEntregaButton,addRacionButton;
+    private Button confirmModPedidoButton;
+    private Button addRacionButton;
     private ListView listaDetalleMod = null;
     private TextView fechaPedidoDetalleTextMod,fechaEntregaModTextview,totalDetalleTextMod,idPedidoModTextView,modDEtallesTextView;
     private EditText cometariosDetalleTextMod;
@@ -72,10 +73,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modificar_pedido);
         Log.d("ActivityLifecycle", "onCreate() ModificarPedido");
         //referencia a items xml
-        cancelarModButton = findViewById(R.id.cancelarModButton);
+        Button cancelarModButton = findViewById(R.id.cancelarModButton);
         confirmModPedidoButton = findViewById(R.id.confirmModPedidoButton);
         addRacionButton = findViewById(R.id.addRacionButton);
-        seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
+        Button seleccionarFechaEntregaButton = findViewById(R.id.seleccionarFechaEntregaButton);
         listaDetalleMod = findViewById(R.id.listaDetalleMod);
         fechaPedidoDetalleTextMod = findViewById(R.id.fechaPedidoDetalleTextMod);
         fechaEntregaModTextview = findViewById(R.id.fechaEntregaModTextview);
@@ -116,10 +117,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (modDetallesLayout.getVisibility() == View.GONE) {
                     modDetallesLayout.setVisibility(View.VISIBLE);
-                    modDEtallesTextView.setText(R.string.editarDetallesMenos);
+                    modDEtallesTextView.setText(R.string.editar_detalles_menos);
                 } else {
                     modDetallesLayout.setVisibility(View.GONE);
-                    modDEtallesTextView.setText(R.string.editarDetalles);
+                    modDEtallesTextView.setText(R.string.editar_detalles);
                 }
             }
         });
@@ -167,7 +168,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
                     Locale locale = Locale.US;//Para poner el . como serparador
                     totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
-                    idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
+                    idPedidoModTextView.setText(getString(R.string.id_pedido_string) + idPedido.substring(3,7));
 
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)

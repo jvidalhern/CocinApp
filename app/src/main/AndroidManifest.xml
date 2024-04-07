@@ -22,6 +22,9 @@
             android:name=".VerPedidoActivity"
             android:exported="false" />
         <activity
+            android:name=".VerHistoricoPedidosActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerDetallesPedidoActivity"
             android:exported="false" />
         <activity
