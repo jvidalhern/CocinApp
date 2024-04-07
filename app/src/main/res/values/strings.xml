@@ -16,9 +16,10 @@
     <string name="confirmacion_del_pedido">Confirmación del pedido</string>
     <string name="confirmar_pedido">Confirmar pedido</string>
     <string name="departamento">Departamento</string>
-    <string name="derechos_reservados">© 2023 CocinApp. Todos los derechos reservados.</string>
+    <string name="derechos_reservados">© 2024 CocinApp. Todos los derechos reservados.</string>
     <string name="descripcion_entrada">Descripción</string>
     <string name="detalles_del_pedido">Detalles del pedido</string>
+    <string name="direccion_de_correo_invalida">Dirección de correo inválida</string>2
     <string name="editar_detalles">+ Editar Detalles</string>
     <string name="editar_detalles_menos">- Editar Detalles</string>
     <string name="editar_registro">Editar registro</string>

@@ -46,7 +46,7 @@ public class ReestablecerPswActivity extends AppCompatActivity {
         String correo = usuarioEditText.getText().toString().trim();
         //Si el correo no es valido notificarlo
         if (correo.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(correo).matches()){
-            usuarioEditText.setError("Dirección de correo invalida");
+            usuarioEditText.setError(getString(R.string.direccion_de_correo_invalida));
             return;
         }
         //Enviar correo si es valido y esta registrado en la App

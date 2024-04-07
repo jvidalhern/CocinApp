@@ -292,7 +292,7 @@ public class RegistroActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     // Si se envía correctamente, mostrar un mensaje y redirigir al usuario
-                                                    Toast.makeText(RegistroActivity.this, "Se ha enviado un email de confirmación, por favor verifique su correo antes de hacer login.", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegistroActivity.this, "Se ha enviado un email de confirmación, por favor verifique su correo.", Toast.LENGTH_LONG).show();
 
                                                     // Desconectar al usuario
                                                     FirebaseAuth.getInstance().signOut();
@@ -301,7 +301,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                                                     finish();
                                                 } else {
-                                                    Toast.makeText(RegistroActivity.this, "No se pudo enviar el correo de confirmación. Por favor, inténtelo de nuevo más tarde.", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegistroActivity.this, "No se pudo enviar el correo de confirmación. Por favor, inténtelo de nuevo más tarde.", Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         });
