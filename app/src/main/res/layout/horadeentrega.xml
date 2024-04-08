@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/fondo_grad"
+    android:background="@drawable/fondo_grad_soft"
     android:padding="16dp">
 
     <RadioGroup
@@ -69,7 +69,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/SeleccionarHoraButton"
+            android:id="@+id/seleccionarHoraButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

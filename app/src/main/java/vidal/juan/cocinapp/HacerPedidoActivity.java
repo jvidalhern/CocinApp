@@ -177,10 +177,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
                     //Que hacer cuando se seleccione la fecha
                     Toast.makeText(HacerPedidoActivity.this, "Fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
                     fechaEntrega = fechaFormateada;
-                    showDialog();
-                    if(horaEntrega.equals("vacio"))
-                    fechaEntregaConfirm.setText(fechaEntrega);
-                    confirmarPedidoButton.setVisibility(View.VISIBLE);
+                    selecionarHoraEentrega();
+
                 }
             }
         }, ano, mes, dia);
@@ -217,13 +215,13 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
     }
 
-    private void showDialog() {
+    private void selecionarHoraEentrega() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.horadeentrega);
         dialog.setTitle("Select an Option");
 
         Button cancelarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
-        Button selecionarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
+        Button selecionarButton = dialog.findViewById(R.id.seleccionarHoraButton);
         RadioGroup radioGroup = dialog.findViewById(R.id.radioGroupHora);
 
         cancelarButton.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +237,11 @@ public class HacerPedidoActivity extends AppCompatActivity {
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
                 if (selectedRadioButtonId != -1) {
                     RadioButton selectedRadioButton = dialog.findViewById(selectedRadioButtonId);
-                    String horaEntrega = selectedRadioButton.getText().toString();
+                    horaEntrega = selectedRadioButton.getText().toString();
+                    fechaEntregaConfirm.setText(fechaEntrega + "\n" + horaEntrega);
+                    fechaEntrega += horaEntrega;
+
+                    confirmarPedidoButton.setVisibility(View.VISIBLE);
                 }
                 dialog.dismiss();
             }
