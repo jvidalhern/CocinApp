@@ -69,5 +69,6 @@
     <string name="editarDetalles">+ Editar Detalles</string>
     <string name="editarDetallesMenos">- Editar Detalles</string>
     <string name="msgtoken">FCM Registration Token: %s</string>
+    <string name="seleccionar">"seleccionar "</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package vidal.juan.cocinapp;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +40,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private FirebaseUser usuarioLogeado ;
     private TextView total,fechaEntregaConfirm;
     private EditText comentariosTextMultiLine2;
-    private String fechaEntrega, fechaPedido;
+    private String fechaEntrega, fechaPedido, horaEntrega = "vacio";
     private String comentarios = "Sin comentarios";
     private ArrayList<DetallePedido> detallesSeleccionados;
     private ArrayList<DetallePedidoNoParcel> detallesSeleccionadosNoParcel = new ArrayList<>();//Iincializar el array list para luego hacer la transformación
@@ -174,8 +177,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
                     //Que hacer cuando se seleccione la fecha
                     Toast.makeText(HacerPedidoActivity.this, "Fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
                     fechaEntrega = fechaFormateada;
-                    Log.d("FechaSel", "FechaSel: " + fechaEntrega);
-                    Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
+                    showDialog();
+                    if(horaEntrega.equals("vacio"))
                     fechaEntregaConfirm.setText(fechaEntrega);
                     confirmarPedidoButton.setVisibility(View.VISIBLE);
                 }
@@ -213,6 +216,39 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
 
     }
+
+    private void showDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.horadeentrega);
+        dialog.setTitle("Select an Option");
+
+        Button cancelarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
+        Button selecionarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
+        RadioGroup radioGroup = dialog.findViewById(R.id.radioGroupHora);
+
+        cancelarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        selecionarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+                if (selectedRadioButtonId != -1) {
+                    RadioButton selectedRadioButton = dialog.findViewById(selectedRadioButtonId);
+                    String horaEntrega = selectedRadioButton.getText().toString();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
 
     /**
      * Para volver a la ventana principal

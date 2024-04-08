@@ -96,10 +96,8 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // Iniciar la actividad PantallaPrincipal
-        Intent intent = new Intent(SeleccionarRacionesActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);
-        finish();  // Finaliza la actividad actual para que no puedas volver atrás a ella
+
+        finish();  // Finaliza la actividad actual
     }
     @Override
     protected void onDestroy() {

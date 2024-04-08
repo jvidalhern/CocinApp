@@ -57,6 +57,7 @@
         android:textColorHint="@color/hintColor"
         android:inputType="textMultiLine" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,9 +79,10 @@
             android:layout_weight="1"
             android:text=""
             android:textSize="18sp"
-            android:textColor="@color/black"
-             />
+            android:textColor="@color/black" />
     </LinearLayout>
+
+
 
 
     <!-- LinearLayout botones de acción-->
@@ -89,6 +91,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
+
 
 
 
