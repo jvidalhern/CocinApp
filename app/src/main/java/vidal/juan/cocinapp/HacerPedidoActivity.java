@@ -215,6 +215,9 @@ public class HacerPedidoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo para seleecionar la hora de entrega, están definidas por cocina en la vista horadeentrega
+     */
     private void selecionarHoraEentrega() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.horadeentrega);
