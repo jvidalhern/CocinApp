@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +54,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     private double precioTotalPedido = 0;
     static final int REQUEST_CODE = 1;
 
-    private String nuevaFechaEntrega, fechaPedido;
+    private String nuevaFechaEntrega, fechaPedido,horaEntrega = "vacio";;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     //Formatear para guardar hora minutos y segundos
@@ -628,9 +631,8 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     //Que hacer cuando se seleccione la fecha
                     Toast.makeText(ModificarPedidoActivity.this, "Nueva fecha de entrega: " + fechaFormateada, Toast.LENGTH_LONG).show();
                     nuevaFechaEntrega = fechaFormateada;
-                    Log.d("FechaSel", "FechaSel: " + nuevaFechaEntrega);
-                    Log.d("FechaPedido", "FechaPedido: " + fechaPedido);
-                    fechaEntregaModTextview.setText(nuevaFechaEntrega);
+                    selecionarHoraEentrega();
+
                 }
             }
         }, ano, mes, dia);
@@ -665,6 +667,44 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         datePickerDialog.show();
 
 
+    }
+
+    /**
+     * Metodo para seleecionar la hora de entrega, están definidas por cocina en la vista horadeentrega
+     */
+    private void selecionarHoraEentrega() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.horadeentrega);
+        dialog.setTitle("Select an Option");
+
+        Button cancelarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
+        Button selecionarButton = dialog.findViewById(R.id.seleccionarHoraButton);
+        RadioGroup radioGroup = dialog.findViewById(R.id.radioGroupHora);
+
+        cancelarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        selecionarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+                if (selectedRadioButtonId != -1) {
+                    RadioButton selectedRadioButton = dialog.findViewById(selectedRadioButtonId);
+                    horaEntrega = selectedRadioButton.getText().toString();
+                    fechaEntregaModTextview.setText(nuevaFechaEntrega + "\n" + horaEntrega);
+                    nuevaFechaEntrega += horaEntrega;
+
+
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     /**
