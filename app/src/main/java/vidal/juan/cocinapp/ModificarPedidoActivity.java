@@ -56,9 +56,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
 
     private String nuevaFechaEntrega, fechaPedido,horaEntrega = "vacio";;
     // Formatear la fecha al formato deseado: aaaa-MM-dd
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyy");
     //Formatear para guardar hora minutos y segundos
-    SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     private ArrayList<DetallePedido> detallesNuevosAgregados,detallesActuales;
     private ArrayList<DetallePedidoNoParcel> detallesNuevosAgregadosNoParcel = null;//Iincializar el array list para luego hacer la transformación

@@ -45,10 +45,8 @@ public class HacerPedidoActivity extends AppCompatActivity {
     private ArrayList<DetallePedidoNoParcel> detallesSeleccionadosNoParcel = new ArrayList<>();//Iincializar el array list para luego hacer la transformación
     private double precioTotal;
     // Formatear la fecha de entrega
-    //SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//Asi funcionaba TODO cambiar el formato en el servidor que cambia el estado
     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyy");
     //Formatear para guardar hora minutos y segundos en fecha del peddido
-    //SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //Asi funcionaba TODO cambiar el formato en el servidor que cambia el estado
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     //Para la imagen
