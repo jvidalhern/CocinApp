@@ -33,9 +33,9 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
 
     private Button volverPedidosButton,modPediddoButton,eliminarPedidoButton;
     private ListView listaDetalle;
-    private TextView fechaPedidoDetalleText,fechaEntregaDetalleText,cometariosDetalleText,totalDetalleText,idPedidoTextView,textModPedidoInfo;
+    private TextView fechaPedidoDetalleText,fechaEntregaDetalleText,cometariosDetalleText,totalDetalleText,idPedidoTextView,textModPedidoInfo,dEtallesTextView;
     private String idPedido;
-    private LinearLayout layoutEditarPedido;
+    private LinearLayout layoutEditarPedido,detallesLayout;
     //Para la url de la imagen
     private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
     private final String URL_SUFIJO = "?alt=media";
@@ -63,6 +63,8 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
         idPedidoTextView  = findViewById(R.id.idPedidoTextView);
         textModPedidoInfo  = findViewById(R.id.textModPedidoInfo);
         layoutEditarPedido = findViewById(R.id.layoutModPedido);
+        dEtallesTextView = findViewById(R.id.dEtallesTextView);
+        detallesLayout = findViewById(R.id.detallesLayout);
         //Funcionalidad botones
         //Volver a la pantalla principal
         volverPedidosButton.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,20 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
         //buscar y mostrar los detalles del pedido a partir de id
 
         buscarPedido(idPedido);
+
+        //Ver detalles; al principio estan ocultos
+        dEtallesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (detallesLayout.getVisibility() == View.GONE) {
+                    detallesLayout.setVisibility(View.VISIBLE);
+                    dEtallesTextView.setText(R.string.detallesMenos);
+                } else {
+                    detallesLayout.setVisibility(View.GONE);
+                    dEtallesTextView.setText(R.string.detallesMas);
+                }
+            }
+        });
 
     }
     @Override

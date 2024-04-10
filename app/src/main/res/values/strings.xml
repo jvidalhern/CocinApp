@@ -73,5 +73,7 @@
     <string name="eliminarcuenta">Eliminar cuenta</string>
     <string name="perfildeusuario">Perfil de usuario</string>
     <string name="seleccionarHoraEntrega">Seleccionar hora de entrega</string>
+    <string name="detallesMas">+ Detalles</string>
+    <string name="detallesMenos">- Detalles</string>
 
 </resources>
