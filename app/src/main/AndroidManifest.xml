@@ -14,27 +14,35 @@
         tools:targetApi="31">
         <activity
             android:name=".AgregarRacionesPedido"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ModificarPedidoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".VerPedidoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".VerDetallesPedidoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".HacerPedidoActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PantallaPrincipalActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".SeleccionarRacionesActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,12 +52,15 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ReestablecerPswActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EditarRegistroActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <service
             android:name=".Notificaciones"
