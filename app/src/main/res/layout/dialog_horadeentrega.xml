@@ -6,11 +6,23 @@
     android:background="@drawable/fondo_grad_soft"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:text="@string/seleccionarHoraEntrega"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:fontFamily="@font/niconne"
+        android:layout_gravity="center"
+
+        />
     <RadioGroup
         android:layout_width="match_parent"
         android:id="@+id/radioGroupHora"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/checkBox1"

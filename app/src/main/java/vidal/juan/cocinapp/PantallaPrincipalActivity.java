@@ -1,10 +1,14 @@
 package vidal.juan.cocinapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,38 +28,22 @@ import java.text.DecimalFormatSymbols;
 public class PantallaPrincipalActivity extends AppCompatActivity {
     //Items del xml
     TextView usuarioLogeadoTextView;
-    Button editarRegistroButton, cerrarSesionButton, hacerPedidoButton,verPedidosButton,verHistoricoButton;
+    Button hacerPedidoButton,verPedidosButton,verHistoricoButton,userButton;
     private FirebaseUser usuarioLogeado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
-        Log.d("ActivityLifecycle", "onCreate() PantallaPrincipal");
-        //ver si usa . o coma todo quitar esto, es una prueba
-        Log.d("getDecimal", "Decimal" +  DecimalFormatSymbols.getInstance().getDecimalSeparator());
         //Ref items del xml
         usuarioLogeadoTextView = findViewById(R.id.usuarioLogeadoTextView);
-        editarRegistroButton = findViewById(R.id.editarRegistroButton);
-        cerrarSesionButton = findViewById(R.id.cerrarSesionButton);
         hacerPedidoButton = findViewById(R.id.hacerPedidobutton);
         verPedidosButton = findViewById(R.id.verPedidosButton);
         verHistoricoButton = findViewById(R.id.verHistoricoButton);
+        userButton = findViewById(R.id.userButton);
         //FIREBASE; usuario logeado
         usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
-        // Obtener el mail del usario logeado, todo Cambiar por el nombre de usuario con un bienvenidos?
-        /*if (usuarioLogeado != null ){
-            usuarioLogeadoTextView.setText("Bienvenido " + "/n" + usuarioLogeado.getEmail());
-        }*/
-
-        //Accion del boton prueba para editar el registro
+        //Token del usuario logeado
         tokenAppp();
-        editarRegistroButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editarRegistro();
-            }
-        });
-
         //Accion del boton nuevo pedido
         hacerPedidoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,25 +59,14 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
                 verPedidos();
             }
         });
-
-        // Accion del boton de logout
-        cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
+        //Acción del boton de perfil de usuario
+        userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            FirebaseAuth.getInstance().signOut();
-            Intent volverLoginIntent = new Intent(PantallaPrincipalActivity.this, MainActivity.class);
-            startActivity(volverLoginIntent);
-            finish();
+                mostrarOpcionesUsuario();
             }
         });
 
-
-
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("ActivityLifecycle", "onDestroy() Pantalla principal");
     }
 
     /**
@@ -98,7 +75,6 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
     private void verPedidos() {
         Intent verPedidosIntent = new Intent(PantallaPrincipalActivity.this, VerPedidoActivity.class);
         startActivity(verPedidosIntent);
-
     }
 
     /**
@@ -107,7 +83,6 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
     private void hacerPedido() {
         Intent hacerPedidoIntent = new Intent(PantallaPrincipalActivity.this, SeleccionarRacionesActivity.class);
         startActivity(hacerPedidoIntent);
-
     }
 
     /**
@@ -117,11 +92,20 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
         //Pasar a la vista de editar registro
         Intent editarRegistroIntent   = new Intent(PantallaPrincipalActivity.this, EditarRegistroActivity.class);
         startActivity(editarRegistroIntent);
-
     }
 
     /**
-     * Recuperar el token y asignarlo al usuario
+     * Método para cerrar la sesión
+     */
+    private void cerrarSesion(){
+        FirebaseAuth.getInstance().signOut();
+        Intent volverLoginIntent = new Intent(PantallaPrincipalActivity.this, MainActivity.class);
+        startActivity(volverLoginIntent);
+        finish();
+    }
+
+    /**
+     * Recuperar el token unico de la aplicacion instalada en el dispositivo y asignarlo al usuario para poder enviar las notificaciones
      */
     private void tokenAppp (){
         FirebaseMessaging.getInstance().getToken()
@@ -144,6 +128,49 @@ public class PantallaPrincipalActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    /**
+     * Metodo para mostrar un dialog con las opciones del perfil de usuario.
+     */
+    private void mostrarOpcionesUsuario() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_opciones_usuario);
+        //Botones del dialog
+        Button editarRegistroButton = dialog.findViewById(R.id.editarRegistroButton);
+        Button cerrarSesionButton = dialog.findViewById(R.id.cerrarSesionButton);
+        Button eliminarCuentaButton = dialog.findViewById(R.id.eliminarCuentaButton);
+        Button volverButton = dialog.findViewById(R.id.volverButton);
+        //Accion de los botones del diálog
+        volverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        editarRegistroButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarRegistro();
+                dialog.dismiss();
+            }
+        });
+        cerrarSesionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarSesion();
+                dialog.dismiss();
+            }
+        });
+        eliminarCuentaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 }

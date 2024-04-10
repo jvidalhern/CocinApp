@@ -73,7 +73,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_pedido);
-        Log.d("ActivityLifecycle", "onCreate() ModificarPedido");
         //referencia a items xml
         cancelarModButton = findViewById(R.id.cancelarModButton);
         confirmModPedidoButton = findViewById(R.id.confirmModPedidoButton);
@@ -87,8 +86,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         idPedidoModTextView  = findViewById(R.id.idPedidoModTextView);
         modDEtallesTextView  = findViewById(R.id.modDEtallesTextView);
         modDetallesLayout = findViewById(R.id.modDetallesLayout);
-
-        //Funcionalidad botones
         //Volver a la pantalla principal
         cancelarModButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,38 +179,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             precioTotalNuevo += detallesNuevos.getPrecio() * detallesNuevos.getCantidad();
                         }
                         pedido.setPrecio_total(precioTotalNuevo);
-
                         totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
-
-                        /*//****
-                        // Lista para almacenar los detalles que se van a agregar
-                        List<DetallePedidoNoParcel> detallesAgregados = new ArrayList<>();
-                        for (DetallePedidoNoParcel detalleNuevo : detallesNuevosAgregadosNoParcel) {
-                            boolean encontrado = false;
-                            for (DetallePedidoNoParcel detalleOriginal : pedido.getDetalles()) {
-                                if (detalleNuevo.getRacion().equals(detalleOriginal.getRacion())) {
-                                    encontrado = true;
-                                    break;
-                                }
-                            }
-                            if (!encontrado) {
-                                detalleNuevo.setStockOriginal("agregado"); // Para luego modificar el stock del que parte el poder modificar
-                                detallesAgregados.add(detalleNuevo);
-                                double precioAnt = pedido.getPrecio_total();
-                                pedido.setPrecio_total(precioAnt + (detalleNuevo.getPrecio()  * detalleNuevo.getCantidad()));
-
-                                //Locale locale = Locale.US;//Para poner el . como serparador
-                                totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
-                                //totalDetalleTextMod.setText(String.valueOf(pedido.getPrecio_total()) + "\u20AC");
-                            }
-                        }
-
-                        // Agregar los detalles de la lista detalles agregados al pedido
-                        pedido.getDetalles().addAll(detallesAgregados);*/
-                        //Logs
-                        Log.d("ModPedidoPed", "Pedido al añdir raciones: "+ pedido.toString());
-                        //Log.d("detallesNuevos", "Nuevas Raciones."+ pedido.getDetalles().toString());
-                        //Recorrer los detalles
                     }
 
                     final int[] racionesRecuperadas = {0};
@@ -260,11 +226,9 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
-                            //Litener de confirmar
                         };
                         racionRef.addValueEventListener(valueEventListenerRacion);
 
-                        Log.d("Conex", "Conex"+ racionRef.toString());
                     }
                     //Funcionalidad confirmar pedido
                     confirmModPedidoButton.setOnClickListener(new View.OnClickListener() {
@@ -276,18 +240,14 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 String mensajeConfirmacionMod = "¿Estás seguro de que quieres modificar este pedido?";
                                 String mensajeConfirmacionElim = "¿Estás seguro de que quieres eliminar este pedido?";
                                 String totalString = totalDetalleTextMod.getText().toString();
-
                                 if (Double.parseDouble(totalString.substring(0, totalString.length() - 1)) == 0)
-
                                     builder.setMessage(mensajeConfirmacionElim);
-
                                 else
                                     builder.setMessage(mensajeConfirmacionMod);
                                 builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 confirmModificarPedido(pedido, dataSnapshotPedido);
-
                                             }
                                         })
                                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -318,26 +278,21 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     cometariosDetalleTextMod.addTextChangedListener(new TextChangedListener<EditText>(cometariosDetalleTextMod) {
                         @Override
                         public void onTextChanged(EditText target, Editable s) {
-                            //Lo qeu hace el campo al ser modificado;
-                            //campoEvaluar.setError("Nombre modificado");
-
+                            //Lo que hace el campo al ser modificado;
                             //Si el campo no es igual que el obtenido en origen en la BBDD
                             if (!cometariosDetalleTextMod.getText().toString().equals(pedido.getComentarios()))
                             {
-
                                 cometariosDetalleTextMod.setError("Cometario modificado");//Informar de que el campo ha sido modificado
                             }
                             else cometariosDetalleTextMod.setError(null);//En caso de que sean iguales-->Quitar la notificación
                         }
                     });
-
-
                 }
                 else {
                     Toast.makeText(ModificarPedidoActivity.this, "No se ha encontrado el pedido", Toast.LENGTH_SHORT).show();
                     volverPprincipal();
                 }
-            }//Fin on datachange Pediddos
+            }//Fin on datachange Pedidos
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Manejar errores de la base de datos
@@ -418,7 +373,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             .into(imagenRacion);
                     Locale locale = Locale.US;//Para poner el . como serparador
                     precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f",detallePedido.getPrecio() * detallePedido.getCantidad()) + "\u20AC");
-                    //Listeners para los botones
                     //Contador
                     final int[] modCantidad = {0};
                     final int[] stockOrig ={0};
@@ -433,12 +387,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             double precioUnaracion = Double.parseDouble(detallePedido.getPrecioRacion());
                             int cantidadActual = detallePedido.getCantidad();
                             String cantidadMaxima = detallePedido.getPedidoMaxRacion();
-                            //String cantidadMaxima = String.valueOf(Integer.parseInt(detallePedido.getPedidoMaxRacion()) - cantidadActual);
-
-                            //int stock = Integer.parseInt(racion.getStock());
-
-                            Log.d("Valores+", "Valores antes del if: Racion " +  detallePedido.getRacion() + "CantidadActual: " + detallePedido.getCantidad() +  ": VarMod: " + modCantidad[0]  +   " CantidadMax: " +  cantidadMaxima + ": StokOrig: " + stockOrig[0] + " StockDim: " +  detallePedido.getStockRacion() ) ;
-                            Log.d("ValorModCantidadA", "Valor de mod cantidad Antes de if: " + modCantidad[0] );
                             //Si la cantidad actual es menor que la cantidad maxima
                             if(detallePedido.getCantidad() < Integer.parseInt(cantidadMaxima)){
                                 if (modCantidad[0] < stockOrig[0])
@@ -451,27 +399,20 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     detallePedido.setStockRacion(String.valueOf(stock- 1));
                                     //Aumentar la cantidad en 1 del pedido
                                     detallePedido.setCantidad(cantidadActual + 1);
-                                    Log.d("ValorModCantidadB", "Valor de mod cantidad depues de if: " + modCantidad[0] );
-                                    Log.d("ExecRaStockdesp+", "Stock despues de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion());
                                     //Mostrar la actu en la view
                                     cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                                     double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
-                                    Log.d("Nuevoprecio", "Nuevo precio:  " + nuevoPrecio);
                                     //Actualizar el precio del pedido
-                                    //detallePedido.setPrecio(nuevoPrecio); TODO quitar esta linea si funciona ok; el precio no tiene que modificarse en el objeto solo en la vista
                                     //precioRacionActu[0] = precioUnaracionMas;
                                     Locale locale = Locale.US;//Para poner el . como serparador
                                     //Mostrar actu del precio en la view
                                     precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", nuevoPrecio) + "\u20AC");
-                                    //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto correcion formato
                                     //Precio total aterior
                                     double precioAnt;
                                     //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
                                     String totalStringAnt = totalDetalleTextMod.getText().toString();
                                     precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-
                                     totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt + precioUnaracion) + "\u20AC");
-                                    //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
                                 }
                                 else{
                                     if(stockOrig[0] == 0)
@@ -484,48 +425,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
                             }
-                            //Todo quitar esto; despues de verificar que funciann bien los limites de sotk y max racion
-                            /*if (modCantidad[0] <= Math.min(Integer.parseInt(cantidadMaxima), stockOrig[0])) {
-                                //Aumentar las veces que se dio a +
-                                modCantidad[0] += 1;
-                                //Modificar el stock
-                                int stock = Integer.parseInt(detallePedido.getStockRacion());
-                                //Disminuir 1 de sotck
-                                detallePedido.setStockRacion(String.valueOf(stock- 1));
-                                //Aumentar la cantidad en 1 del pedido
-                                detallePedido.setCantidad(cantidadActual + 1);
-                                Log.d("ValorModCantidadB", "Valor de mod cantidad depues de if: " + modCantidad[0] );
-                                Log.d("ExecRaStockdesp+", "Stock despues de hacer click en + " + detallePedido.getRacion() + ": " + detallePedido.getStockRacion());
-                                //Mostrar la actu en la view
-                                cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
-                                double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
-                                Log.d("Nuevoprecio", "Nuevo precio:  " + nuevoPrecio);
-                                //Actualizar el precio del pedido
-                                detallePedido.setPrecio(nuevoPrecio);
-                                //precioRacionActu[0] = precioUnaracionMas;
-                                Locale locale = Locale.US;//Para poner el . como serparador
-                                //Mostrar actu del precio en la view
-                                precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", detallePedido.getPrecio()) + "\u20AC");
-                                //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto correcion formato
-                                //Precio total aterior
-                                double precioAnt;
-                                //String del precio total actual en la vista general, hayq que quitar el simbolo $ con un substring
-                                String totalStringAnt = totalDetalleTextMod.getText().toString();
-                                precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-
-                                totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt + precioUnaracion) + "\u20AC");
-                                //todo quitar Log.e("stockdetalles", "Pulsar boton detalles mod."+ pedido.toString());
-
-                            } else {
-                                if (modCantidad[0] > Integer.parseInt(cantidadMaxima)) {
-                                    Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el máximo de productos de este tipo por pedido", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    Toast.makeText(ModificarPedidoActivity.this, "Se ha alcanzado el límite de productos disponibles en stock", Toast.LENGTH_SHORT).show();
-                                }
-                            }*/
                         }
-
                     });
                     // Boton quitar
                     modDetalleBotonQuitar.setOnClickListener(new View.OnClickListener() {
@@ -538,7 +438,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 modCantidad[0] -= 1;
                                 int stock = Integer.parseInt(detallePedido.getStockRacion());
                                 detallePedido.setStockRacion(String.valueOf(stock + 1));
-                                Log.d("StockActual-", "Stock del producto : " + detallePedido.getRacion() + " " + (detallePedido.getStockRacion()));
                                 //Disminuir cantidad mostrada
                                 detallePedido.setCantidad(detallePedido.getCantidad() - 1);
                                 if (detallePedido.getCantidad() == 0) {
@@ -548,28 +447,21 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                 cantidadRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getCantidad()));
                                 //Actualizar el precio del pedido
                                 double nuevoPrecio = Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad());
-                                //detallePedido.setPrecio(Double.parseDouble(detallePedido.getPrecioRacion()) * (detallePedido.getCantidad()));
                                 Locale locale = Locale.US;//Para poner el . como serparador
                                 //Mostrar actu del precio en la view
                                 precioRacionDetalleVistaDetalle.setText(String.format(locale,"%.2f", nuevoPrecio) + "\u20AC");
-                                //precioRacionDetalleVistaDetalle.setText(String.valueOf(detallePedido.getPrecio()) + "\u20AC"); TODO quitar esto, correcion de formato mostrado
                                 //Precio total anterior original
                                 double precioAnt;
                                 //String del precio total actual en la vista geneeral, hayq que quitar el simbolo $ con un substring
                                 String totalStringAnt = totalDetalleTextMod.getText().toString();
                                 precioAnt = Double.parseDouble(totalStringAnt.substring(0, totalStringAnt.length() - 1));
-
                                 totalDetalleTextMod.setText(String.format(locale,"%.2f", precioAnt - precioUnaracion) + "\u20AC");
-
-
                             }
                         }
                     });
                 }
             }
         });//Fin llenar lista
-        Log.d("ExecTamLista", "tamaño de la lista: " + listaDetalleMod.getAdapter().getCount());
-        //((BaseAdapter) listaDetalleMod.getAdapter()).notifyDataSetChanged();
     }
 
     /**
@@ -663,7 +555,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         calendarioMin.add(Calendar.DAY_OF_MONTH, + apartirDiasRecoger);
         //Setear el dia minimo
         datePickerDialog.getDatePicker().setMinDate(calendarioMin.getTimeInMillis() - 1000);
-        //TODO hace falta setear dia máximo?
+        //TODO hace falta setear dia máximo--Quizas en futura aztualización
         datePickerDialog.show();
 
 
@@ -674,13 +566,12 @@ public class ModificarPedidoActivity extends AppCompatActivity {
      */
     private void selecionarHoraEentrega() {
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.horadeentrega);
-        dialog.setTitle("Select an Option");
-
+        dialog.setContentView(R.layout.dialog_horadeentrega);
+        //Botones de la vista
         Button cancelarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
         Button selecionarButton = dialog.findViewById(R.id.seleccionarHoraButton);
         RadioGroup radioGroup = dialog.findViewById(R.id.radioGroupHora);
-
+        //Funcionalidad de los botones de la vista
         cancelarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -726,13 +617,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             datarefActuRacion.child("stock").setValue(detalleActu.getStockRacion()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {//Cuando la racion se halla actualizado correctamente->Aumentar el contador de raciones actualizadas
-                    Log.d("ActuRacion", "Racion " + detalleActu.getRacion() + "actualizada");
                     contadorActuRaciones[0]++;//Aumentar el contador cuando se actulice la racoin en la BBDD
-                    Log.d("ActuRacion", "Valor del contador " + contadorActuRaciones[0]);
                     if (contadorActuRaciones[0] == pedido.getDetalles().size()) {//Cuando se hallan actualizado todas las raciones->Actualizar el pedido con los nuevos datos
                         //Actualizar el pedido
                         //Datos modificados en la vista, pasarlos al pedido
-                        Log.d("ActuRacion", "Entro en update pedido Valor del contador" + contadorActuRaciones[0]);
                         String totalString = totalDetalleTextMod.getText().toString();
                         pedido.setPrecio_total((Double.parseDouble(totalString.substring(0, totalString.length() - 1))));
                         pedido.setComentarios(cometariosDetalleTextMod.getText().toString());
@@ -749,14 +637,11 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                                     cantidadActu,
                                     precioActu
                             );
-                            Log.d("ListaSinStock", "Detalles sin stock " + detallesSinDatosStock.toString());
                             //Añadir a la lista los que no esten vacios
                             if(detalleSinDatosStock.getCantidad()>0)
                                 detallesSinDatosStock.add(detalleSinDatosStock);
                         }
                         //Pasar la lista al pedido
-
-                        Log.d("ActuPedidoSinStock", "Detalles sin stock " + detallesSinDatosStock.toString());
                         //Crear un Map con lo que se tiene que actulizar del pedido
                         Map<String, Object> actuPedido = new HashMap<>();
                         actuPedido.put("comentarios", pedido.getComentarios());
@@ -764,8 +649,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                         actuPedido.put("fecha_entrega", pedido.getFecha_entrega());
                         actuPedido.put("detalles", detallesSinDatosStock);
                         // Actualizar los campos en la base de datos
-                        Log.d("ActuPedido", "Pedido antes de añadir listener " + pedido.toString());
-
                         if((pedido.getPrecio_total()) > 0)
                         {
                             modificarPedido(dataSnapshotPedido, actuPedido);
@@ -805,7 +688,6 @@ public class ModificarPedidoActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //Toast.makeText(ModificarPedidoActivity.this, "Error al eliminar el pedido", Toast.LENGTH_LONG).show();
                 Log.d("ModPedido", "Error al actulizar pedido: " + e.getMessage());
                 volverPprincipal();
             }

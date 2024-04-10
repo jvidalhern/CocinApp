@@ -9,28 +9,18 @@
     tools:context=".PantallaPrincipalActivity">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/editarRegistroButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="@string/editar_registro" />
+            android:id="@+id/userButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/user_ic"
+            android:layout_alignParentEnd="true" />
 
-        <Button
-            android:id="@+id/cerrarSesionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="@string/cerrar_sesion" />
-
-    </LinearLayout>
+    </RelativeLayout>
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="100dp"
@@ -69,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
         <Button
             android:id="@+id/hacerPedidobutton"

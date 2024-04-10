@@ -2,7 +2,6 @@ package vidal.juan.cocinapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -220,7 +219,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
      */
     private void selecionarHoraEentrega() {
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.horadeentrega);
+        dialog.setContentView(R.layout.dialog_horadeentrega);
         dialog.setTitle("Select an Option");
 
         Button cancelarButton = dialog.findViewById(R.id.cancelarSeleccionarHoraButton);
