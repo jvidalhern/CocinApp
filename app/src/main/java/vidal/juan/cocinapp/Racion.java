@@ -10,7 +10,7 @@ public class Racion {
     private List<String> alergenos;
     private String descripcion;
     private String foto;
-    private int pedido_max;
+    private String pedido_max;
     private String precio;
     private String stock;
     //Para setear la url
@@ -26,7 +26,7 @@ public class Racion {
     public Racion() {
     }
 
-    public Racion(List<String> alergenos, String descripcion, String foto, int pedido_max, String precio, String stock) {
+    public Racion(List<String> alergenos, String descripcion, String foto, String pedido_max, String precio, String stock) {
         this.alergenos = alergenos;
         this.descripcion = descripcion;
         this.foto = foto;
@@ -59,11 +59,11 @@ public class Racion {
         this.foto = foto;
     }
 
-    public int getPedido_max() {
+    public String getPedido_max() {
         return pedido_max;
     }
 
-    public void setPedido_max(int pedido_max) {
+    public void setPedido_max(String pedido_max) {
         this.pedido_max = pedido_max;
     }
 
