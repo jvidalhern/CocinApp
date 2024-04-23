@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/fechaEntrega"
+            android:text="@string/fecha_entrega"
             android:textColor="@color/white"
             android:layout_weight="1"/>
         <TextView
@@ -100,7 +100,7 @@
             android:id="@+id/confirmarPedidoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/confirmarPedido"
+            android:text="@string/confirmar_pedido"
             android:visibility="gone"
             android:textColor="@color/white"
             />

@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="23dp"
                 android:paddingStart="15dp"
-                android:text="@string/cantidadRacionDetalle"
+                android:text="@string/cantidad_racionr_detalle"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <TextView

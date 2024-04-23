@@ -1,6 +1,5 @@
 package vidal.juan.cocinapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -82,9 +80,27 @@ public class VerHistoricoPedidosActivity extends AppCompatActivity {
                 }
 
                 // Cargar los datos en los campos
-                textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
-                textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
-                textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
+                textViewIdPedido.setText(getString(R.string.id_pedido_string) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
+                String fechaPedido = String.valueOf(pedidoActivo.getFecha_pedido());
+                // Reemplazar el primer espacio con un salto de línea
+                fechaPedido = fechaPedido.replaceFirst(" ", "\n");
+                // Asignar la cadena modificada al textViewFechaPedido
+                textViewFechaPedido.setText(fechaPedido);
+                //textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido())); Para un solo intervalo de fecha
+                String fechaEntrega = String.valueOf(pedidoActivo.getFecha_entrega());
+                StringBuilder fechaFormateada = new StringBuilder();
+                // Recorrer la cadena original y agregar un salto de línea antes de cada paréntesis abierto "("
+                for (int i = 0; i < fechaEntrega.length(); i++) {
+                    char currentChar = fechaEntrega.charAt(i);
+                    // Agregar un salto de línea antes de cada paréntesis abierto "("
+                    if (currentChar == '(' && i != 0) {
+                        fechaFormateada.append("\n");
+                    }
+                    fechaFormateada.append(currentChar);
+                }
+
+                textViewFechaEntrega.setText(fechaFormateada.toString());
+
                 textViewResumen.setText(resumenBuilder.toString());
                 Locale locale = Locale.US;//Para poner el . como serparador
                 textViewPrecio.setText(String.format(locale,"%.2f",pedidoActivo.getPrecio_total()) + "\u20AC");

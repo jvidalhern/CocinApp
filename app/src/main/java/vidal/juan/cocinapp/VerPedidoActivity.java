@@ -62,9 +62,26 @@ public class VerPedidoActivity extends AppCompatActivity {
                 LinearLayout linarLayoutDetallePedido = view.findViewById(R.id.linarLayoutDetallePedido);
 
                 // Cargar los datos en los campos
-                textViewIdPedido.setText(getString(R.string.idPedidoString) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
-                textViewFechaPedido.setText(String.valueOf(pedidoActivo.getFecha_pedido()));
-                textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega()));
+                textViewIdPedido.setText(getString(R.string.id_pedido_string) + String.valueOf(pedidoActivo.getIdPedido()).substring(3, 7));
+                String fechaPedido = String.valueOf(pedidoActivo.getFecha_pedido());
+                // Reemplazar el primer espacio con un salto de línea
+                fechaPedido = fechaPedido.replaceFirst(" ", "\n");
+                // Asignar la cadena modificada al textViewFechaPedido
+                textViewFechaPedido.setText(fechaPedido);
+                //textViewFechaEntrega.setText(String.valueOf(pedidoActivo.getFecha_entrega())); Para un solo intervalo de fecha
+                String fechaEntrega = String.valueOf(pedidoActivo.getFecha_entrega());
+                StringBuilder fechaFormateada = new StringBuilder();
+                // Recorrer la cadena original y agregar un salto de línea antes de cada paréntesis abierto "("
+                for (int i = 0; i < fechaEntrega.length(); i++) {
+                    char currentChar = fechaEntrega.charAt(i);
+
+                    // Agregar un salto de línea antes de cada paréntesis abierto "("
+                    if (currentChar == '(' && i != 0) {
+                        fechaFormateada.append("\n");
+                    }
+                    fechaFormateada.append(currentChar);
+                }
+                textViewFechaEntrega.setText(fechaFormateada.toString());
                 textViewEstado.setText(String.valueOf(pedidoActivo.getEstado()));
                 Locale locale = Locale.US;//Para poner el . como serparador
                 textViewPrecio.setText(String.format(locale,"%.2f",pedidoActivo.getPrecio_total()) + "\u20AC");
@@ -107,6 +124,9 @@ public class VerPedidoActivity extends AppCompatActivity {
         Log.d("ActivityLifecycle", "onDestroy() Verpedido");
     }
 
+    /**
+     * Cargar los pedidos de la BBDD del usuario logeado
+     */
     private void obtenerPedidos() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         Log.d("database", "DatabaseReference" + databaseReference);
@@ -139,9 +159,14 @@ public class VerPedidoActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Método para recuperar los detalles de un pedido a partir del Idpedido
+     * @param idPedido id del pedido a buscar
+     */
+
     private void verDetallesDEPedido(String idPedido) {
         //Consultar raciones ;Accer al nodo racion para que funcio el cambio de la racion; si no se hace esta conxión con el listener luego no funciona la modificación
-        //No se porque pero es la unica solución que he encontrado de momento 28/02/2023
+        //Gian No se porque pero es la unica solución que he encontrado de momento 28/02/2023
         DatabaseReference databaseReferenceRacion = FirebaseDatabase.getInstance().getReference().child("raciones");
         databaseReferenceRacion.addValueEventListener(new ValueEventListener() {
             @Override
@@ -164,8 +189,6 @@ public class VerPedidoActivity extends AppCompatActivity {
      * Volver Pantalla principal
      */
     private void volverPprincipal() {
-        /*Intent intent = new Intent(VerPedidoActivity.this, PantallaPrincipalActivity.class);
-        startActivity(intent);*/
         finish();
     }
 

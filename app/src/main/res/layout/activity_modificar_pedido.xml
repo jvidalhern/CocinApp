@@ -47,7 +47,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
-        android:text="@string/addRacion"
+        android:text="@string/add_racion"
         android:textColor="@color/white"
         />
     <LinearLayout
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="@string/NuevafechaEntrega"
+            android:text="@string/Nueva_fecha_entrega"
             android:textColor="@color/white"
             android:layout_weight="1"/>
         </LinearLayout>
@@ -139,7 +139,7 @@
     </LinearLayout>
     <TextView
         android:id="@+id/modDEtallesTextView"
-        android:text="@string/editarDetalles"
+        android:text="@string/editar_detalles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -175,7 +175,7 @@
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:text="@string/modPedido"
+        android:text="@string/mod_pedido"
         />
     <Button
         android:id="@+id/cancelarModButton"

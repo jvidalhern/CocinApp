@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-3dp"
-        android:text="@string/detallesDelPedido"
+        android:text="@string/detalles_del_pedido"
         android:textColor="#000000"
         android:textSize="40sp"
         android:fontFamily="@font/niconne"
@@ -113,7 +113,7 @@
         </LinearLayout>
     <TextView
         android:id="@+id/dEtallesTextView"
-        android:text="@string/detallesMas"
+        android:text="@string/detalles_mas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -144,7 +144,7 @@
         />
     <TextView
         android:id="@+id/textModPedidoInfo"
-        android:text="@string/modPedidoMensaje"
+        android:text="@string/mod_pedido_mensaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -179,7 +179,7 @@
             android:layout_marginStart= "8dp"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:text="@string/modPedido"
+            android:text="@string/mod_pedido"
             />
     </LinearLayout>
 

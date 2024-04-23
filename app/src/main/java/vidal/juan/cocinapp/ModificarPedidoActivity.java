@@ -116,10 +116,10 @@ public class ModificarPedidoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (modDetallesLayout.getVisibility() == View.GONE) {
                     modDetallesLayout.setVisibility(View.VISIBLE);
-                    modDEtallesTextView.setText(R.string.editarDetallesMenos);
+                    modDEtallesTextView.setText(R.string.editar_detalles_menos);
                 } else {
                     modDetallesLayout.setVisibility(View.GONE);
-                    modDEtallesTextView.setText(R.string.editarDetalles);
+                    modDEtallesTextView.setText(R.string.editar_detalles);
                 }
             }
         });
@@ -167,7 +167,7 @@ public class ModificarPedidoActivity extends AppCompatActivity {
                     cometariosDetalleTextMod.setText(pedido.getComentarios().toString());
                     Locale locale = Locale.US;//Para poner el . como serparador
                     totalDetalleTextMod.setText(String.format(locale,"%.2f", pedido.getPrecio_total()) + "\u20AC");
-                    idPedidoModTextView.setText(getString(R.string.idPedidoString) + idPedido.substring(3,7));
+                    idPedidoModTextView.setText(getString(R.string.id_pedido_string) + idPedido.substring(3,7));
 
                     //Si existen nuevos pedidos agregarlos al pedido
                     if (detallesNuevosAgregadosNoParcel !=null)
