@@ -102,7 +102,7 @@ public class AgregarRacionesPedido extends AppCompatActivity {
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                         String tituloEntrada = childSnapshot.getKey();
                         String descripcion = childSnapshot.child("descripcion").getValue(String.class);
-                        Long pedidoMax = childSnapshot.child("pedido_max").getValue(Long.class);
+                        String pedidoMax = childSnapshot.child("pedido_max").getValue(String.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
                         //Tratar los decimales del precio
                         // Crea una instancia de DecimalFormat con el formato deseado
