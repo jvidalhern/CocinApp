@@ -25,6 +25,9 @@
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
+            android:name=".VerHistoricoPedidosActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerDetallesPedidoActivity"
             android:screenOrientation="portrait"
             android:exported="false" />

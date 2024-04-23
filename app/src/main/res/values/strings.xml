@@ -75,5 +75,7 @@
     <string name="seleccionarHoraEntrega">Seleccionar hora de entrega</string>
     <string name="detallesMas">+ Detalles</string>
     <string name="detallesMenos">- Detalles</string>
+    <string name="historico_pedidos">Histórico</string>
+    <string name="resumen">Resumen</string>
 
 </resources>

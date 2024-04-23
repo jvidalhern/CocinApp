@@ -63,13 +63,6 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                 ArrayList<DetallePedido> detallesSeleccionados = obtenerDetallesSeleccionados();
                 //Comprobar que se seleeciona algo para pasar a la siguiente activity
                 if (!detallesSeleccionados.isEmpty()) {
-/*
-                    //Prueba mostrar en el log lo que se ha seleccionado
-                    for (DetallePedido detalle : detallesSeleccionados) {
-                        Log.d("DetallesSeleccionados", "Nombre: " + detalle.getNombreRacion() +
-                                ", Cantidad: " + detalle.getCantidad() +
-                                ", Precio : " + detalle.getPrecio() + "precio total: " + precioTotal);
-                    }*/
                     // Iniciar la actividad para escoger fecha; hay que pasar el arraylist
                     //Pasar arraylist  detallesSeleccionados + preciototal a siguiente activity
                     Intent intent = new Intent(SeleccionarRacionesActivity.this, HacerPedidoActivity.class);
