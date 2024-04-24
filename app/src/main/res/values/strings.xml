@@ -49,6 +49,7 @@
     <string name="nombreRacion">nombre detalle racion</string>
     <string name="no_mod_pedido_mensaje">Lo sentimos, ya no es posible modificar el pedido</string>
     <string name="nuevo_pedido">Nuevo pedido</string>
+    <string name="pedir">Pedir</string>
     <string name="perfildeusuario">Perfil de usuario</string>
     <string name="pedidos_activos">Pedidos Activos</string>
     <string name="precio">Precio  </string>

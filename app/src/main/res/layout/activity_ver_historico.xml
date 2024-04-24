@@ -25,28 +25,28 @@
     <TableRow>
             <TextView
                 android:gravity="left"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="@string/fecha_pedido"
                 android:background="@color/principal"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="@string/fecha_entrega"
                 android:background="@color/principal"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="@string/resumen"
                 android:background="@color/principal"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
             <TextView
                 android:gravity="left"
-                android:padding="8dp"
+                android:padding="6dp"
                 android:text="@string/precio"
                 android:background="@color/principal"
                 android:textColor="@color/white"
@@ -57,7 +57,7 @@
         android:id="@+id/listaPedidosActivos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:background="@drawable/fondo_rep"
         android:descendantFocusability="beforeDescendants"
 

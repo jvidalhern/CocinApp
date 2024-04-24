@@ -14,7 +14,7 @@
 
         android:background="@color/principal"
         android:textColor="@color/white"
-        android:padding="8dp" />
+        android:padding="6dp" />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/black"
-                android:padding="8dp" />
+                android:padding="6dp" />
 
             <TextView
                 android:id="@+id/textViewFechaEntrega"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/black"
-                android:padding="8dp" />
+                android:padding="6dp" />
 
             <TextView
                 android:id="@+id/textViewResumen"
@@ -46,15 +46,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/black"
-                android:padding="8dp" />
+                android:padding="6dp" />
 
             <TextView
                 android:id="@+id/textViewPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="left"
                 android:textColor="@color/black"
-                android:padding="8dp" />
+                android:padding="6dp" />
         </TableRow>
     </TableLayout>
     <TextView
@@ -63,6 +63,6 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:textColor="@color/black"
-        android:padding="8dp" />
+        android:padding="6dp" />
 
 </LinearLayout>

@@ -111,7 +111,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
          nombre = modNombreEditText.getText().toString();
         if (nombre.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(nombre).find())//Todo pone rlimite de caracteres
         {
-            modNombreEditText.setError("Nombre invalido");
+            modNombreEditText.setError("Nombre inválido");
             verfificarEstadoNombre = false;
 
         }else {//quitar el error
@@ -123,7 +123,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
         }
         if (apels.isEmpty() || !Pattern.compile("^[A-Za-z]+ [A-Za-z]+$").matcher(apels).find())//Todo pone rlimite de caracteres
         {
-                modApellidoEditText.setError("Apellidos invalidos");
+                modApellidoEditText.setError("Apellidos inválidos");
             verfificarEstadoApel = false;
 
         }else {//quitar el error
@@ -135,7 +135,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
         departamento = modDepartamentoEditText.getText().toString();
         if (departamento.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(departamento).find())//Todo pone rlimite de caracteres
          {
-             modDepartamentoEditText.setError("Departamento invalido");
+             modDepartamentoEditText.setError("Departamento inválido");
              verfificarEstadoDepart = false;
 
          }else {//quitar el error
@@ -147,7 +147,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
         telefono = modTelefonoEditText.getText().toString();
         if (telefono.isEmpty() || !Pattern.compile("^[0-9]{9}$").matcher(telefono).find())
         {
-            modTelefonoEditText.setError("Teléfono invalido");
+            modTelefonoEditText.setError("Teléfono inválido");
             verfificarEstadoTelefono = false;
         }else
         {//quitar el error

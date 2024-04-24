@@ -70,7 +70,10 @@
             android:layout_marginLeft="10dp"
             android:text="@string/fecha_entrega"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/boton_redondeado" />
         <TextView
             android:id="@+id/fechaEntregaConfirm"
             android:layout_width="match_parent"
@@ -98,22 +101,24 @@
 
         <Button
             android:id="@+id/confirmarPedidoButton"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/confirmar_pedido"
             android:visibility="gone"
-            android:textColor="@color/white"
-            />
+            android:background="@drawable/boton_redondeado"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/cancelNuevopedidoButton"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/confirmarPedidoButton"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
             android:text="@string/cancelar"
             android:textColor="@color/white"
-            />
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/boton_redondeado" />
     </LinearLayout>
 
 </LinearLayout>

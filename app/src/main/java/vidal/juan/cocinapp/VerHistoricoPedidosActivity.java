@@ -70,7 +70,7 @@ public class VerHistoricoPedidosActivity extends AppCompatActivity {
                         int cantidadCaracteresCantidad = cantidad.length();
                         int cantidadEspacios = 5 - cantidadCaracteresCantidad;
                         for (int i = 0; i < cantidadEspacios; i++) {
-                            resumenBuilder.append(" ");
+                            resumenBuilder.append("");
                         }
                     }
 
