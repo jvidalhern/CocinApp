@@ -37,6 +37,8 @@ public class EditarRegistroActivity extends AppCompatActivity {
     private EditText modNombreEditText,modApellidoEditText,modDepartamentoEditText,modTelefonoEditText;
     private Button cancelRegistroButton,modRegistroButton;
 
+    private final String REGEX = "^[A-Za-zÁáÉéÍíÓóÚúÜüÑñÀàÈèÌìÒòÙùÂâÊêÎîÔôÛûÄäËëÏïÖöÜüŸÿÇçß ]+$";
+
 
     //Uusario logeado en la app
     FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
@@ -109,7 +111,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
         //TODO Validar que el nombre introducido no sea mayor a x y que sean caracteres de texto
 
          nombre = modNombreEditText.getText().toString();
-        if (nombre.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(nombre).find())//Todo pone rlimite de caracteres
+        if (nombre.isEmpty() || !Pattern.compile(REGEX).matcher(nombre).find())//Todo pone rlimite de caracteres
         {
             modNombreEditText.setError("Nombre inválido");
             verfificarEstadoNombre = false;
@@ -121,7 +123,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
          //TODO Validar que apellidos no sea mayor a x y que sean caracteres de texto
         apels = modApellidoEditText.getText().toString();
         }
-        if (apels.isEmpty() || !Pattern.compile("^[A-Za-z]+ [A-Za-z]+$").matcher(apels).find())//Todo pone rlimite de caracteres
+        if (apels.isEmpty() || !Pattern.compile(REGEX).matcher(apels).find())//Todo poner limite de caracteres
         {
                 modApellidoEditText.setError("Apellidos inválidos");
             verfificarEstadoApel = false;
@@ -133,7 +135,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
 
         //TODO Validar que el departamento introducido no sea mayor a x y que sean caracteres de texto
         departamento = modDepartamentoEditText.getText().toString();
-        if (departamento.isEmpty() || !Pattern.compile("^[A-Za-z]+$").matcher(departamento).find())//Todo pone rlimite de caracteres
+        if (departamento.isEmpty() || !Pattern.compile(REGEX).matcher(departamento).find())//Todo pone rlimite de caracteres
          {
              modDepartamentoEditText.setError("Departamento inválido");
              verfificarEstadoDepart = false;
