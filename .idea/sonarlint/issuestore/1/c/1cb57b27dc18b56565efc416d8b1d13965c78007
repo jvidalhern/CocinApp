@@ -1,0 +1,9 @@
+
+¶
+java:S1319"jThe type of "nuevaLista" should be an interface such as "List" rather than the implementation "ArrayList".(¨ï‚—J$ed10f096-be66-40e9-ad4d-43908bedbcb8
+©
+java:S1319"nThe type of "pedidosActivos" should be an interface such as "List" rather than the implementation "ArrayList".(≈≥Ú J$3ad83992-16ea-4225-90a8-edc1a538eb93
+å	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶π¢ÁJ$33529b4d-09f6-4e62-a53a-467c01707d6e
+ï	java:S116"ZRename this field "R_layout_IdView" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œê÷éJ$ad0b33ef-e7c3-4dcc-a704-83c3f21c95d1
+u
+java:S5993"9Change the visibility of this constructor to "protected".(¶π¢ÁJ$7ce71443-bf85-44bc-8514-80aa44e864cd

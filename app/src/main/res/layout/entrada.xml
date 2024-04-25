@@ -29,11 +29,13 @@
         <TextView
             android:id="@+id/titulo_entrada"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="@string/titulo_entrada"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/black"
-            />
+            android:textStyle="bold"
+            android:maxLines="2" />
+
 
         <TextView
             android:id="@+id/descripcion_entrada"

@@ -1,0 +1,33 @@
+
+
+java:S1192q"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æJ$62fc8f42-9c21-44ea-861c-602a0c75ad39
+	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×J$74029139-a93a-4ddd-963b-d47a6b53563b
+	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆı‹ıJ$a5967112-db88-4080-a08c-6f0581356eeb
+	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹÷¦J$055e7664-4cd9-44ea-ad19-8c6423339ab7
+i
+java:S16048"(Make this anonymous inner class a lambda(ğ¢İûøÿÿÿÿJ$2e94bdbc-b9ae-409c-a200-f3191bd544df
+i
+java:S1604M"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$a83c0a8d-24e3-49c9-8961-654f80ac4e61
+j
+java:S1604"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿJ$101ccc37-90f7-4262-94c0-4c0e7a94d7b9
+j
+java:S1604¦"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿJ$779803ec-52d5-47e7-8145-00535b28fd43
+	java:S116$"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­ÚëJ$180b5f2b-b934-4b97-bf6d-c263c51205c2
+	java:S116%"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$954102a4-2873-4c62-b1db-11d51ec4e3c7
+]
+java:S1170$"!Make this final field static too.(õ­ÚëJ$ba83f91b-dd0a-48d0-a710-c9f56212b698
+]
+java:S1170%"!Make this final field static too.(™Ÿ×çJ$03927d87-2a2b-461b-95b7-438190ea97b1
+m
+java:S1659 ",Declare "cancelarButton" on a separate line.(ô×í–ıÿÿÿÿJ$c9afddb0-1c7b-4831-8bbb-0ceb82f5b0d8
+
+java:S1450 "]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(ô×í–ıÿÿÿÿJ$850dd590-bc2e-493a-879b-10d498df8f61
+}
+java:S1854<"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂ»J$570bf6e5-043a-47c7-adfb-5fdc7d6e50ad
+n
+java:S1481<"2Remove this unused "cantidadTotal" local variable.(ÿÂ»J$ba8be96b-a1d5-45f0-b9d0-30df65aed71b
+‹
+java:S1874["JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿJ$3bd039b9-e38f-45f1-881d-7d6343ed9e32
+}	java:S125‚"<This block of commented-out lines of code should be removed.(ûšÒèşÿÿÿÿJ$171a3a35-23bd-479c-8edb-50535264ded1
+m
+java:S1068""1Remove this unused "datosCargados" private field.(‡š«ĞJ$bd94d337-a443-4a21-9b73-26411bb8f221

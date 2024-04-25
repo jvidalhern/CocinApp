@@ -1,0 +1,28 @@
+
+„
+java:S1192m"iDefine a constant instead of duplicating this literal "android.permission.REQUEST_NOTIFICATIONS" 4 times.(¯äŞœùÿÿÿÿ
+>
+java:S1604J"(Make this anonymous inner class a lambda(¤İÄ
+>
+java:S1604U"(Make this anonymous inner class a lambda(Óñ”Ÿ
+C
+java:S1604`"(Make this anonymous inner class a lambda(«–Âæşÿÿÿÿ
+C
+java:S1604w"(Make this anonymous inner class a lambda(“’¨µşÿÿÿÿ
+C
+java:S1604}"(Make this anonymous inner class a lambda(“ßÕÿÿÿÿÿ
+D
+java:S1604¯"(Make this anonymous inner class a lambda(Ö‚ÚÂûÿÿÿÿ
+C
+java:S5411("(Use a primitive boolean expression here.(‚ÚïÃøÿÿÿÿ
+F
+java:S1659#"0Declare "contrasenaEditText" on a separate line.(Š¨„
+I
+java:S1659$".Declare "registroTextView" on a separate line.(‚¢·àşÿÿÿÿ
+v
+java:S3923("[Remove this conditional structure or edit its code blocks so that they're not all the same.(‚ÚïÃøÿÿÿÿ
+G
+java:S1135+"2Complete the task associated to this TODO comment.(Ã’´g
+Q	java:S1253"<This block of commented-out lines of code should be removed.(Î‹æ˜
+H
+java:S1135q"2Complete the task associated to this TODO comment.(ŠÑÈé

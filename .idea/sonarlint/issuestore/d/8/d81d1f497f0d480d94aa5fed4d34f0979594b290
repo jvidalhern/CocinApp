@@ -1,0 +1,7 @@
+
+ƒ
+java:S1319"hThe type of "entradas" should be an interface such as "List" rather than the implementation "ArrayList".( ’ö»üÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ’ö»üÿÿÿÿ
+o	java:S116"ZRename this field "R_layout_IdView" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÖ
+T
+java:S5993"9Change the visibility of this constructor to "protected".( ’ö»üÿÿÿÿ
