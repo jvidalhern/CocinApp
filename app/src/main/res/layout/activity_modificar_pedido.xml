@@ -42,13 +42,15 @@
         android:dividerHeight="0dp" />
     <Button
         android:id="@+id/addRacionButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="5dp"
         android:text="@string/add_racion"
         android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/boton_redondeado"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,9 +113,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/Nueva_fecha_entrega"
             android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/boton_redondeado"/>
         </LinearLayout>
         <TextView
         android:id="@+id/cometariosPedidoDEtalleMod"
@@ -170,20 +175,25 @@
         />
     <Button
         android:id="@+id/confirmModPedidoButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:text="@string/mod_pedido"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/boton_redondeado"
         />
     <Button
         android:id="@+id/cancelarModButton"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/white"
         android:text="@string/cancelar"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/boton_redondeado"
         />
 
 
