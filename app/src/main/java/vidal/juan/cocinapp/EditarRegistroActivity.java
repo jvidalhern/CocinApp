@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -43,7 +42,7 @@ public class EditarRegistroActivity extends AppCompatActivity {
     //Uusario logeado en la app
     FirebaseUser usuarioLogeado = FirebaseAuth.getInstance().getCurrentUser();
     //Para conectar a la BBDD mediante una referencia
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocina-damdaw-2324-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference().child("usuarios");
     //Consulta para conseguir los datos del usuario logedao;filtrar por el mail
     Query datosUsuarioLogeado = myRef.orderByChild("email").equalTo(usuarioLogeado.getEmail());

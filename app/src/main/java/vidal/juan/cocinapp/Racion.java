@@ -14,7 +14,7 @@ public class Racion {
     private String precio;
     private String stock;
     //Para setear la url
-    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocina-damdaw-2324.appspot.com/o/";
     private final String URL_SUFIJO = "?alt=media";
     //La url de la imagen siempre tiene esta estructura, no es necesario setearlo por lo que no hace fatla set
     public String getUrlImagen() {

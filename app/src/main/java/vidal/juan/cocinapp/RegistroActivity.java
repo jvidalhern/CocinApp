@@ -47,7 +47,7 @@ public class RegistroActivity extends AppCompatActivity {
     private static final int MAX_LENGTH_CONTRASENA = 20;
 
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocinaapp-7da53-default-rtdb.europe-west1.firebasedatabase.app/");
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://cocina-damdaw-2324-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference myRef = database.getReference("usuarios");
     @Override
     public void onBackPressed() {

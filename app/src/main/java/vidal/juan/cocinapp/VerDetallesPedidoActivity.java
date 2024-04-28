@@ -35,7 +35,7 @@ public class VerDetallesPedidoActivity extends AppCompatActivity {
     private String idPedido;
     private LinearLayout layoutEditarPedido,detallesLayout;
     //Para la url de la imagen
-    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocina-damdaw-2324.appspot.com/o/";
     private final String URL_SUFIJO = "?alt=media";
 
     @Override

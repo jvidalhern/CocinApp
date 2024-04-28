@@ -50,7 +50,7 @@ public class HacerPedidoActivity extends AppCompatActivity {
     SimpleDateFormat formatoHoraMinSeg = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
     static final int apartirDiasRecoger = 4;//Dias a partir de los cuales se puede recoger Dias definidos por esther ? TODO sacar este dato de BBDD?
     //Para la imagen
-    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocinaapp-7da53.appspot.com/o/";
+    private final String URL_FOTOS = "https://firebasestorage.googleapis.com/v0/b/cocina-damdaw-2324.appspot.com/o/";
     private final String URL_SUFIJO = "?alt=media";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
