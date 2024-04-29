@@ -27,6 +27,7 @@
     <string name="editar_registro">Editar registro</string>
     <string name="eliminar_cuenta">Eliminar cuenta</string>
     <string name="eliminar">Eliminar pedido</string>
+    <string name="en_que_podemos_ayudarte">¿En qué podemos ayudarte?</string>
     <string name="estado">Estado</string>
     <string name="fecha_entrega">Fecha Entrega</string>
     <string name="fecha_pedido">Fecha Pedido</string>

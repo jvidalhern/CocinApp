@@ -1,0 +1,114 @@
+
+q
+java:S3740¦"/Provide the parametrized type for this generic.(¾»âÙþÿÿÿÿJ$5d2de0cb-51c2-476f-bae3-7233ce25a572
+‰
+java:S1192©"GDefine a constant instead of duplicating this literal "\u20AC" 7 times.(›€ÿ¿üÿÿÿÿJ$bdc1fc31-5ec2-4861-a0b4-3e67726533e4
+q
+java:S1066ƒ"/Merge this if statement with the enclosing one.(±„‘‰ýÿÿÿÿJ$a4ed4c4c-9634-461c-bc8e-9f5167572c6c
+d
+java:S1604Z"(Make this anonymous inner class a lambda(í²èüJ$210487ff-2d84-4c62-9b4f-cc9258ba76d9
+d
+java:S1604c"(Make this anonymous inner class a lambda(«›¿ƒJ$ca346f94-31ca-4bbc-9081-6768f1b7789a
+d
+java:S1604r"(Make this anonymous inner class a lambda(ñá¸•J$2c3e168d-a252-4fcf-9bcd-a68892f8b5cb
+j
+java:S1604÷"(Make this anonymous inner class a lambda(œçÎºûÿÿÿÿJ$0c4992f6-c7c8-4aef-9e99-a58d5b21f4b9
+e
+java:S1604ý"(Make this anonymous inner class a lambda(ìñÐóJ$dca5fe1d-b2d5-405c-ba30-d20a7b3825a4
+j
+java:S1604ê"(Make this anonymous inner class a lambda(û¦õìüÿÿÿÿJ$d40eb2b8-2be2-4070-a0ce-a097a636ddb7
+j
+java:S1604"(Make this anonymous inner class a lambda(Þ§ØÿÿÿÿÿJ$d222a5ae-6ff8-4ce0-ac15-e760cb85b4d0
+e
+java:S1604þ"(Make this anonymous inner class a lambda(½ØäáJ$a977afa2-01b8-415c-a010-2b2a1f73e3e4
+j
+java:S1604¯"(Make this anonymous inner class a lambda(Õ„§÷úÿÿÿÿJ$7404594d-0b39-4029-9050-2e84e6fed2c1
+e
+java:S1604ú"(Make this anonymous inner class a lambda(åù½ÆJ$12d399e0-e58b-49a9-9f6b-7c632cc1dfde
+e
+java:S1604–"(Make this anonymous inner class a lambda(öëº’J$39480860-fd7e-40aa-afc3-a9d51d3dd7c3
+j
+java:S1604¿"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$4d5caade-e674-40e2-82f0-296da512ab83
+e
+java:S1604Æ"(Make this anonymous inner class a lambda(£ÏÅòJ$32d65611-22b6-4248-ab83-775a526f5a64
+e
+java:S1604é"(Make this anonymous inner class a lambda(¯ö¨õJ$af1b791e-1140-4ff4-b007-5e270cde9288
+j
+java:S1604—"(Make this anonymous inner class a lambda(œÁÈÌþÿÿÿÿJ$d76e2028-6b76-40f3-8cbb-951e38eae39b
+j
+java:S1604¨"(Make this anonymous inner class a lambda(¼¯ä×ùÿÿÿÿJ$d3b815e1-a840-4016-9e7a-b397ec16ef7c
+j
+java:S1604°"(Make this anonymous inner class a lambda(œÁÈÌþÿÿÿÿJ$e7dda0e8-1404-455d-b631-5948d71b422b
+d
+java:S1604¿"(Make this anonymous inner class a lambda(’ùÏiJ$4a999966-2d43-4194-b6ba-80c06d3c03af
+j
+java:S1604Ç"(Make this anonymous inner class a lambda(œÁÈÌþÿÿÿÿJ$faaa8018-c132-491b-885e-56d6b55feab2
+e
+java:S5411í"(Use a primitive boolean expression here.(œºªóJ$6b1742a5-3873-41da-bcff-229ff56d0185
+•	java:S115>"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(™ÕšÙJ$4f85e8e3-e7a4-46d6-84c3-19e31bd67d9e
+”	java:S1163"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð™ÃÊüÿÿÿÿJ$1691b064-a15f-4546-a1a2-c0b6b13193b1
+	java:S1164"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$b778962e-48fc-419b-a53a-59e67709e7c8
+b
+java:S11703"!Make this final field static too.(ð™ÃÊüÿÿÿÿJ$f32007a1-e79a-4d8c-a55a-77b261efb819
+]
+java:S11704"!Make this final field static too.(™Ÿ×çJ$5733ea1f-5906-4316-84b6-4166b9d069dd
+”
+java:S1659-"SDeclare "confirmModPedidoButton" and all following declarations on a separate line.(‹È‰›úÿÿÿÿJ$728def8d-a273-4c12-822b-996f08bf42b5
+•
+java:S1659/"TDeclare "fechaEntregaModTextview" and all following declarations on a separate line.(ÊœýûÿÿÿÿJ$b37909e5-417c-4150-83eb-deb04f44c898
+‰
+java:S16599"HDeclare "fechaPedido" and all following declarations on a separate line.(õ†÷ùÿÿÿÿJ$fb21940f-6b5e-484a-b05d-b6eb68719598
+j
+java:S1659?".Declare "detallesActuales" on a separate line.(ÙãÇ¬J$14afd6d3-22ff-4f76-9b4c-499d8b36e2b9
+¡
+java:S1450-"`Remove the "cancelarModButton" field and declare it as a local variable in the relevant methods.(‹È‰›úÿÿÿÿJ$2a89bc03-221b-4ea2-9e9f-d4663d0e3bf7
+›
+java:S14509"ZRemove the "fechaPedido" field and declare it as a local variable in the relevant methods.(õ†÷ùÿÿÿÿJ$a1a93651-2a1e-4b9d-8f64-00e26c6f53d2
+¥
+java:S1450A"iRemove the "precioTotalDeNuevoAgregado" field and declare it as a local variable in the relevant methods.(¤®…J$9db28513-a5de-48b2-bce9-17d446d072de
+­
+java:S1450-"lRemove the "seleccionarFechaEntregaButton" field and declare it as a local variable in the relevant methods.(‹È‰›úÿÿÿÿJ$07b4da66-4f18-4fcf-867e-6414967f80c7
+]
+java:S11169"Remove this empty statement.(õ†÷ùÿÿÿÿJ$8f71a172-a43d-4630-9f16-85d92367c13d
+n
+java:S1135>"2Complete the task associated to this TODO comment.(™ÕšÙJ$5da76978-589b-4dea-84ad-678521fd3c13
+n
+java:S1135>"2Complete the task associated to this TODO comment.(™ÕšÙJ$4bede038-ab69-4dfb-a157-2320edbc34f7
+‹
+java:S1874D"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿJ$a5c6e141-9f54-4a16-a80b-ef7bece79ceb
+‡
+java:S1874€"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹ÑJ$4b4fbc97-b1fa-40ea-afd0-01a704fa3072
+€
+java:S1874…"CRemove this use of "getParcelableArrayListExtra"; it is deprecated.(Ž¯²ÌJ$f9783320-3764-451c-b347-ae8f39fac97a
+”
+java:S3776™"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(ÚÓ³ŒøÿÿÿÿJ$62a45950-2065-453b-8e95-e056f245dd0b
+‹
+java:S1858¥"I"getFecha_pedido" returns a string, there's no need to call "toString()".(ŸöÕàþÿÿÿÿJ$e985e3d7-1355-4f53-a284-552f65033e86
+‡
+java:S1858¦"J"getFecha_entrega" returns a string, there's no need to call "toString()".(Ðï¡ùJ$ad92ac0c-ac98-4ff6-bace-af4807ba0a61
+…
+java:S1858§"H"getComentarios" returns a string, there's no need to call "toString()".(‰¬£ñJ$c497048f-7558-4af3-b823-2653b30673d5
+¾
+java:S1186â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦J$035be04b-f649-43e7-988b-753c774ce890
+d
+java:S1125í"'Remove the unnecessary boolean literal.(œºªóJ$9f4edad9-a903-426f-9884-d2492dfe84cb
+w	java:S125™"<This block of commented-out lines of code should be removed.(››ÎGJ$65eac296-1634-4166-baa8-fb34ef65225b
+€
+java:S1874¹">Remove this use of "startActivityForResult"; it is deprecated.(´Æ ðüÿÿÿÿJ$bcf71ffc-cb5e-4f74-a63c-48c6540c6adc
+x	java:S125Ñ"<This block of commented-out lines of code should be removed.(ê›»ËJ$580733c1-91c1-4250-a5e0-7dfcc3c1468c
+”
+java:S3776Û"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ÜÝÆûÿÿÿÿJ$f6b217db-66c7-413d-8a72-44e1db810f16
+p
+java:S1659æ"3Declare "modDetalleBotonAnadir" on a separate line.(âöâ“J$7d9e57ff-fb55-4364-b33f-f4ec34d13532
+x	java:S125ë"<This block of commented-out lines of code should be removed.(Ê…óáJ$024f6435-1e24-4ab0-87df-8f5bcfdb0b88
+w	java:S125–"<This block of commented-out lines of code should be removed.(§´ŽJ$a9e65157-5449-4f73-a375-763affa594b9
+o
+java:S1135ª"2Complete the task associated to this TODO comment.(òþ „J$8349b0e3-2127-4b0d-93ed-940828052637
+o
+java:S1135®"2Complete the task associated to this TODO comment.(èþ·ªJ$1f904b32-e9a5-4186-81e6-f56bcc4f456b
+
+java:S3776Þ"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÝÜ‹’J$dbbc6c9c-49f8-4e5d-8398-f63e9cd77471
+q
+java:S10686"5Remove this unused "precioTotalPedido" private field.(þó²¿J$4f2b155b-7481-4be4-993c-8ed3ba845eb4
+p
+java:S10689"/Remove this unused "fechaPedido" private field.(õ†÷ùÿÿÿÿJ$a2e5d8f8-b82f-408d-b359-84b3676fe828

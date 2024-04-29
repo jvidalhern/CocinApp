@@ -1,0 +1,57 @@
+
+“
+java:S11922"RDefine a constant instead of duplicating this literal "ActivityLifecycle" 3 times.(à±ŠÿüÿÿÿÿJ$b12fbd9d-661a-4aa2-b2ce-ddfa2c64291a
+i
+java:S1604D"(Make this anonymous inner class a lambda(İØÑÕøÿÿÿÿJ$04b81396-cca4-4d99-bdbf-608dde3ab1f6
+d
+java:S1604L"(Make this anonymous inner class a lambda(ÌîŸïJ$60e2720e-022e-43d7-8a7b-840c68732794
+i
+java:S1604\"(Make this anonymous inner class a lambda(éÍ˜¶ûÿÿÿÿJ$cc289434-1347-480a-8900-9111d7601504
+d
+java:S1604„"(Make this anonymous inner class a lambda(’ùÏiJ$af985fad-18d6-4006-9574-e01bb694f851
+j
+java:S1604Œ"(Make this anonymous inner class a lambda(œÁÈÌşÿÿÿÿJ$91417e75-605c-4123-8f79-5a2398731d5f
+j
+java:S1604"(Make this anonymous inner class a lambda(œçÎºûÿÿÿÿJ$9f865518-5c73-4e49-bd48-2689263422bf
+e
+java:S1604—"(Make this anonymous inner class a lambda(ìñĞóJ$46dcaccb-4350-468e-87c2-4fa011a36d1b
+e
+java:S1604µ"(Make this anonymous inner class a lambda(¶ÎäçJ$1d755093-2a39-4f78-8b3b-a95acc7cbd02
+e
+java:S5411Å"(Use a primitive boolean expression here.(œºªóJ$87ef2f41-1aa6-4ba7-895d-dc01f1abc67c
+”	java:S116&"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ™ÃÊüÿÿÿÿJ$ac6b6238-e5ea-45ab-8c9f-1764cc4b2525
+	java:S116'"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$ae12e28f-e458-4412-8c2b-2070bbfca40f
+b
+java:S1170&"!Make this final field static too.(ğ™ÃÊüÿÿÿÿJ$deb0097f-92e0-4500-a6ff-41df07495cee
+]
+java:S1170'"!Make this final field static too.(™Ÿ×çJ$9512bc8a-eb77-44fd-a0f4-e4f2273f83e1
+
+java:S1659 "MDeclare "modPediddoButton" and all following declarations on a separate line.(‘´ÜÊıÿÿÿÿJ$b917bba2-b79a-415a-b33e-80ce36dad83a
+•
+java:S1659""TDeclare "fechaEntregaDetalleText" and all following declarations on a separate line.(”µèÿÿÿÿÿJ$8df7e69e-af60-43b3-b334-8364a085d170
+h
+java:S1659$",Declare "detallesLayout" on a separate line.(òº‹ÈJ$67619046-5433-46fb-8ed3-afa5159a91a1
+ 
+java:S1450 "_Remove the "modPediddoButton" field and declare it as a local variable in the relevant methods.(‘´ÜÊıÿÿÿÿJ$e9f50f75-003e-4e2c-a27c-73974494ff71
+£
+java:S1450 "bRemove the "volverPedidosButton" field and declare it as a local variable in the relevant methods.(‘´ÜÊıÿÿÿÿJ$3829716a-abea-489d-992c-a29dacecc497
+‹
+java:S1874*"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿJ$758a7a99-dbad-4f03-8254-50249a0223da
+†
+java:S1858¼"I"getFecha_pedido" returns a string, there's no need to call "toString()".(éİÀßJ$8eb5dfee-c309-47b8-af87-9ceb50a57fbb
+‡
+java:S1858½"J"getFecha_entrega" returns a string, there's no need to call "toString()".(Æ¾şJ$e5ca6cf1-4639-403f-9dbf-db6e445e2669
+Š
+java:S1858¾"H"getComentarios" returns a string, there's no need to call "toString()".(û·ĞÆşÿÿÿÿJ$5d7be1bd-c1ba-4582-8db3-a86f9db4eeb6
+t
+java:S1135Á"2Complete the task associated to this TODO comment.(İ ­¨şÿÿÿÿJ$d8f65d45-8568-43b8-aa33-0f35d699344f
+d
+java:S1125Å"'Remove the unnecessary boolean literal.(œºªóJ$2eb08c64-10a5-46f5-98a9-4c634fc4ce86
+r
+java:S1874Æ"0Remove this use of "getColor"; it is deprecated.(¢ÛÏŸüÿÿÿÿJ$3d0d24af-2999-4ac0-89e7-d53c8352684d
+m
+java:S1874Ë"0Remove this use of "getColor"; it is deprecated.(«íÜ®J$60f38390-bbda-4ea4-af56-021efcd4cc9a
+
+java:S1854ä"NRemove this useless assignment to local variable "cantidadRacionVistaDetalle".(»Ÿ¨øÿÿÿÿJ$00db8b51-09c9-43ed-a93a-0c8aa930f0a5
+
+java:S1481ä"?Remove this unused "cantidadRacionVistaDetalle" local variable.(»Ÿ¨øÿÿÿÿJ$4485e599-218b-4809-bb62-1927a22c5b55
