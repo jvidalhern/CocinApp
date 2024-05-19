@@ -1,34 +1,34 @@
 
-
-java:S1192m"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æJ$78760e73-7ddf-4f45-820b-1fedd97a6a0e
-	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×J$c44c0774-a78a-41b4-9c76-8fec7b277fd6
-	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆý‹ýJ$9ae42b23-4fbc-49d7-b274-1b7edab2efa7
-	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ž‹÷¦J$18ae7880-ea6e-414b-ab71-bca339dc24f4
-i
-java:S1604:"(Make this anonymous inner class a lambda(Þ§ØÿÿÿÿÿJ$c97e3bfb-db0c-41f7-a94e-f7144e3778ab
-i
-java:S1604P"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$0614008f-6691-4dd8-8d14-cdeff5fe739e
-j
-java:S1604¤"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿJ$cd165df5-d2bf-4000-a937-748598a2b7e0
-j
-java:S1604¬"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿJ$6881d910-70ec-45f4-97e4-e8867dc04208
-”	java:S116$"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð™ÃÊüÿÿÿÿJ$bc7ade8f-5298-41b7-8216-62532036d899
-	java:S116%"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$ca678c7c-ada4-46b9-acf0-92dfda6d7e98
+”
+java:S1192m"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æ8¶í“ù1J$b85022d6-950b-4cc5-aa0b-dfb44f186858
+”	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×8¼í“ù1J$79033fd7-3279-4e21-aefd-1f45a15f59e4
+”	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆý‹ý8½í“ù1J$5a7cf8ee-3202-45aa-8d6c-3525bb1d7a9a
+”	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ž‹÷¦8¿í“ù1J$9daad522-a7a1-4b59-8073-a8104e336b93
+p
+java:S1604:"(Make this anonymous inner class a lambda(Þ§Øÿÿÿÿÿ8Âí“ù1J$b77c6037-071a-4cca-b699-5495fa5709c4
+p
+java:S1604P"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿ8Ãí“ù1J$394685a5-e9b5-4ee1-8bb0-d80039d51de3
+q
+java:S1604¤"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿ8Ãí“ù1J$82ea301d-fd10-41c8-b777-50bb03862471
+q
+java:S1604¬"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿ8Ãí“ù1J$57e1b6dd-24b0-4cef-b38a-c5fded1d5e27
+”	java:S116$"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð™ÃÊüÿÿÿÿJ$cd8d9c7f-af0a-43ed-8950-7ff4f2a1f01c
+—	java:S116%"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×ç8·”í“ù1J$637bdb10-35ff-46fc-a58d-dbd48fcde935
 b
-java:S1170$"!Make this final field static too.(ð™ÃÊüÿÿÿÿJ$3d11c1d9-e037-4e9d-a002-1a39f72f1f9f
-]
-java:S1170%"!Make this final field static too.(™Ÿ×çJ$5bec43a1-fc92-4da1-a8be-2ddd668e1250
+java:S1170$"!Make this final field static too.(ð™ÃÊüÿÿÿÿJ$d3832149-aa8e-4ce0-b7a8-9503339aafb3
+d
+java:S1170%"!Make this final field static too.(™Ÿ×ç8Ã”í“ù1J$04fbaaff-a063-456f-b934-f36414e473aa
 m
-java:S1659 ",Declare "cancelarButton" on a separate line.(üï’ùÿÿÿÿJ$3c9c7ecd-6c3a-4f0b-9d20-48f3076a0471
+java:S1659 ",Declare "cancelarButton" on a separate line.(üï’ùÿÿÿÿJ$bb432a04-50a1-4085-a2c2-7c6f417e331e
 ž
-java:S1450 "]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(üï’ùÿÿÿÿJ$a1a3b0af-b59d-40a7-a715-aa284395e475
-
-java:S18744"CRemove this use of "getParcelableArrayListExtra"; it is deprecated.(ã™È˜J$78797196-5590-4484-a0e9-365e1f2db17d
-}
-java:S1854>"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂž»J$b869f764-395d-4918-87b0-4d73c642e440
-n
-java:S1481>"2Remove this unused "cantidadTotal" local variable.(ÿÂž»J$0d565838-40d9-4bbb-bef4-1a96675dd0ca
-“
-java:S3776`"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(Ë—ÛéþÿÿÿÿJ$1f0f262c-9d5a-4f08-b420-c62a66031a6b
+java:S1450 "]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(üï’ùÿÿÿÿJ$b95359a2-7bfb-438b-af8e-2fb83eca0e66
+†
+java:S18744"CRemove this use of "getParcelableArrayListExtra"; it is deprecated.(ã™È˜8Þ”í“ù1J$90303082-05e9-4f4c-a2f3-5befe16898b6
+„
+java:S1854>"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂž»8á”í“ù1J$ebaf54a0-39f2-484b-bc3d-9ce3fb7e48e6
+u
+java:S1481>"2Remove this unused "cantidadTotal" local variable.(ÿÂž»8ã”í“ù1J$5e9aac1f-9dd9-4b68-b7bb-49c2176ee9a5
+š
+java:S3776`"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(Ë—Ûéþÿÿÿÿ8ó”í“ù1J$4dfb7435-0c17-411b-a7ac-b51452cdf9d8
 m
-java:S1068#"1Remove this unused "datosCargados" private field.(‡š«ÐJ$33aa1efd-561a-4117-92fa-c4503ac10091
+java:S1068#"1Remove this unused "datosCargados" private field.(‡š«ÐJ$d942fa6c-aa57-494e-8620-7783c48f434e

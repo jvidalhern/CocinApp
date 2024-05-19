@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class SeleccionarRacionesActivity extends AppCompatActivity {
@@ -134,11 +136,20 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         }
                     }
 
+                    // Ordena la lista de datos para que las raciones con stock 0 se muestren al principio
+                    datos.sort(new Comparator<EncapsuladorEntradas>() {
+                        @Override
+                        public int compare(EncapsuladorEntradas e1, EncapsuladorEntradas e2) {
+                            return Integer.compare(e2.getStock(), e1.getStock());
+                        }
+                    });
+
                     // Inicializa tu adaptador después de que se hayan cargado los datos
                     lista.setAdapter(new AdaptadorEntradas(SeleccionarRacionesActivity.this, R.layout.entrada, datos) {
                         @Override
                         public void onEntrada(EncapsuladorEntradas entrada, View view) {
                             if (entrada != null) {
+                                RelativeLayout contenedorPrincipal = view.findViewById(R.id.contenedorPrincipal);
                                 TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
                                 TextView descripcion = view.findViewById(R.id.descripcion_entrada);
                                 TextView precio_entrada = view.findViewById(R.id.precio_entrada);
@@ -175,6 +186,17 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 descripcion.setText(entrada.getDescripcion());
                                 precio_entrada.setText(entrada.get_Precio() + "€");
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
+
+                                // Verificar si el stock es 0 para deshabilitar los botones y cambiar la apariencia
+                                if (entrada.getStock() == 0) {
+                                    botonAnadir.setEnabled(false);
+                                    botonQuitar.setEnabled(false);
+                                    contenedorPrincipal.setAlpha(0.5f); // Reduce la opacidad para dar impresión de deshabilitado
+                                } else {
+                                    botonAnadir.setEnabled(true);
+                                    botonQuitar.setEnabled(true);
+                                    contenedorPrincipal.setAlpha(1.0f); // Restaura la opacidad normal
+                                }
                             }
                         }
                     });
@@ -210,7 +232,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             if (cantidadActual == cantidadMaxima) {
                 mostrarMensaje("Se ha alcanzado el máximo de productos de este tipo por pedido");
             } else {
-                mostrarMensaje("Se ha alcanzado el límite de productos disponibles en stock");
+                mostrarMensaje("No queda más stock del producto seleccionado");
             }
         }
     }

@@ -1,33 +1,37 @@
 
-
-java:S1192q"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æJ$62fc8f42-9c21-44ea-861c-602a0c75ad39
-	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×J$74029139-a93a-4ddd-963b-d47a6b53563b
-	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆı‹ıJ$a5967112-db88-4080-a08c-6f0581356eeb
-	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹÷¦J$055e7664-4cd9-44ea-ad19-8c6423339ab7
+”
+java:S1192s"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æ8Ïàş“ù1J$29e67a74-57a2-4035-aeef-03fda096c524
+”	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×8Ğàş“ù1J$ff4e4d6c-b071-4ad7-a2b2-a32b76690d32
+”	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆı‹ı8­³ü“ù1J$4b7f6cdf-f9d3-4917-81e0-90c7401912ba
+”	java:S117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹÷¦8Ğàş“ù1J$68e713a7-f4bb-466f-b1cc-5a0270564325
+p
+java:S1604:"(Make this anonymous inner class a lambda(ğ¢İûøÿÿÿÿ8Ñàş“ù1J$6d4ecd36-8284-43ee-a32c-953772075a82
+p
+java:S1604O"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿ8Ñàş“ù1J$21e92d07-68ae-4070-a461-eee6bea20759
+q
+java:S1604Œ"(Make this anonymous inner class a lambda(ŒËÌüøÿÿÿÿ8Ñàş“ù1J$b1e4e413-d4d4-46fc-b4f4-47ef7495ce6a
+q
+java:S1604©"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿ8Ñàş“ù1J$c184b48d-a0fd-4ce1-9519-4edc06ade689
+q
+java:S1604±"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿ8Òàş“ù1J$9bcc8017-9392-4794-801b-86f94aa035ae
+›	java:S116&"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ™ÃÊüÿÿÿÿ8µü“ù1J$d907acae-16e0-4ace-bcba-38cb01a78cdd
+—	java:S116'"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×ç8ëáş“ù1J$e2cbefde-0d55-4864-9c54-17d091854a36
 i
-java:S16048"(Make this anonymous inner class a lambda(ğ¢İûøÿÿÿÿJ$2e94bdbc-b9ae-409c-a200-f3191bd544df
-i
-java:S1604M"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$a83c0a8d-24e3-49c9-8961-654f80ac4e61
-j
-java:S1604"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿJ$101ccc37-90f7-4262-94c0-4c0e7a94d7b9
-j
-java:S1604¦"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿJ$779803ec-52d5-47e7-8145-00535b28fd43
-	java:S116$"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­ÚëJ$180b5f2b-b934-4b97-bf6d-c263c51205c2
-	java:S116%"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$954102a4-2873-4c62-b1db-11d51ec4e3c7
-]
-java:S1170$"!Make this final field static too.(õ­ÚëJ$ba83f91b-dd0a-48d0-a710-c9f56212b698
-]
-java:S1170%"!Make this final field static too.(™Ÿ×çJ$03927d87-2a2b-461b-95b7-438190ea97b1
-m
-java:S1659 ",Declare "cancelarButton" on a separate line.(ô×í–ıÿÿÿÿJ$c9afddb0-1c7b-4831-8bbb-0ceb82f5b0d8
-
-java:S1450 "]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(ô×í–ıÿÿÿÿJ$850dd590-bc2e-493a-879b-10d498df8f61
-}
-java:S1854<"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂ»J$570bf6e5-043a-47c7-adfb-5fdc7d6e50ad
-n
-java:S1481<"2Remove this unused "cantidadTotal" local variable.(ÿÂ»J$ba8be96b-a1d5-45f0-b9d0-30df65aed71b
-‹
-java:S1874["JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿJ$3bd039b9-e38f-45f1-881d-7d6343ed9e32
-}	java:S125‚"<This block of commented-out lines of code should be removed.(ûšÒèşÿÿÿÿJ$171a3a35-23bd-479c-8edb-50535264ded1
-m
-java:S1068""1Remove this unused "datosCargados" private field.(‡š«ĞJ$bd94d337-a443-4a21-9b73-26411bb8f221
+java:S1170&"!Make this final field static too.(ğ™ÃÊüÿÿÿÿ8¥µü“ù1J$71fc7497-19f0-41db-8ce5-ba4bc573103b
+d
+java:S1170'"!Make this final field static too.(™Ÿ×ç8òáş“ù1J$2299934d-ca05-4d6b-a2d8-3621c93e2f1d
+t
+java:S1659"",Declare "cancelarButton" on a separate line.(ô×í–ıÿÿÿÿ8õáş“ù1J$7b65e5bf-d7b1-4ad8-867f-6362e04dbaa6
+¥
+java:S1450""]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(ô×í–ıÿÿÿÿ8öáş“ù1J$f6b914fe-09ba-4aed-87bc-3897665ec20a
+„
+java:S1854>"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂ»8„âş“ù1J$efd36fee-11fe-405e-a87c-076593ae5302
+u
+java:S1481>"2Remove this unused "cantidadTotal" local variable.(ÿÂ»8…âş“ù1J$f2952e77-1e5d-4b08-8fd0-a859f807e3d5
+’
+java:S1874]"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(œƒƒ©ùÿÿÿÿ8Œâş“ù1J$1c5e4cec-bbba-4223-a474-53d70a716d29
+š
+java:S3776g"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Ë—Ûéşÿÿÿÿ8ì¯”ù1J$19c15d34-53c8-421a-8c23-3bd0380ea389
+„	java:S125„"<This block of commented-out lines of code should be removed.(ûšÒèşÿÿÿÿ8•âş“ù1J$3fed202c-0dc7-48be-ac02-af0e66313861
+t
+java:S1068$"1Remove this unused "datosCargados" private field.(‡š«Ğ8£âş“ù1J$aa2343e3-00d9-4099-8a76-c6a3591f4a40

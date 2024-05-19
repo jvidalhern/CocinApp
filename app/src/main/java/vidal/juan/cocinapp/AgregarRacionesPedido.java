@@ -216,7 +216,7 @@ public class AgregarRacionesPedido extends AppCompatActivity {
             if (cantidadActual == cantidadMaxima) {
                 mostrarMensaje("Se ha alcanzado el máximo de productos de este tipo por pedido");
             } else {
-                mostrarMensaje("Se ha alcanzado el límite de productos disponibles en stock");
+                mostrarMensaje("No queda más stock del producto seleccionado");
             }
         }
     }

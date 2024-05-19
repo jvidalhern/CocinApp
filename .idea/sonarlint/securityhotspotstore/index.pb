@@ -29,3 +29,9 @@ t
 Dapp/src/main/java/vidal/juan/cocinapp/PantallaPrincipalActivity.java,c\6\c6af2f585171640614f29d0c6e87bec68c5d8823
 v
 Fapp/src/main/java/vidal/juan/cocinapp/VerHistoricoPedidosActivity.java,2\6\26c48849af4cd79a0812cdf6bd5306a89b53bf17
+p
+@app/src/main/java/vidal/juan/cocinapp/AgregarRacionesPedido.java,8\4\844be02a80af21aa69c9b58b76311d21d6d5d169
+i
+9app/src/main/java/vidal/juan/cocinapp/Notificaciones.java,2\c\2c8e7872d616c1ec67b9eca08931c36716df1bca
+r
+Bapp/src/main/java/vidal/juan/cocinapp/ModificarPedidoActivity.java,9\7\97b28b270bb396c6d9c9bbe19fa02c53db0a411c
