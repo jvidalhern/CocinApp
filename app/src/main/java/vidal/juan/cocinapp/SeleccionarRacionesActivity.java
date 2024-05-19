@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class SeleccionarRacionesActivity extends AppCompatActivity {
@@ -110,35 +112,34 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                         String pedidoMax = childSnapshot.child("pedido_max").getValue(String.class);
                         String precioPrev = childSnapshot.child("precio").getValue(String.class);
                         // Crea una instancia de DecimalFormat con el formato deseado
-                        Log.d("getDecimalPrecio", "Decimal y precio de bbdd" +  DecimalFormatSymbols.getInstance().getDecimalSeparator() + "precio:  " + precioPrev);
                         Locale locale = Locale.getDefault();
-                        Log.d("Locale", "Idioma: " + locale.getLanguage() + ", País: " + locale.getCountry());
-
                         double precioDecimal = Double.parseDouble(precioPrev);
-                        Log.d("getDecimalPrecio", "Precio decimal" +  precioDecimal);
-                        // Crear DecimalFormatSymbols con el punto como separador decimal
                         DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
                         symbols.setDecimalSeparator('.');
-                        DecimalFormat df = new DecimalFormat("#.00",symbols);
+                        DecimalFormat df = new DecimalFormat("#.00", symbols);
                         String precio = df.format(precioDecimal);
-                        Log.d("getDecimalPrecio", "Precio decimal depues del format" +  precio);
                         String stock = childSnapshot.child("stock").getValue(String.class);
                         String urlImagen = URL_FOTOS + childSnapshot.child("foto").getValue(String.class) + URL_SUFIJO;
 
-                        Log.d("Firebase", "Descripción: " + descripcion + ", Precio: " + precio + ", Pedido Máximo: " + pedidoMax + ", Stock: " + stock + ", URL imagen: " + urlImagen);
-
-                        //datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
-                        ///Evitar crasheo al agregar mal raciones en la BBBDD
                         if (urlImagen != null && tituloEntrada != null && descripcion != null && precio != null && pedidoMax != null && stock != null) {
                             datos.add(new EncapsuladorEntradas(urlImagen, tituloEntrada, descripcion, precio, Long.valueOf(pedidoMax).intValue(), Long.valueOf(stock).intValue()));
                         }
                     }
 
-                    // Inicializa tu adaptador después de que se hayan cargado los datos
+                    // Ordena la lista de datos para que las raciones con stock 0 se muestren al principio
+                    datos.sort(new Comparator<EncapsuladorEntradas>() {
+                        @Override
+                        public int compare(EncapsuladorEntradas e1, EncapsuladorEntradas e2) {
+                            return Integer.compare(e2.getStock(), e1.getStock());
+                        }
+                    });
+
+                    // Inicializa tu adaptador después de que se hayan cargado los datos y se hayan ordenado
                     lista.setAdapter(new AdaptadorEntradas(SeleccionarRacionesActivity.this, R.layout.entrada, datos) {
                         @Override
                         public void onEntrada(EncapsuladorEntradas entrada, View view) {
                             if (entrada != null) {
+                                RelativeLayout contenedorPrincipal = view.findViewById(R.id.contenedorPrincipal);
                                 TextView titulo_entrada = view.findViewById(R.id.titulo_entrada);
                                 TextView descripcion = view.findViewById(R.id.descripcion_entrada);
                                 TextView precio_entrada = view.findViewById(R.id.precio_entrada);
@@ -152,7 +153,6 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 Glide.with(SeleccionarRacionesActivity.this)
                                         .load(entrada.getUrlImagen())
                                         .into(imagen_entrada);
-
 
                                 // Configura los listeners para los botones
                                 botonAnadir.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +175,17 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                                 descripcion.setText(entrada.getDescripcion());
                                 precio_entrada.setText(entrada.get_Precio() + "€");
                                 textoCantidad.setText(String.valueOf(entrada.getCantidadActual()));
+
+                                // Verificar si el stock es 0 para deshabilitar los botones y cambiar la apariencia
+                                if (entrada.getStock() == 0) {
+                                    botonAnadir.setEnabled(false);
+                                    botonQuitar.setEnabled(false);
+                                    contenedorPrincipal.setAlpha(0.5f); // Reduce la opacidad para dar impresión de deshabilitado
+                                } else {
+                                    botonAnadir.setEnabled(true);
+                                    botonQuitar.setEnabled(true);
+                                    contenedorPrincipal.setAlpha(1.0f); // Restaura la opacidad normal
+                                }
                             }
                         }
                     });
@@ -188,6 +199,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
                     datosCargados = false;
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -210,7 +222,7 @@ public class SeleccionarRacionesActivity extends AppCompatActivity {
             if (cantidadActual == cantidadMaxima) {
                 mostrarMensaje("Se ha alcanzado el máximo de productos de este tipo por pedido");
             } else {
-                mostrarMensaje("Se ha alcanzado el límite de productos disponibles en stock");
+                mostrarMensaje("No hay más stock del producto seleccionado");
             }
         }
     }
