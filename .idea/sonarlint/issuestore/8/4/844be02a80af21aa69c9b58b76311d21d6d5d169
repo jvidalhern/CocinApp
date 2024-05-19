@@ -1,0 +1,34 @@
+
+
+java:S1192m"QDefine a constant instead of duplicating this literal "getDecimalPrecio" 3 times.(¡½æJ$6e3b1940-897f-42d3-b16d-9674d2155985
+	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÒ½×J$1b9631f1-cc94-4711-a279-8bd0ad755c5f
+	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆý‹ýJ$61c4bb9f-e887-42ba-a931-596a24ec8191
+	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ž‹÷¦J$a738fabb-4fbb-4ae4-80d6-87d9aca1aad0
+i
+java:S1604:"(Make this anonymous inner class a lambda(Þ§ØÿÿÿÿÿJ$84300e0d-4c07-410f-b107-5bf34df199f2
+i
+java:S1604P"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$73ada8cd-7176-4737-82a3-8dee79226cd8
+j
+java:S1604¤"(Make this anonymous inner class a lambda(¦¿‰‹øÿÿÿÿJ$60e9105b-ec8d-4674-98fd-c6961e48fa10
+j
+java:S1604¬"(Make this anonymous inner class a lambda(©±äÂûÿÿÿÿJ$ac76ca2b-f3c3-4648-9c60-3ac3e9ad6a95
+	java:S116$"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­ÚëJ$829be8f9-2d44-4791-ad73-2d7373b04203
+—	java:S116%"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×ç8Ý§Ø¸ø1J$eccbe3b6-fa41-40ed-b303-9981ce48a40a
+]
+java:S1170$"!Make this final field static too.(õ­ÚëJ$a96ccf17-88bf-4658-b7f2-73646f9ba7f7
+d
+java:S1170%"!Make this final field static too.(™Ÿ×ç8ç§Ø¸ø1J$db33cb2b-8ac5-40a2-8011-8cb600819f1a
+m
+java:S1659 ",Declare "cancelarButton" on a separate line.(üï’ùÿÿÿÿJ$4b9fc939-b857-495e-aff9-03f3c8381753
+ž
+java:S1450 "]Remove the "cancelarButton" field and declare it as a local variable in the relevant methods.(üï’ùÿÿÿÿJ$0e885166-7c46-4681-b51d-926f15a678e2
+
+java:S18744"CRemove this use of "getParcelableArrayListExtra"; it is deprecated.(ã™È˜J$dc823ff0-e74d-4ba5-b5f5-83d4336d7b17
+}
+java:S1854>"ARemove this useless assignment to local variable "cantidadTotal".(ÿÂž»J$0216e9b8-6f4e-45db-aefe-36f2b1cefd60
+n
+java:S1481>"2Remove this unused "cantidadTotal" local variable.(ÿÂž»J$a3030c19-e5bc-4aab-8bf6-5abd25e9ad81
+“
+java:S3776`"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(Ë—ÛéþÿÿÿÿJ$bb52dc48-fcc8-40b9-920f-c590f3f2e896
+m
+java:S1068#"1Remove this unused "datosCargados" private field.(‡š«ÐJ$209b4ced-1053-4ad5-8791-9042f8d47c71

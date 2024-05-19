@@ -1,0 +1,69 @@
+
+
+java:S1192Û"PDefine a constant instead of duplicating this literal "ActualizarStock" 3 times.(·ÊÚ—J$852fdb1a-9294-4421-a034-f48904720330
+d
+java:S1604n"(Make this anonymous inner class a lambda(«›¿ƒJ$1fc2304c-c472-43df-96b3-267fd3af2c9d
+i
+java:S1604w"(Make this anonymous inner class a lambda(»ëÆáÿÿÿÿÿJ$2dbbf215-2960-4a25-a793-c098cbe56909
+d
+java:S1604"(Make this anonymous inner class a lambda(ô£õ_J$4e09495c-9135-40cc-9b3f-bf10b6abe317
+e
+java:S1604"(Make this anonymous inner class a lambda(åù½ÆJ$ff1b3e26-1bc1-4ab7-aed6-69df1362fb18
+e
+java:S1604¹"(Make this anonymous inner class a lambda(öëº’J$8c6ec6b1-1be7-4ae1-ad4b-e636735bd8f4
+j
+java:S1604ã"(Make this anonymous inner class a lambda(Ù€³üÿÿÿÿJ$cbc958c7-ccf9-4587-8be1-9f64fa8c2fef
+e
+java:S1604ê"(Make this anonymous inner class a lambda(£ÏÅòJ$27c7b498-630d-4321-a798-b57f495969ee
+e
+java:S1604 "(Make this anonymous inner class a lambda(é·€J$7c9af7ec-f1a0-4054-85aa-29702595ec9b
+j
+java:S1604«"(Make this anonymous inner class a lambda(Ÿ ¹ÿÿÿÿÿJ$2329701f-7a1d-40f0-928c-ec39704f37c0
+d
+java:S1604×"(Make this anonymous inner class a lambda(¿ıŒ|J$c587037f-7d96-4a5f-89d7-8ae530d65ce2
+j
+java:S1604İ"(Make this anonymous inner class a lambda(œÁÈÌşÿÿÿÿJ$ddd4e4d0-cc2b-4ec9-b08b-2702b10f1a59
+•	java:S1153"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(™ÕšÙJ$47b2803a-88bc-44a6-9997-795272294acb
+	java:S1165"TRename this field "URL_FOTOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­ÚëJ$4b1eb2d9-c29f-443e-91fc-2e2fce6a604f
+	java:S1166"URename this field "URL_SUFIJO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Ÿ×çJ$1a9764d3-3ec9-4361-9c99-70228ff0031e
+]
+java:S11705"!Make this final field static too.(õ­ÚëJ$3d1cd075-ea7a-4974-b50f-65afd40ead71
+]
+java:S11706"!Make this final field static too.(™Ÿ×çJ$da56a9af-4a58-48ca-b33c-e98882fa489a
+›
+java:S1659$"ZDeclare "seleccionarFechaEntregaButton" and all following declarations on a separate line.(…‡å—ıÿÿÿÿJ$177ca92c-168a-4e17-b17d-d52a89cc194c
+m
+java:S1659("1Declare "fechaEntregaConfirm" on a separate line.(Ú»‡ëJ$a1e50e36-2ace-4f6e-b4e9-056b5380fb54
+‰
+java:S1659*"HDeclare "fechaPedido" and all following declarations on a separate line.(ÚáŠıÿÿÿÿJ$06fa75ca-19b9-46ea-8bec-0981726790af
+§
+java:S1450$"fRemove the "cancelNuevopedidoButton" field and declare it as a local variable in the relevant methods.(…‡å—ıÿÿÿÿJ$f8158bca-741c-47ae-bd0f-932a16f3dd83
+–
+java:S1450+"ZRemove the "comentarios" field and declare it as a local variable in the relevant methods.(÷«—åJ$c40139d0-4fa6-4ec9-9bc5-01ce7c47b905
+œ
+java:S1450%"[Remove the "listaDetalle" field and declare it as a local variable in the relevant methods.(°Â¯ğÿÿÿÿÿJ$90d54355-1860-42fe-bd58-7842f2506ae7
+­
+java:S1450$"lRemove the "seleccionarFechaEntregaButton" field and declare it as a local variable in the relevant methods.(…‡å—ıÿÿÿÿJ$d2882fc9-016d-47c1-aaf8-5dec018efcc0
+
+java:S1450("TRemove the "total" field and declare it as a local variable in the relevant methods.(Ú»‡ëJ$0d516845-c6e0-4c72-b56c-cb90dd6bf3b1
+n
+java:S11353"2Complete the task associated to this TODO comment.(™ÕšÙJ$62951ced-7763-4f72-87a2-7d54842758bc
+„
+java:S1874I"CRemove this use of "getParcelableArrayListExtra"; it is deprecated.(™¶¬‘ıÿÿÿÿJ$87120dc8-682e-4253-b038-65f8fb71e0b4
+
+java:S1854Y"NRemove this useless assignment to local variable "cantidadRacionVistaDetalle".(»Ÿ¨øÿÿÿÿJ$679747bd-3a65-40e4-b53b-e17cc30a8d66
+€
+java:S1481Y"?Remove this unused "cantidadRacionVistaDetalle" local variable.(»Ÿ¨øÿÿÿÿJ$e37f7dcc-b568-4394-b36d-f7b11b83463a
+o
+java:S1135Í"2Complete the task associated to this TODO comment.(òş „J$ba123dda-0505-4b09-b272-f3192d4479cd
+o
+java:S1135Ñ"2Complete the task associated to this TODO comment.(ÙêŠJ$386cd5bf-743b-46b7-ad09-894d9f460a34
+}	java:S125ƒ"<This block of commented-out lines of code should be removed.(‹ı¬ûÿÿÿÿJ$c83c4e6f-fb0e-431e-ae3f-289cb75b0955
+Y
+java:S1116°"Remove this empty statement.(ò¬İJ$bee895c5-d9af-4e7a-98b0-4229a542c11e
+t
+java:S1135²"2Complete the task associated to this TODO comment.(“®òşúÿÿÿÿJ$89bc091b-96b3-4253-8da7-574420c1b383
+o
+java:S1135µ"2Complete the task associated to this TODO comment.(çÊû¤J$857bd5a3-a29f-44bd-9c61-579123781fc2
+o
+java:S1068&"3Remove this unused "dateSetListener" private field.(ÊÀñ¶J$f4d3d70f-8d2a-4a89-ab48-1ae68e538334
